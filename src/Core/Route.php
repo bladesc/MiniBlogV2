@@ -2,20 +2,31 @@
 
 namespace src\Core;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
+
+/**
+ * Class Route
+ * @package src\Core
+ */
 class Route
 {
     protected $allGlobals;
     protected $globals = [];
+
     protected $page;
-
     protected $path;
-
     protected $controller;
     protected $action;
 
     public const DEFAULT_CONTROLLER = "Index";
     public const DEFAULT_ACTION = "Index";
+    public const NOT_FOUND_CONTROLLER = "NotFound";
 
+
+    /**
+     * Route constructor.
+     * @param array $allGlobals
+     */
     public function __construct(array $allGlobals)
     {
         $this->allGlobals = $allGlobals;
@@ -25,7 +36,11 @@ class Route
         $this->path = new Path();
     }
 
-    public function initRouteValues()
+
+    /**
+     *
+     */
+    public function initRouteValues(): void
     {
         if (!empty($this->globals['GET']['page'])) {
             $this->path->setController($this->globals['GET']['page']);
@@ -43,10 +58,30 @@ class Route
         $this->controller = $this->path->getControllerFullName();
     }
 
-    public function run()
+
+    /**
+     * @return bool
+     */
+    public function validateIfExists(): bool
     {
-        $this->initRouteValues();
-        (new $this->controller)->{$this->action}();
+        if (!class_exists($this->controller)) {
+            $this->path->setController(self::NOT_FOUND_CONTROLLER);
+            $this->path->setAction(self::NOT_FOUND_CONTROLLER);
+            $this->controller = $this->path->getControllerFullName();
+            $this->action = $this->path->getAction();
+            return false;
+        }
+        return true;
     }
 
+
+    /**
+     *
+     */
+    public function run(): void
+    {
+        $this->initRouteValues();
+        $this->validateIfExists();
+        (new $this->controller)->{$this->action}();
+    }
 }

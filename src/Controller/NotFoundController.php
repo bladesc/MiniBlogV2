@@ -6,7 +6,7 @@ namespace src\Controller;
 
 class NotFoundController
 {
-    public function index()
+    public function notFound()
     {
         echo 'not found';
     }

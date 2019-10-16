@@ -1,6 +1,6 @@
 <?php
-
-include "..\src\Library\Autoloader.php";
+include "..\src\Core\ErrorHandler.php";
+include "..\src\Core\Autoloader.php";
 
 use src\Core\Route;
 
