@@ -1,18 +1,27 @@
 <?php
 
 use src\Config\Config;
-use Core\Db\Connection;
-
+use Core\Db\QueryHelper;
 class Install
 {
     protected $config;
     protected $conn;
+    protected $db;
 
     public function __construct()
     {
         $this->config = Config::getConfig();
-        $this->conn = (new Connection())->getConnection();
+        $this->db = new QueryHelper();
     }
 
-public
+    public function checkIfInstalled(): bool
+    {
+        if (empty($this->db
+            ->select("*")
+            ->from("user")
+            ->execute())) {
+            return false;
+        }
+        return true;
+    }
 }

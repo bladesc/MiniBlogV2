@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 include "..\src\Core\Error\ErrorHandler.php";
 include "..\src\Core\Autoloader\Autoloader.php";
 include "..\src\Core\Install.php";

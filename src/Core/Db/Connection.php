@@ -9,7 +9,8 @@ class Connection
     protected $options;
     protected $config;
 
-    protected $coon;
+    protected $conn;
+    protected $sth;
 
     /**
      * Connection constructor.
@@ -21,8 +22,8 @@ class Connection
         $this->setOptions();
         $dsn = "mysql:host=$this->config['db_hostname'];dbname=$this->config['db_name'];charset=$this->config['db_charset']";
         try {
-            if ($this->coon === null) {
-                $this->coon = new \PDO($dsn, $this->config['db_username'], $this->config['db_password'], $this->options);
+            if ($this->conn === null) {
+                $this->conn = new \PDO($dsn, $this->config['db_username'], $this->config['db_password'], $this->options);
             }
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
@@ -47,6 +48,6 @@ class Connection
      */
     public function getConnection()
     {
-        return $this->coon;
+        return $this->conn;
     }
 }

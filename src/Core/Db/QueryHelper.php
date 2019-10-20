@@ -10,9 +10,9 @@ class QueryHelper extends Connection
     public const ORDER_DESC = 2;
 
     protected $select = [];
-    protected $create = [];
+    protected $insert = [];
     protected $update = [];
-    protected $delete = [];
+    protected $delete = false;
     protected $from = null;
     protected $where = [];
     protected $orderBy = [];
@@ -28,32 +28,44 @@ class QueryHelper extends Connection
 
     protected $err = [];
 
-    public function select(array $tableNames): QueryHelper
+    public function select(?array $tableNames)
     {
-        foreach ($tableNames as $tableName) {
-            $select[] = $tableName;
+        if (is_string($tableNames)) {
+            $this->select[] = $tableNames;
+        } else {
+            foreach ($tableNames as $tableName) {
+                $this->select[] = $tableName;
+            }
         }
         return $this;
     }
 
-    public function create()
+    public function insert(string $tableName, array $data)
     {
-
+        foreach ($data as $field => $value) {
+            $this->insert[] = ["table" => $tableName, "field" => $field, "value" => $value];
+        }
+        return $this;
     }
 
-    public function update()
+    public function update(string $tableName, array $data)
     {
-
+        foreach ($data as $field => $value) {
+            $this->update[] = ["table" => $tableName, "field" => $field, "value" => $value];
+        }
+        return $this;
     }
 
     public function delete()
     {
-
+        $this->delete = true;
+        return $this;
     }
 
-    public function from()
+    public function from(string $tableName)
     {
-
+        $this->from = $tableName;
+        return $this;
     }
 
     public function where(string $field, string $operator, string $value)
@@ -61,19 +73,19 @@ class QueryHelper extends Connection
         $this->where = ['field' => $field, 'operator' => $operator, 'value' => $value];
     }
 
-    public function orderBy(string $field, int $orderType)
+    public function orderBy(string $field, int $type)
     {
-        $this->orderBy[] = ["field" => $field, "orderType" => $orderType];
+        $this->orderBy[] = ["field" => $field, "type" => $type];
     }
 
-    public function limit()
+    public function limit(int $limit)
     {
-
+        $this->limit = $limit;
     }
 
-    public function offset()
+    public function offset(int $offset)
     {
-
+        $this->offset = $offset;
     }
 
 
@@ -102,22 +114,32 @@ class QueryHelper extends Connection
 
     }
 
+    public function like()
+    {
+
+    }
+
     public function execute()
     {
-
+        $this->sth = $this->conn->prepare($this->query);
+        $this->sth->execute();
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         $this->prepareQuery();
+        $this->execute();
+        return $this->sth->fetchAll();
     }
 
-    public function getOne()
+    public function getOne(): array
     {
         $this->prepareQuery();
+        $this->execute();
+        return $this->sth->fetch();
     }
 
-    protected function prepareQuery()
+    protected function prepareQuery(): void
     {
         if (!empty($this->select)) {
             $this->prepareSelect();
@@ -125,12 +147,12 @@ class QueryHelper extends Connection
             $this->prepareCreate();
         } elseif (!empty($this->update())) {
             $this->prepareUpdate();
-        } elseif (!empty($this->delete)) {
+        } elseif ($this->delete) {
             $this->prepareDelete();
         }
     }
 
-    protected function prepareSelect()
+    protected function prepareSelect(): void
     {
         $this->query .= "SELECT ";
         foreach ($this->select as $tableName) {
@@ -142,7 +164,18 @@ class QueryHelper extends Connection
         $this->prepareFrom();
     }
 
-    protected function prepareFrom()
+    protected function prepareDelete(): void
+    {
+        $this->query .= "DELETE ";
+        $this->prepareFrom();
+    }
+
+    protected function prepareUpdate()
+    {
+        $this->query .= "UPDATE " . $this->update[''];
+    }
+
+    protected function prepareFrom(): void
     {
         if (empty($this->from)) {
             $this->err[] = "";
@@ -152,7 +185,7 @@ class QueryHelper extends Connection
         $this->prepareWhere();
     }
 
-    protected function prepareWhere()
+    protected function prepareWhere(): void
     {
         if (!empty($this->where)) {
             $this->query .= " WHERE ";
@@ -169,25 +202,34 @@ class QueryHelper extends Connection
         $this->prepareOrderBy();
     }
 
-    protected function prepareOrderBy()
+    protected function prepareOrderBy(): void
     {
-        if (!empty($this->orderBy())) {
+        if (!empty($this->orderBy)) {
             $this->query .= " ORDER BY ";
             foreach ($this->orderBy as $order) {
-
+                $this->query .= $order["field"] . " " . $order["type"];
+                if ($order !== end($this->orderBy)) {
+                    $this->query .= ", ";
+                }
             }
         }
         $this->prepareLimit();
     }
 
-    public function prepareLimit()
+    public function prepareLimit(): void
     {
-
+        if (!empty($this->limit)) {
+            $this->query = " LIMIT " . $this->limit;
+        }
         $this->prepareOffset();
     }
 
-    public function prepareOffset()
+    public function prepareOffset(): void
     {
-
+        if (!empty($this->offset)) {
+            $this->query = " OFFSET " . $this->offset;
+        }
     }
+
+
 }
