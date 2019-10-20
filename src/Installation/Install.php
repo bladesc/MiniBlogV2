@@ -6,6 +6,7 @@ use Core\Db\Connection;
 use src\Config\Config;
 use src\Installation\Database\Table;
 use src\Installation\Database\Data;
+use src\Installation\Database\Tables;
 
 class Install
 {
@@ -16,6 +17,7 @@ class Install
     protected $data;
 
     protected $queries;
+    protected $tables;
 
     /**
      * @param Config $config
@@ -31,7 +33,8 @@ class Install
     {
         $this->config = Config::getConfig();
         $this->conn = (new Connection())->getConnection();
-        $this->table = new  Table();
+        $this->tables = (new Tables)->getTables();
+        $this->table = new Table();
         $this->data = new Data();
     }
 
@@ -52,7 +55,7 @@ class Install
 
     public function prepareTables()
     {
-        $this->queries[] = "CREATE TABLE user (
+        $this->queries[] = "CREATE TABLE $this->tables->user (
                    id INT NOT NULL AUTO_INCREMENT,
                    name VARCHAR(255) NOT NULL,
                    surname VARCHAR(255) NOT NULL,
@@ -81,6 +84,7 @@ class Install
         foreach ($this->queries as $query) {
             $queries .= $query;
         }
-        $this->conn->exec($queries);
+        $sth = $this->conn->prepare($queries);
+        $sth->execute();
     }
 }
