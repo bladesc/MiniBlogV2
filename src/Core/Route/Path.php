@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\Core;
+namespace src\Core\Route;
 
 
 class Path

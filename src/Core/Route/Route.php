@@ -1,8 +1,6 @@
 <?php
 
-namespace src\Core;
-
-use Symfony\Component\Config\Definition\Exception\Exception;
+namespace src\Core\Route;
 
 /**
  * Class Route
