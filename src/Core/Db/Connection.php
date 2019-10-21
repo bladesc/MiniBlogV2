@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Db;
+namespace src\Core\Db;
 
 use src\Config\Config;
 
@@ -18,9 +18,9 @@ class Connection
      */
     public function __construct()
     {
-        $this->config = Config::getConfig();
+        $this->config = (Config::getConfig())->getConfigContainer();
         $this->setOptions();
-        $dsn = "mysql:host=$this->config['db_hostname'];dbname=$this->config['db_name'];charset=$this->config['db_charset']";
+        $dsn = "mysql:host=" . $this->config['db_hostname'] . ";dbname=" . $this->config['db_name'] . ";charset=" . $this->config['db_charset'];
         try {
             if ($this->conn === null) {
                 $this->conn = new \PDO($dsn, $this->config['db_username'], $this->config['db_password'], $this->options);

@@ -1,6 +1,6 @@
 <?php
-if (is_dir('../../Installation')) {
-    $install = new \src\Installation\Install();
+if (file_exists('../src/Installation')) {
+    $install = new \src\Core\Installation\Install();
     if (!$install->checkIfInstalled()) {
         header("Location: ");
         die;

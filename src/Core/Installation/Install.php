@@ -1,7 +1,10 @@
 <?php
 
+namespace src\Core\Installation;
+
 use src\Config\Config;
-use Core\Db\QueryHelper;
+use src\Core\Db\QueryHelper;
+
 class Install
 {
     protected $config;
@@ -16,12 +19,11 @@ class Install
 
     public function checkIfInstalled(): bool
     {
-        if (empty($this->db
-            ->select("*")
-            ->from("user")
-            ->execute())) {
+        try {
+            $this->db->select("*")->from("user")->execute();
+            return true;
+        } catch (\Exception $e) {
             return false;
         }
-        return true;
     }
 }

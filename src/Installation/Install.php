@@ -2,7 +2,7 @@
 
 namespace src\Installation;
 
-use Core\Db\Connection;
+use src\Core\Db\Connection;
 use src\Config\Config;
 use src\Installation\Database\Table;
 use src\Installation\Database\Data;
