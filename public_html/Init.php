@@ -4,8 +4,7 @@ include "..\src\Core\Autoloader\Autoloader.php";
 include "..\src\Core\Installation\Installation.php";
 
 use src\Core\Route\Route;
+use src\Core\DiContainer\DiContainer;
 
-/*$config = Config::getConfig();
-$configContainer = $config->getConfigContainer();*/
-
-(new Route($GLOBALS))->run();
+$diContainer = new DiContainer();
+(new Route($diContainer, $GLOBALS))->run();

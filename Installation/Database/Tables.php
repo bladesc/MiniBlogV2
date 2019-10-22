@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\Installation\Database;
+namespace Installation\Database;
 
 
 use src\Config\Config;
@@ -17,7 +17,7 @@ class Tables
 
     public function __construct()
     {
-        $this->config = Config::getConfig();
+        $this->config = (Config::getConfig())->getConfigContainer();
     }
 
     /**

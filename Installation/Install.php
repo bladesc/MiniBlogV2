@@ -1,12 +1,12 @@
 <?php
 
-namespace src\Installation;
+namespace Installation;
 
 use src\Core\Db\Connection;
 use src\Config\Config;
-use src\Installation\Database\Table;
-use src\Installation\Database\Data;
-use src\Installation\Database\Tables;
+use Installation\Database\Table;
+use Installation\Database\Data;
+use Installation\Database\Tables;
 
 class Install
 {

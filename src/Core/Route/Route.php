@@ -2,12 +2,15 @@
 
 namespace src\Core\Route;
 
+use src\Core\DiContainer\DiContainer;
+
 /**
  * Class Route
  * @package src\Core
  */
 class Route
 {
+    protected $diContainer;
     protected $allGlobals;
     protected $globals = [];
 
@@ -23,10 +26,12 @@ class Route
 
     /**
      * Route constructor.
+     * @param DiContainer $diContainer
      * @param array $allGlobals
      */
-    public function __construct(array $allGlobals)
+    public function __construct(DiContainer $diContainer, array $allGlobals)
     {
+        $this->diContainer = $diContainer;
         $this->allGlobals = $allGlobals;
         $this->globals['GET'] = $allGlobals['_GET'];
         $this->globals['POST'] = $allGlobals['_POST'];
@@ -80,6 +85,6 @@ class Route
     {
         $this->initRouteValues();
         $this->validateIfExists();
-        (new $this->controller)->{$this->action}();
+        (new $this->controller($this->diContainer))->{$this->action}();
     }
 }
