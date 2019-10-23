@@ -1,8 +1,8 @@
 <?php
 
-$config['db_hostname'] = 'localhost';
-$config['db_username'] = 'root';
-$config['db_password'] = '';
-$config['db_name'] = 'miniblog';
-$config['db_prefix'] = 'mb_';
-$config['db_charset'] = 'utf8mb4';
+$config['db']['hostname'] = 'localhost';
+$config['db']['username'] = 'root';
+$config['db']['password'] = '';
+$config['db']['name'] = 'miniblog';
+$config['db']['prefix'] = 'mb_';
+$config['db']['charset'] = 'utf8mb4';

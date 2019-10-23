@@ -11,6 +11,7 @@ class Config
     {
         include('Database.php');
         include('Global.php');
+        include('Installation.php');
         $this->configContainer = $config;
     }
 

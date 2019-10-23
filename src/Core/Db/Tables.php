@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Installation\Database;
+namespace src\Core\Db;
 
 
 use src\Config\Config;
@@ -27,7 +27,7 @@ class Tables
     {
         $tables = new \stdClass();
         foreach (self::TABLES as $table) {
-            $tables->{$table} = $this->config['db_prefix'] . $table;
+            $tables->{$table} = $this->config['db']['prefix'] . $table;
         }
         return $tables;
     }

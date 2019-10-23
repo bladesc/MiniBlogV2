@@ -6,7 +6,7 @@ use src\Core\Db\Connection;
 use src\Config\Config;
 use Installation\Database\Table;
 use Installation\Database\Data;
-use Installation\Database\Tables;
+use src\Core\Db\Tables;
 
 class Install
 {
@@ -16,16 +16,8 @@ class Install
     protected $table;
     protected $data;
 
-    protected $queries;
+    protected $queries = [];
     protected $tables;
-
-    /**
-     * @param Config $config
-     */
-    public function setConfig(Config $config): void
-    {
-        $this->config = $config;
-    }
 
     protected $conn;
 
@@ -34,8 +26,8 @@ class Install
         $this->config = Config::getConfig();
         $this->conn = (new Connection())->getConnection();
         $this->tables = (new Tables)->getTables();
-        $this->table = new Table();
-        $this->data = new Data();
+        $this->table = new Table($this->tables);
+        $this->data = new Data($this->tables);
     }
 
     public function install(): bool
@@ -50,41 +42,25 @@ class Install
         } catch (\Exception $e) {
             echo $e->getMessage();
             $this->conn->rollBack();
+            return false;
         }
     }
 
-    public function prepareTables()
+    protected function prepareTables()
     {
-        $this->queries[] = "CREATE TABLE $this->tables->user (
-                   id INT NOT NULL AUTO_INCREMENT,
-                   name VARCHAR(255) NOT NULL,
-                   surname VARCHAR(255) NOT NULL,
-                   nick VARCHAR(255),
-                   status INT NOT NULL,
-                   PRIMARY KEY (id)
-                )";
-        //user
-        //avatar
-        //role
-        //privileges
-        //log
-        //password
-        //config
+        $this->queries = array_merge($this->table->getQueries(), $this->queries);
     }
 
     public function prepareData()
     {
-        $this->queries = "INSERT INTRO";
-
+        $this->queries = array_merge($this->data->getQueries(), $this->queries);
     }
 
     public function run()
     {
-        $queries = '';
         foreach ($this->queries as $query) {
-            $queries .= $query;
+            $sth = $this->conn->prepare($query);
+            $sth->execute();
         }
-        $sth = $this->conn->prepare($queries);
-        $sth->execute();
     }
 }

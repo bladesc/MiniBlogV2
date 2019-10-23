@@ -20,10 +20,10 @@ class Connection
     {
         $this->config = (Config::getConfig())->getConfigContainer();
         $this->setOptions();
-        $dsn = "mysql:host=" . $this->config['db_hostname'] . ";dbname=" . $this->config['db_name'] . ";charset=" . $this->config['db_charset'];
+        $dsn = "mysql:host=" . $this->config['db']['hostname'] . ";dbname=" . $this->config['db']['name'] . ";charset=" . $this->config['db']['charset'];
         try {
             if ($this->conn === null) {
-                $this->conn = new \PDO($dsn, $this->config['db_username'], $this->config['db_password'], $this->options);
+                $this->conn = new \PDO($dsn, $this->config['db']['username'], $this->config['db']['password'], $this->options);
             }
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());

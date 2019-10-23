@@ -1,10 +1,8 @@
 <?php
 
-
 namespace src\Core\Db;
 
-
-class QueryBuilder extends Connection
+class QueryBuilder extends Query
 {
     public const ORDER_ASC = 1;
     public const ORDER_DESC = 2;
@@ -123,7 +121,7 @@ class QueryBuilder extends Connection
     {
         $this->prepareQuery();
         $this->sth = $this->conn->prepare($this->query);
-        $this->sth->execute();
+        return $this->sth->execute();
     }
 
     public function getAll(): array
