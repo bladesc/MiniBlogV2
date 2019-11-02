@@ -126,14 +126,12 @@ class QueryBuilder extends Query
 
     public function getAll(): array
     {
-        $this->prepareQuery();
         $this->execute();
         return $this->sth->fetchAll();
     }
 
     public function getOne(): array
     {
-        $this->prepareQuery();
         $this->execute();
         return $this->sth->fetch();
     }

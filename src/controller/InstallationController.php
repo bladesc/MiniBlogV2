@@ -10,4 +10,9 @@ class InstallationController extends CommonController
     {
         echo 1;
     }
+
+    public function notRemoved()
+    {
+        echo "not removed";
+    }
 }

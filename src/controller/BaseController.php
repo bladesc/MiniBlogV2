@@ -6,10 +6,7 @@ use src\core\dicontainer\dicontainer;
 
 class BaseController
 {
-    protected $diContainer;
-
-    public function __construct(DiContainer $diContainer)
+    public function __construct()
     {
-        $this->diContainer = $diContainer;
     }
 }

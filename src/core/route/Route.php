@@ -3,6 +3,7 @@
 namespace src\core\route;
 
 use src\core\dicontainer\dicontainer;
+use \src\Core\Installation\Install;
 
 /**
  * Class Route
@@ -10,7 +11,6 @@ use src\core\dicontainer\dicontainer;
  */
 class Route
 {
-    protected $diContainer;
     protected $allGlobals;
     protected $globals = [];
 
@@ -18,6 +18,7 @@ class Route
     protected $path;
     protected $controller;
     protected $action;
+    protected $install;
 
     public const DEFAULT_CONTROLLER = "Index";
     public const DEFAULT_ACTION = "Index";
@@ -26,17 +27,16 @@ class Route
 
     /**
      * Route constructor.
-     * @param DiContainer $diContainer
      * @param array $allGlobals
      */
-    public function __construct(DiContainer $diContainer, array $allGlobals)
+    public function __construct(array $allGlobals)
     {
-        $this->diContainer = $diContainer;
         $this->allGlobals = $allGlobals;
         $this->globals['GET'] = $allGlobals['_GET'];
         $this->globals['POST'] = $allGlobals['_POST'];
         $this->globals['FILES'] = $allGlobals['_FILES'];
         $this->path = new Path();
+        $this->install = new Install();
     }
 
 
@@ -56,7 +56,7 @@ class Route
             $this->path->setController(self::DEFAULT_CONTROLLER);
             $this->path->setAction(self::DEFAULT_ACTION);
         }
-
+        $this->checkIfInstalled();
         $this->action = $this->path->getAction();
         $this->controller = $this->path->getControllerFullName();
     }
@@ -77,6 +77,22 @@ class Route
         return true;
     }
 
+    /**
+     *
+     */
+    public function checkIfInstalled(): void
+    {
+        if (file_exists('../Installation')) {
+            if (!$this->install->checkIfInstalled()) {
+                $this->path->setController('installation');
+                $this->path->setAction('step1');
+            } elseif ($this->install->getCheckInstallDir()) {
+                $this->path->setController('installation');
+                $this->path->setAction('notRemoved');
+            }
+        }
+    }
+
 
     /**
      *
@@ -85,6 +101,6 @@ class Route
     {
         $this->initRouteValues();
         $this->validateIfExists();
-        (new $this->controller($this->diContainer))->{$this->action}();
+        (new $this->controller())->{$this->action}();
     }
 }

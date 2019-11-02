@@ -1,3 +1,3 @@
 <?php
 
-$config['inst']['checkInstallDir'] = 'true';
+$config['inst']['checkInstallDir'] = 'false';
