@@ -7,6 +7,7 @@ namespace src\core\route;
 class Path
 {
     protected $controller;
+    protected $page;
     protected $action;
 
     /**
@@ -27,6 +28,11 @@ class Path
     {
         $this->action = strtolower(strip_tags(trim($action)));
         return $this;
+    }
+
+    public function getController(): string
+    {
+        return $this->controller;
     }
 
     /**

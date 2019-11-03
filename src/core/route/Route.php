@@ -2,7 +2,6 @@
 
 namespace src\core\route;
 
-use src\core\dicontainer\dicontainer;
 use \src\Core\Installation\Install;
 
 /**
@@ -56,7 +55,6 @@ class Route
             $this->path->setController(self::DEFAULT_CONTROLLER);
             $this->path->setAction(self::DEFAULT_ACTION);
         }
-        $this->checkIfInstalled();
         $this->action = $this->path->getAction();
         $this->controller = $this->path->getControllerFullName();
     }
@@ -77,22 +75,6 @@ class Route
         return true;
     }
 
-    /**
-     *
-     */
-    public function checkIfInstalled(): void
-    {
-        if (file_exists('../Installation')) {
-            if (!$this->install->checkIfInstalled()) {
-                $this->path->setController('installation');
-                $this->path->setAction('step1');
-            } elseif ($this->install->getCheckInstallDir()) {
-                $this->path->setController('installation');
-                $this->path->setAction('notRemoved');
-            }
-        }
-    }
-
 
     /**
      *
@@ -101,6 +83,6 @@ class Route
     {
         $this->initRouteValues();
         $this->validateIfExists();
-        (new $this->controller())->{$this->action}();
+        (new $this->controller($this->globals))->{$this->action}();
     }
 }

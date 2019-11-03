@@ -2,11 +2,12 @@
 
 namespace src\controller;
 
-use src\core\dicontainer\dicontainer;
-
 class BaseController
 {
-    public function __construct()
+    protected $globals;
+
+    public function __construct($globals)
     {
+        $this->globals = $globals;
     }
 }

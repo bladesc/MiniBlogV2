@@ -8,7 +8,7 @@ class View extends BaseView
 {
     protected $data = [];
 
-    public function data($data)
+    public function data($data = [])
     {
         $this->data = $data;
         return $this;

@@ -9,9 +9,7 @@ class IndexController extends CommonController
 {
     public function index()
     {
-        $menu = (new IndexModel())->getMenuData();
-
-        $data = [$menu];
+        $data = (new IndexModel())->getData();
         (new View())->data($data)->template('default')->file('index')->render();
     }
 }
