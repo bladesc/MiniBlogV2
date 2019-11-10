@@ -46,17 +46,17 @@ class Install
         }
     }
 
-    protected function prepareTables()
+    protected function prepareTables(): void
     {
         $this->queries = array_merge($this->table->getQueries(), $this->queries);
     }
 
-    public function prepareData()
+    public function prepareData(): void
     {
         $this->queries = array_merge($this->data->getQueries(), $this->queries);
     }
 
-    public function run()
+    public function run(): void
     {
         foreach ($this->queries as $query) {
             $sth = $this->conn->prepare($query);

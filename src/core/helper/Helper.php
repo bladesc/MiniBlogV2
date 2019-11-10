@@ -1,5 +1,7 @@
 <?php
 
+namespace src\core\helper;
+
 class Helper
 {
     public static function show($data, $type = 1)

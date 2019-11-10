@@ -7,10 +7,17 @@ namespace src\view;
 class View extends BaseView
 {
     protected $data = [];
+    protected $install = false;
 
     public function data($data = [])
     {
         $this->data = $data;
+        return $this;
+    }
+
+    public function install(): object
+    {
+        $this->install = true;
         return $this;
     }
 
@@ -33,7 +40,13 @@ class View extends BaseView
 
     public function getFilePath()
     {
-        return  __DIR__ . '/../template/' . $this->templateName . '/' . $this->fileName . '.php';
+        $path = '';
+        if ($this->install === true) {
+            $path = __DIR__ . '/../../installation/src/template/' . $this->fileName . '.php';
+        } else {
+            $path = __DIR__ . '/../template/' . $this->templateName . '/' . $this->fileName . '.php';
+        }
+        return $path;
     }
 
 }

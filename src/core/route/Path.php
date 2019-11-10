@@ -10,6 +10,9 @@ class Path
     protected $page;
     protected $action;
 
+    protected $install = false;
+
+
     /**
      * @param string $controller
      * @return Path
@@ -27,6 +30,12 @@ class Path
     public function setAction(string $action): Path
     {
         $this->action = strtolower(strip_tags(trim($action)));
+        return $this;
+    }
+
+    public function Install(): object
+    {
+        $this->install = true;
         return $this;
     }
 
@@ -48,7 +57,11 @@ class Path
      */
     public function getControllerFullName(): string
     {
-        return 'src\Controller\\' . $this->getControllerName();
+        $name = 'src\Controller\\' . $this->getControllerName();
+        if ($this->install = true) {
+            $name = 'installation\\' . $name;
+        }
+        return $name;
     }
 
     /**
@@ -58,4 +71,5 @@ class Path
     {
         return $this->action;
     }
+
 }

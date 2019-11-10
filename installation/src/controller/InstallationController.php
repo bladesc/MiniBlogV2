@@ -1,27 +1,33 @@
 <?php
 
 
-namespace src\controller;
+namespace installation\src\controller;
 
-use src\model\InstallationModel;
+use installation\src\model\InstallationModel;
 use src\view\View;
+use src\controller\CommonController;
 
 class InstallationController extends CommonController
 {
-    public function step1()
+    public function start()
     {
-        (new View())->data()->template('installation')->file('step1')->render();
+        (new View($this->request))->install()->template('installation')->file('start')->render();
     }
 
-    public function step2()
+    public function database()
     {
-        (new View())->data()->template('installation')->file('step2')->render();
+        (new View($this->request))->install()->data()->template('installation')->file('database')->render();
     }
 
-    public function step3()
+    public function blog()
     {
-        $data = (new InstallationModel($this->globals))->getDataStep3();
-        (new View())->data($data)->template('installation')->file('step3')->render();
+        (new View($this->request))->data()->template('installation')->file('blog')->render();
+    }
+
+    public function end()
+    {
+        $data = (new InstallationModel($this->request))->getDataStep3();
+        (new View($this->request))->data($data)->template('installation')->file('end')->render();
     }
 
     public function notRemoved()

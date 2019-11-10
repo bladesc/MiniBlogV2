@@ -1,7 +1,8 @@
 <?php include 'layout/header.php' ?>
 <?php include 'layout/breadcrump.php' ?>
+
     Podaj dane dla połączenia bazy
-<form action="step3.php" method="post">
+<form action="<?= $this->request->additional()->get('requestUri') ?>" method="post">
     <input name="dbname" type="text"/>
     <input name="dbaddress" type="text"/>
     <input name="dbuser" type="text"/>

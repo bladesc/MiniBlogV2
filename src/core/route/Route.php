@@ -23,6 +23,9 @@ class Route
     public const DEFAULT_ACTION = 'Index';
     public const NOT_FOUND_CONTROLLER = 'NotFound';
 
+    public const DEFAULT_CONTROLLER_INSTALL = 'Installation';
+    public const DEFAULT_ACTION_INSTALL = 'Start';
+
     public const DEFAULT_KEY_PAGE = 'page';
     public const DEFAULT_KEY_INSTALL_PAGE = 'install_page';
     public const DEFAULT_KEY_ACTION = 'action';
@@ -43,7 +46,10 @@ class Route
      */
     public function initRouteValues(): void
     {
-        if (!($this->request->query()->has(self::DEFAULT_KEY_PAGE))) {
+        if (
+            !($this->request->query()->has(self::DEFAULT_KEY_PAGE)) &&
+            !($this->request->query()->has(self::DEFAULT_KEY_INSTALL_PAGE))
+        ) {
             $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE));
             if (!($this->request->query()->has(self::DEFAULT_KEY_ACTION))) {
                 $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_ACTION));
@@ -51,13 +57,18 @@ class Route
                 $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_PAGE));
             }
         } else {
-            $this->path->setController(self::DEFAULT_CONTROLLER);
-            $this->path->setAction(self::DEFAULT_ACTION);
+            if (($this->request->query()->has(self::DEFAULT_KEY_INSTALL_PAGE))) {
+                $this->path->Install();
+                $this->path->setController(self::DEFAULT_CONTROLLER_INSTALL);
+                $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_INSTALL_PAGE));
+            } else {
+                $this->path->setController(self::DEFAULT_CONTROLLER);
+                $this->path->setAction(self::DEFAULT_ACTION);
+            }
         }
         $this->action = $this->path->getAction();
         $this->controller = $this->path->getControllerFullName();
     }
-
 
     /**
      * @return bool
@@ -73,7 +84,6 @@ class Route
         }
         return true;
     }
-
 
     /**
      *

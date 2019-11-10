@@ -6,7 +6,7 @@
  * Time: 14:21
  */
 
-namespace src\model;
+namespace installation\src\model;
 
 
 class InstallationModel extends CommonModel

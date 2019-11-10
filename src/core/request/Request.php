@@ -2,6 +2,8 @@
 
 namespace src\core\request;
 
+use src\core\helper\Helper;
+
 class Request
 {
     protected $query;
@@ -9,6 +11,7 @@ class Request
     protected $files;
     protected $cookie;
     protected $server;
+    protected $additional = [];
     protected $all;
 
     protected $dataType;
@@ -20,13 +23,25 @@ class Request
         $this->files = $_FILES;
         $this->cookie = $_COOKIE;
         $this->server = $_SERVER;
+        $this->prepareAdditionalParams();
         $this->all = [
             'query' => $this->query,
             'post' => $this->post,
             'files' => $this->files,
             'cookie' => $this->cookie,
-            'server' => $this->server
+            'server' => $this->server,
+            'additional' => $this->additional
         ];
+    }
+
+    protected function prepareAdditionalParams(): void
+    {
+        $this->additional['serverName'] = $this->server['SERVER_NAME'] ?? null;
+        $this->additional['documentRoot'] = $this->server['DOCUMENT_ROOT'] ?? null;
+        $this->additional['filePath'] = $this->server['SCRIPT_FILENAME'] ?? null;
+        $this->additional['requestMethod'] = $this->server['REQUEST_METHOD'] ?? null;
+        $this->additional['queryString'] = $this->server['QUERY_STRING'] ?? null;
+        $this->additional['requestUri'] = $this->server['REQUEST_URI'] ?? null;
     }
 
     public function query(): object
@@ -59,6 +74,12 @@ class Request
         return $this;
     }
 
+    public function additional(): object
+    {
+        $this->dataType = __FUNCTION__;
+        return $this;
+    }
+
     public function all(): array
     {
         return $this->all;
@@ -66,7 +87,7 @@ class Request
 
     public function get($key = null)
     {
-        if($key !== null) {
+        if ($key !== null) {
             try {
                 return $this->{$this->dataType}[$key];
             } catch (\Exception $e) {
