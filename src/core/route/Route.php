@@ -19,10 +19,12 @@ class Route
 
     protected $request;
 
-    public const DEFAULT_CONTROLLER = "Index";
-    public const DEFAULT_ACTION = "Index";
-    public const NOT_FOUND_CONTROLLER = "NotFound";
+    public const DEFAULT_CONTROLLER = 'Index';
+    public const DEFAULT_ACTION = 'Index';
+    public const NOT_FOUND_CONTROLLER = 'NotFound';
 
+    public const DEFAULT_KEY_PAGE = 'page';
+    public const DEFAULT_KEY_ACTION = 'action';
 
     /**
      * Route constructor.
@@ -40,12 +42,12 @@ class Route
      */
     public function initRouteValues(): void
     {
-        if (!($this->request->query()->has('page'))) {
-            $this->path->setController($this->request->query()->get('page'));
-            if (!($this->request->query()->has('action'))) {
-                $this->path->setAction($this->request->query()->get('action'));
+        if (!($this->request->query()->has(self::DEFAULT_KEY_PAGE))) {
+            $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE));
+            if (!($this->request->query()->has(self::DEFAULT_KEY_ACTION))) {
+                $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_ACTION));
             } else {
-                $this->path->setAction($this->request->query()->get('page'));
+                $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_PAGE));
             }
         } else {
             $this->path->setController(self::DEFAULT_CONTROLLER);

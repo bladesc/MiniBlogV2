@@ -29,51 +29,55 @@ class Request
         ];
     }
 
-    public function query()
+    public function query(): object
     {
         $this->dataType = __FUNCTION__;
         return $this;
     }
 
-    public function post()
+    public function post(): object
     {
         $this->dataType = __FUNCTION__;
         return $this;
     }
 
-    public function files()
+    public function files(): object
     {
         $this->dataType = __FUNCTION__;
         return $this;
     }
 
-    public function cookie()
+    public function cookie(): object
     {
         $this->dataType = __FUNCTION__;
         return $this;
     }
 
-    public function server()
+    public function server(): object
     {
         $this->dataType = __FUNCTION__;
         return $this;
     }
 
-    public function all()
+    public function all(): array
     {
         return $this->all;
     }
 
-    public function get($key)
+    public function get($key = null)
     {
-        try {
-            return $this->{$this->dataType}[$key];
-        } catch (\Exception $e) {
-            echo "Message. " . $e->getMessage();
+        if($key !== null) {
+            try {
+                return $this->{$this->dataType}[$key];
+            } catch (\Exception $e) {
+                echo "Message. " . $e->getMessage();
+            }
+        } else {
+            return $this->{$this->dataType};
         }
     }
 
-    public function add($key, $value)
+    public function add($key, $value): bool
     {
         if (!$this->has($key)) {
             $this->{$this->dataType}[$key] = $value;
@@ -82,20 +86,20 @@ class Request
         return false;
     }
 
-    public function replace($key, $value)
+    public function replace($key, $value): bool
     {
-        $this->{$this->dataType}[$key] = $value;
-        return true;
+        return $this->{$this->dataType}[$key] = $value;
     }
 
-    public function has($key)
+    public function has($key): bool
     {
         return (isset($this->{$this->dataType}[$key]));
     }
 
-    public function remove($key)
+    public function remove($key): bool
     {
         unset($this->{$this->dataType}[$key]);
+        return true;
     }
 
 }
