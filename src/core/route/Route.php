@@ -24,6 +24,7 @@ class Route
     public const NOT_FOUND_CONTROLLER = 'NotFound';
 
     public const DEFAULT_KEY_PAGE = 'page';
+    public const DEFAULT_KEY_INSTALL_PAGE = 'install_page';
     public const DEFAULT_KEY_ACTION = 'action';
 
     /**

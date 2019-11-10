@@ -1,22 +1,52 @@
 <?php
 
-if (file_exists('../Installation')) {
-    $install = new \src\Core\Installation\Install();
-    if (!$install->checkIfInstalled()) {
-        if(isset($_GET['page'])) {
-            if ($_GET['page'] !== 'installation') {
-                header('location: index.php?page=installation&action=step1');
+namespace src\core\installation;
+
+use src\core\request\Request;
+use src\core\route\Route;
+
+class Installation
+{
+    protected $request;
+    protected $install;
+
+    public const DEFAULT_PAGE_INSTALLATION = 'installation';
+
+    public const PAGE_START = 'start';
+    public const PAGE_DATABASE = 'database';
+    public const PAGE_BLOG = 'blog';
+    public const PAGE_END = 'end';
+    public const PAGE_REMOVE = 'remove';
+
+    public const DEFAULT_PAGE = 'index';
+
+
+    public function __construct(Request $request)
+    {
+        $this->install = new Install();
+        $this->request = $request;
+    }
+
+    public function checkIfInstalled(): void
+    {
+        if (!$this->install->checkIfInstalled()) {
+            if (!$this->request->query()->has(Route::DEFAULT_KEY_INSTALL_PAGE)) {
+                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_START)}");
             }
-        } else {
-            header('location: index.php?page=installation&action=step1');
-        }
-    } elseif ($install->getCheckInstallDir()) {
-        if(isset($_GET['page'])) {
-            if ($_GET['page'] !== 'installation') {
-                header('location: index.php?page=installation&action=notremoved');
+        } elseif ($this->install->getCheckInstallDir()) {
+            if ($this->request->query()->has(Route::DEFAULT_KEY_INSTALL_PAGE)) {
+                if ($this->request->query()->get(Route::DEFAULT_KEY_PAGE) !== self::DEFAULT_PAGE_INSTALLATION) {
+                    header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_REMOVE)}");
+                }
+            } else {
+                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_REMOVE)}");
             }
-        } else {
-            header('location: index.php?page=installation&action=notremoved');
         }
     }
+
+    public function getUrl(string $pageKay, string $pageValue): string
+    {
+        return self::DEFAULT_PAGE . '.php' . '?' . $pageKay . '=' . $pageValue;
+    }
+
 }
