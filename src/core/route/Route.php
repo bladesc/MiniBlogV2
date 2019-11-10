@@ -3,6 +3,7 @@
 namespace src\core\route;
 
 use \src\Core\Installation\Install;
+use src\core\request\Request;
 
 /**
  * Class Route
@@ -10,14 +11,13 @@ use \src\Core\Installation\Install;
  */
 class Route
 {
-    protected $allGlobals;
-    protected $globals = [];
-
     protected $page;
     protected $path;
     protected $controller;
     protected $action;
     protected $install;
+
+    protected $request;
 
     public const DEFAULT_CONTROLLER = "Index";
     public const DEFAULT_ACTION = "Index";
@@ -26,30 +26,26 @@ class Route
 
     /**
      * Route constructor.
-     * @param array $allGlobals
+     * @param Request $request
      */
-    public function __construct(array $allGlobals)
+    public function __construct(Request $request)
     {
-        $this->allGlobals = $allGlobals;
-        $this->globals['GET'] = $allGlobals['_GET'];
-        $this->globals['POST'] = $allGlobals['_POST'];
-        $this->globals['FILES'] = $allGlobals['_FILES'];
+        $this->request = $request;
         $this->path = new Path();
         $this->install = new Install();
     }
-
 
     /**
      *
      */
     public function initRouteValues(): void
     {
-        if (!empty($this->globals['GET']['page'])) {
-            $this->path->setController($this->globals['GET']['page']);
-            if (!empty($this->globals['GET']['action'])) {
-                $this->path->setAction($this->globals['GET']['action']);
+        if (!($this->request->query()->has('page'))) {
+            $this->path->setController($this->request->query()->get('page'));
+            if (!($this->request->query()->has('action'))) {
+                $this->path->setAction($this->request->query()->get('action'));
             } else {
-                $this->path->setAction($this->globals['GET']['page']);
+                $this->path->setAction($this->request->query()->get('page'));
             }
         } else {
             $this->path->setController(self::DEFAULT_CONTROLLER);
@@ -83,6 +79,6 @@ class Route
     {
         $this->initRouteValues();
         $this->validateIfExists();
-        (new $this->controller($this->globals))->{$this->action}();
+        (new $this->controller($this->request))->{$this->action}();
     }
 }
