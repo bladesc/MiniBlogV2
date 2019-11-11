@@ -30,16 +30,16 @@ class Installation
     public function checkIfInstalled(): void
     {
         if (!$this->install->checkIfInstalled()) {
-            if (!$this->request->query()->has(Route::DEFAULT_KEY_INSTALL_PAGE)) {
-                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_START)}");
+            if (!$this->request->query()->has(Route::DEFAULT_KEY_INSTALL)) {
+                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_START)}");
             }
         } elseif ($this->install->getCheckInstallDir()) {
-            if ($this->request->query()->has(Route::DEFAULT_KEY_INSTALL_PAGE)) {
+            if ($this->request->query()->has(Route::DEFAULT_KEY_INSTALL)) {
                 if ($this->request->query()->get(Route::DEFAULT_KEY_PAGE) !== self::DEFAULT_PAGE_INSTALLATION) {
-                    header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_REMOVE)}");
+                    header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_REMOVE)}");
                 }
             } else {
-                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL_PAGE, self::PAGE_REMOVE)}");
+                header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_REMOVE)}");
             }
         }
     }
