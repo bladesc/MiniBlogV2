@@ -14,7 +14,7 @@ class Install
 
     public function __construct()
     {
-        $this->config = (Config::getConfig())->getConfigContainer();
+        $this->config = (new Config())->getConfigContainer();
         $this->db = new QueryHelper();
         $this->tables = (new Tables())->getTables();
     }
@@ -26,11 +26,12 @@ class Install
 
     public function checkIfInstalled(): bool
     {
-        try {
+        /*try {
             $this->db->select("*")->from($this->tables->user)->execute();
             return true;
         } catch (\Exception $e) {
             return false;
-        }
+        }*/
+        return false;
     }
 }

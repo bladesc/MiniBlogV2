@@ -7,23 +7,23 @@ use src\config\config;
 class Connection
 {
     protected $options;
-    protected $config;
+    protected $configConnection;
 
     protected $conn;
     protected $sth;
 
     /**
      * Connection constructor.
-     * @param $dbDriverName
+     * @param config|null $configConnection
      */
-    public function __construct()
+    public function __construct(Config $configConnection = null)
     {
-        $this->config = (Config::getConfig())->getConfigContainer();
+        $this->configConnection = $configConnection ?? (new Config())->getConfigConnection();
         $this->setOptions();
-        $dsn = "mysql:host=" . $this->config['db']['hostname'] . ";dbname=" . $this->config['db']['name'] . ";charset=" . $this->config['db']['charset'];
+        $dsn = "mysql:host=" . $this->configConnection['hostname'] . ";dbname=" . $this->configConnection['name'] . ";charset=" . $this->configConnection['charset'];
         try {
             if ($this->conn === null) {
-                $this->conn = new \PDO($dsn, $this->config['db']['username'], $this->config['db']['password'], $this->options);
+                $this->conn = new \PDO($dsn, $this->configConnection['username'], $this->configConnection['password'], $this->options);
             }
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());

@@ -15,7 +15,7 @@ class BaseView
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->config = Config::getConfig()->getConfigContainer();
+        $this->config = (new Config())->getConfigContainer();
         $this->templateName = $this->config['template']['defaultTemplate'];
         $this->templateName = $this->config['template']['defaultFile'];
     }

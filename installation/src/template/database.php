@@ -2,7 +2,7 @@
 <?php include 'layout/breadcrump.php' ?>
 
     <h1>Podaj dane dla połączenia bazy</h1>
-    <form action="<?= $this->request->additional()->get('requestUri') ?>&action=check" method="post">
+    <form action="<?= $this->request->additional()->get('requestUri') ?>&action=checkConnection" method="post">
         <div class="box-input">
             Name
             <input name="dbname" type="text"/>

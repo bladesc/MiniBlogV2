@@ -17,7 +17,7 @@ class Tables
 
     public function __construct()
     {
-        $this->config = (Config::getConfig())->getConfigContainer();
+        $this->config = (new Config())->getConfigContainer();
     }
 
     /**

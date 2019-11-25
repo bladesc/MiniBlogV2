@@ -4,8 +4,9 @@ namespace src\config;
 
 class Config
 {
-    protected static $config;
+    protected $config;
     protected $configContainer = [];
+
 
     public function __construct()
     {
@@ -15,17 +16,14 @@ class Config
         $this->configContainer = $config;
     }
 
-    public function getConfigContainer()
+    public function getConfigContainer(): array
     {
         return $this->configContainer;
     }
 
-    public static function getConfig()
+    public function getConfigConnection(array $configConnection = []): array
     {
-        if (self::$config === null) {
-            self::$config = new Config();
-        }
-        return self::$config;
+        return (!empty($configConnection)) ? $configConnection : $this->configContainer['db'];
     }
 
 }

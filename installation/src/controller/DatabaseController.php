@@ -5,6 +5,7 @@ namespace installation\src\controller;
 
 
 use installation\src\model\DatabaseModel;
+use src\config\Config;
 use src\controller\CommonController;
 use src\view\View;
 
@@ -16,12 +17,12 @@ class DatabaseController extends CommonController
         (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
     }
 
-    public function check()
+    public function checkConnection()
     {
         $model = (new DatabaseModel($this->request));
-        $checkConnection = $model->checkConnection();
+        $config = Config::getConfig();
         $data = (new DatabaseModel($this->request))->getData();
-        echo 1; die;
+        print_r($data); die;
         (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
     }
 }
