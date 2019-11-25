@@ -10,13 +10,13 @@ class Installation
     protected $request;
     protected $install;
 
-    public const DEFAULT_PAGE_INSTALLATION = 'installation';
+    public const DEFAULT_PAGE_INSTALLATION = 'install_page';
 
     public const PAGE_START = 'start';
     public const PAGE_DATABASE = 'database';
     public const PAGE_BLOG = 'blog';
     public const PAGE_END = 'end';
-    public const PAGE_REMOVE = 'remove';
+    public const PAGE_REMOVE = 'notremoved';
 
     public const DEFAULT_PAGE = 'index';
 
@@ -35,7 +35,7 @@ class Installation
             }
         } elseif ($this->install->getCheckInstallDir()) {
             if ($this->request->query()->has(Route::DEFAULT_KEY_INSTALL)) {
-                if ($this->request->query()->get(Route::DEFAULT_KEY_PAGE) !== self::DEFAULT_PAGE_INSTALLATION) {
+                if ($this->request->query()->get(Route::DEFAULT_KEY_INSTALL) !== self::PAGE_REMOVE) {
                     header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_REMOVE)}");
                 }
             } else {

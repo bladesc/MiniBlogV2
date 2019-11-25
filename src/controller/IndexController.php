@@ -9,7 +9,7 @@ class IndexController extends CommonController
 {
     public function index()
     {
-        $data = (new IndexModel())->getData();
-        (new View())->data($data)->template('default')->file('index')->render();
+        $data = (new IndexModel($this->request))->getData();
+        (new View($this->request))->data($data)->template('default')->file('index')->render();
     }
 }

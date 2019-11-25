@@ -21,7 +21,7 @@ class Install
 
     public function getCheckInstallDir(): bool
     {
-        return ($this->config['inst']['checkInstallDir'] === 'true') ? true : false;
+        return ($this->config['inst']['checkInstallDir'] === true) ? true : false;
     }
 
     public function checkIfInstalled(): bool

@@ -10,7 +10,7 @@ class Path
     protected $page;
     protected $action;
 
-    protected $install = false;
+    protected $installState = false;
 
 
     /**
@@ -33,9 +33,9 @@ class Path
         return $this;
     }
 
-    public function Install(): object
+    public function setInstallState(bool $state): object
     {
-        $this->install = true;
+        $this->installState = $state;
         return $this;
     }
 
@@ -58,7 +58,7 @@ class Path
     public function getControllerFullName(): string
     {
         $name = 'src\Controller\\' . $this->getControllerName();
-        if ($this->install = true) {
+        if ($this->installState === true) {
             $name = 'installation\\' . $name;
         }
         return $name;

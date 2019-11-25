@@ -3,11 +3,12 @@
 namespace installation\src\controller;
 
 use src\controller\CommonController;
+use src\view\View;
 
 class NotremovedController extends CommonController
 {
     public function notRemoved()
     {
-        echo "not removed";
+        (new View($this->request))->install()->template('installation')->file('notremoved')->render();
     }
 }
