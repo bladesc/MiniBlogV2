@@ -91,7 +91,7 @@ class Request
             try {
                 return $this->{$this->dataType}[$key];
             } catch (\Exception $e) {
-                echo "Message. " . $e->getMessage();
+                return '';
             }
         } else {
             return $this->{$this->dataType};

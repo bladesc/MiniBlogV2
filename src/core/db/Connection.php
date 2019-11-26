@@ -9,14 +9,14 @@ class Connection
     protected $options;
     protected $configConnection;
 
-    protected $conn;
+    protected $conn = null;
     protected $sth;
 
     /**
      * Connection constructor.
      * @param config|null $configConnection
      */
-    public function __construct(Config $configConnection = null)
+    public function __construct($configConnection = null)
     {
         $this->configConnection = $configConnection ?? (new Config())->getConfigConnection();
         $this->setOptions();

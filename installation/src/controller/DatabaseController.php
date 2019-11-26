@@ -19,10 +19,8 @@ class DatabaseController extends CommonController
 
     public function checkConnection()
     {
-        $model = (new DatabaseModel($this->request));
-        $config = Config::getConfig();
-        $data = (new DatabaseModel($this->request))->getData();
-        print_r($data); die;
+        $dbModel = (new DatabaseModel($this->request));
+        $data = $dbModel->getFormParams()->getConnectionInfo()->getData();
         (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
     }
 }
