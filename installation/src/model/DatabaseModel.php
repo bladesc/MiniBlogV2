@@ -4,6 +4,7 @@
 namespace installation\src\model;
 
 
+use installation\src\installation\Install;
 use src\core\db\Connection;
 use src\model\CommonModel;
 
@@ -11,20 +12,15 @@ class DatabaseModel extends CommonModel
 {
     protected $data = [];
 
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
     public function getConnectionInfo(): object
     {
         try {
             $connection = new Connection([
-                'hostname' => $this->request->post()->get('dbaddress'),
-                'name' => $this->request->post()->get('dbname'),
-                'charset' => $this->configContainer['db']['charset'],
-                'username' => $this->request->post()->get('dbuser'),
-                'password' => $this->request->post()->get('dbpassword')
+                'hostname' => $this->validator->filterValue($this->request->post()->get('dbaddress')),
+                'name' => $this->validator->filterValue($this->request->post()->get('dbname')),
+                'charset' => $this->validator->filterValue($this->configContainer['db']['charset']),
+                'username' => $this->validator->filterValue($this->request->post()->get('dbuser')),
+                'password' => $this->validator->filterValue($this->request->post()->get('dbpassword'))
             ]);
             $this->data['connection'] = ($connection->getConnection() === null) ? false : true;
         } catch (\Exception $e) {
@@ -39,20 +35,46 @@ class DatabaseModel extends CommonModel
         return $this;
     }
 
-    public function install(object $install): object
+    public function install(): object
     {
         $this->getConnectionInfo();
         if ($this->data['connection'] === false) {
             $this->data['installation'] = false;
         } else {
-            $this->data['installation'] = $this->installDatabase($install);
+            if ($this->insertConfigData()) {
+                $this->data['installation'] = $this->installDatabase();
+            } else {
+                $this->data['installation'] = false;
+            }
         }
         return $this;
     }
 
-    public function installDatabase(object $install): bool
+    public function installDatabase(): bool
     {
-        return ($install->install()) ? true : false;
+        return ((new Install())->install()) ? true : false;
+    }
+
+    public function insertConfigData(): bool
+    {
+        $configString = '<?php
+            $config[\'db\'][\'hostname\'] = \'' . $this->validator->filterValue($this->request->post()->get('dbaddress')) . '\';
+            $config[\'db\'][\'username\'] = \'' . $this->validator->filterValue($this->request->post()->get('dbuser')) . '\';
+            $config[\'db\'][\'password\'] = \'' . $this->validator->filterValue($this->request->post()->get('dbpassword')) . '\';
+            $config[\'db\'][\'name\'] = \'' . $this->validator->filterValue($this->request->post()->get('dbname')) . '\';
+            $config[\'db\'][\'prefix\'] = \'mb_\';
+            $config[\'db\'][\'charset\'] = \'utf8mb4\';';
+
+            $file = '../src/config/Database.php';
+            if (file_exists($file)) {
+                try {
+                    file_put_contents($file, $configString);
+                    return true;
+                } catch (\Exception $e) {
+                }
+            }
+            $this->data['installation'] = false;
+            return false;
     }
 
 }

@@ -2,7 +2,7 @@
 <?php include 'layout/breadcrump.php' ?>
 
     <h1>Podaj dane dla połączenia bazy</h1>
-    <form action="<?= $this->request->additional()->join('&action=checkConnection', 'requestUri') ?>" method="post">
+    <form action="index.php?install_page=database&action=installation" method="post">
         <div class="box-input">
             Name
             <input name="dbname" value="<?= $this->request->post()->get('dbname') ?>" type="text"/>

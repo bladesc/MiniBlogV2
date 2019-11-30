@@ -6,6 +6,7 @@ use src\config\Config;
 use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\request\Request;
+use src\core\validation\Validator;
 
 class BaseModel
 {
@@ -15,15 +16,16 @@ class BaseModel
     protected $tables;
     protected $request;
     protected $configContainer;
+    protected $validator;
 
-    public const INFO_SUCCESS = 'iSuccess';
-    public const INFO_ERROR = 'iError';
-
-    public function __construct(Request $request)
+    public function __construct(Request $request, bool $installationStatus = true)
     {
         $this->request = $request;
         $this->configContainer = (new Config())->getConfigContainer();
-        $this->db = new QueryHelper();
         $this->tables = (new Tables())->getTables();
+        $this->validator = new Validator();
+        if ($installationStatus) {
+            $this->db = new QueryHelper();
+        }
     }
 }

@@ -140,9 +140,9 @@ class QueryBuilder extends Query
     {
         if (!empty($this->select)) {
             $this->prepareSelect();
-        } elseif (!empty($this->insert())) {
+        } elseif (!empty($this->insert)) {
             $this->prepareInsert();
-        } elseif (!empty($this->update())) {
+        } elseif (!empty($this->update)) {
             $this->prepareUpdate();
         } elseif ($this->delete) {
             $this->prepareDelete();
@@ -170,6 +170,24 @@ class QueryBuilder extends Query
     protected function prepareUpdate()
     {
         $this->query .= "UPDATE " . $this->update[''];
+
+    }
+
+
+    protected function prepareInsert()
+    {
+        $table = (current($this->insert))['table'];
+        $fields = '(';
+        $values = '(';
+        foreach ($this->insert as $insert) {
+            $fields .= $insert['field'] . ', ';
+            $values .= "'" . $insert['value'] . "'" . ', ';
+        }
+        $fields = substr($fields, 0, -2);
+        $values = substr($values, 0, -2);
+        $fields .= ')';
+        $values .= ')';
+        $this->query .= 'INSERT INTO ' . $table . ' ' . $fields . ' VALUES ' . $values;
     }
 
     protected function prepareFrom(): void

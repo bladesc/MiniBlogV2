@@ -10,4 +10,9 @@ class CommonModel extends BaseModel
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();
     }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
 }

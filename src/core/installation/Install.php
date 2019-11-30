@@ -15,8 +15,6 @@ class Install
     public function __construct()
     {
         $this->config = (new Config())->getConfigContainer();
-        $this->db = new QueryHelper();
-        $this->tables = (new Tables())->getTables();
     }
 
     public function getCheckInstallDir(): bool
@@ -26,12 +24,14 @@ class Install
 
     public function checkIfInstalled(): bool
     {
-        /*try {
+        try {
+            $this->tables = (new Tables())->getTables();
+            $this->db = new QueryHelper();
             $this->db->select("*")->from($this->tables->user)->execute();
             return true;
         } catch (\Exception $e) {
-            return false;
-        }*/
+        }
+
         return false;
     }
 }

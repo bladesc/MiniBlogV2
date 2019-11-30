@@ -19,18 +19,17 @@ class DatabaseController extends CommonController
         (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
     }
 
-    public function checkConnection()
+    public function installation()
     {
         if ($this->request->post()->has('dbcheck')) {
-            $dbModel = (new DatabaseModel($this->request));
-            $data = $dbModel->getFormParams()->getConnectionInfo()->getData();
+            $model = (new DatabaseModel($this->request, false));
+            $data = $model->getFormParams()->getConnectionInfo()->getData();
             (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
         } else {
-            $dbModel = (new DatabaseModel($this->request));
-            $data = $dbModel->getFormParams()->install(new Install())->getData();
-            $data['installation'] = true;
+            $model = (new DatabaseModel($this->request, false));
+            $data = $model->getFormParams()->install()->getData();
             if ($data['installation']) {
-                Redirect::redirectTo(($this->request->additional()->get('requestUri')) . '&action=blog');
+                Redirect::redirectTo('index.php?install_page=blog');
             }
             (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
         }

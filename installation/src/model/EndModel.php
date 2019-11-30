@@ -1,10 +1,12 @@
 <?php
 
+
 namespace installation\src\model;
+
 
 use src\model\CommonModel;
 
-class StartModel extends CommonModel
+class EndModel extends CommonModel
 {
     protected $data = [];
 }

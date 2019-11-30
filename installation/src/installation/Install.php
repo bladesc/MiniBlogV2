@@ -33,6 +33,7 @@ class Install
     public function install(): bool
     {
         try {
+            return true;
             $this->conn->beginTransaction();
             $this->prepareTables();
             $this->prepareData();
