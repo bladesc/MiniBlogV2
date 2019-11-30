@@ -1,3 +1,4 @@
 <?php
-$lang['cocussess'] = 'Udało się połączyć';
-$lang['confailed'] = 'Nie udało się połączyć';
+$pl['connectionSuccess'] = 'Udało się połączyć';
+$pl['connectionFail'] = 'Nie udało się połączyć';
+$pl['installFail'] = 'Wystapił błąd podczas próby instalacji';

@@ -85,6 +85,24 @@ class Request
         return $this->all;
     }
 
+    public function join(string $url, $key = null)
+    {
+        if ($key !== null) {
+            try {
+                $baseUrl =  $this->{$this->dataType}[$key];
+                if (strpos($baseUrl, $url)) {
+                    return $baseUrl;
+                } else {
+                    return $baseUrl . $url;
+                }
+            } catch (\Exception $e) {
+                return '';
+            }
+        } else {
+            return $this->{$this->dataType};
+        }
+    }
+
     public function get($key = null)
     {
         if ($key !== null) {

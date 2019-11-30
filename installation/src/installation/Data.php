@@ -1,6 +1,6 @@
 <?php
 
-namespace installation\src\database;
+namespace installation\src\installation;
 
 class Data
 {

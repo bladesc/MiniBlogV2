@@ -16,6 +16,9 @@ class BaseModel
     protected $request;
     protected $configContainer;
 
+    public const INFO_SUCCESS = 'iSuccess';
+    public const INFO_ERROR = 'iError';
+
     public function __construct(Request $request)
     {
         $this->request = $request;

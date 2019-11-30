@@ -1,16 +1,16 @@
 <?php
 
-namespace installation;
+namespace installation\src\installation;
 
 use src\core\db\connection;
 use src\config\config;
-use installation\src\database\table;
-use installation\src\database\data;
+use installation\src\installation\table;
+use installation\src\installation\data;
 use src\core\db\tables;
 
 class Install
 {
-    protected $config;
+    protected $configContainer;
 
     protected $database;
     protected $table;
@@ -23,7 +23,7 @@ class Install
 
     public function __construct()
     {
-        $this->config = Config::getConfig();
+        $this->configContainer = (new Config())->getConfigContainer();
         $this->conn = (new Connection())->getConnection();
         $this->tables = (new Tables)->getTables();
         $this->table = new Table($this->tables);
