@@ -11,8 +11,8 @@ class Tables
     protected $config;
 
     public const TABLES = [
-      'user',
-      'avatar'
+        'user',
+        'category'
     ];
 
     public function __construct()

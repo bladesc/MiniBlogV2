@@ -14,20 +14,40 @@ class QueryBuilder extends Query
     protected $from = null;
     protected $where = [];
     protected $orderBy = [];
-    protected $limit;
-    protected $offset;
+    protected $limit = null;
+    protected $offset = null;
     protected $leftJoin = [];
     protected $rightJoin = [];
     protected $innerJoin = [];
     protected $having = [];
     protected $groupBy = [];
 
-    protected $query = "";
+    protected $query = '';
 
     protected $err = [];
 
+    protected function resetCondition()
+    {
+        $this->select = [];
+        $this->insert = [];
+        $this->update = [];
+        $this->from = null;
+        $this->where = [];
+        $this->orderBy = [];
+        $this->limit = null;
+        $this->offset = null;
+        $this->leftJoin = [];
+        $this->rightJoin = [];
+        $this->innerJoin = [];
+        $this->having = [];
+        $this->groupBy = [];
+        $this->query = '';
+        $this->err = [];
+    }
+
     public function select($tableNames)
     {
+        $this->resetCondition();
         if (is_string($tableNames)) {
             $this->select[] = $tableNames;
         } else {
@@ -40,6 +60,7 @@ class QueryBuilder extends Query
 
     public function insert(string $tableName, array $data)
     {
+        $this->resetCondition();
         foreach ($data as $field => $value) {
             $this->insert[] = ["table" => $tableName, "field" => $field, "value" => $value];
         }
@@ -48,6 +69,7 @@ class QueryBuilder extends Query
 
     public function update(string $tableName, array $data)
     {
+        $this->resetCondition();
         foreach ($data as $field => $value) {
             $this->update[] = ["table" => $tableName, "field" => $field, "value" => $value];
         }
@@ -56,6 +78,7 @@ class QueryBuilder extends Query
 
     public function delete()
     {
+        $this->resetCondition();
         $this->delete = true;
         return $this;
     }
@@ -68,22 +91,26 @@ class QueryBuilder extends Query
 
     public function where(string $field, string $operator, string $value)
     {
-        $this->where = ['field' => $field, 'operator' => $operator, 'value' => $value];
+        $this->where[] = ['field' => $field, 'operator' => $operator, 'value' => $value];
+        return $this;
     }
 
     public function orderBy(string $field, int $type)
     {
         $this->orderBy[] = ["field" => $field, "type" => $type];
+        return $this;
     }
 
     public function limit(int $limit)
     {
         $this->limit = $limit;
+        return $this;
     }
 
     public function offset(int $offset)
     {
         $this->offset = $offset;
+        return $this;
     }
 
 
@@ -120,6 +147,7 @@ class QueryBuilder extends Query
     public function execute()
     {
         $this->prepareQuery();
+        echo $this->query;
         $this->sth = $this->conn->prepare($this->query);
         return $this->sth->execute();
     }
@@ -206,10 +234,10 @@ class QueryBuilder extends Query
             $this->query .= " WHERE ";
             foreach ($this->where as $condition) {
                 if (reset($this->where)) {
-                    $this->query .= $condition['field'] . $condition['operator'] . $condition['value'];
+                    $this->query .= $condition['field'] . $condition['operator'] . "'" . $condition['value'] . "'";
                 } else {
                     $this->query .= " AND (";
-                    $this->query .= $condition['field'] . $condition['operator'] . $condition['value'];
+                    $this->query .= $condition['field'] . $condition['operator'] . "'" . $condition['value'] . "'";
                     $this->query .= ")";
                 }
             }
