@@ -9,6 +9,6 @@ class NotremovedController extends CommonController
 {
     public function notRemoved()
     {
-        (new View($this->request))->install()->template('installation')->file('notremoved')->render();
+        (new View($this->request))->install()->template('default')->file('notremoved')->render();
     }
 }

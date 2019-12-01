@@ -24,6 +24,7 @@ class Route
     public const NOT_FOUND_CONTROLLER = 'NotFound';
     public const DEFAULT_CONTROLLER_INSTALL = 'Start';
     public const DEFAULT_KEY_PAGE = 'page';
+    public const DEFAULT_KEY_PAGE_ADMIN = 'pageadmin';
     public const DEFAULT_ACTION_INSTALL = 'Start';
     public const DEFAULT_KEY_INSTALL = 'install_page';
     public const DEFAULT_KEY_ACTION = 'action';
@@ -57,6 +58,14 @@ class Route
             $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE));
             if (!($this->request->query()->has(self::DEFAULT_KEY_ACTION))) {
                 $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_PAGE));
+            } else {
+                $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_ACTION));
+            }
+        } elseif ($this->request->query()->has(self::DEFAULT_KEY_PAGE_ADMIN)) {
+            $this->path->setAdminState(true);
+            $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE_ADMIN));
+            if (!($this->request->query()->has(self::DEFAULT_KEY_ACTION))) {
+                $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_PAGE_ADMIN));
             } else {
                 $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_ACTION));
             }

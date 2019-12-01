@@ -16,7 +16,7 @@ class DatabaseController extends CommonController
     public function database()
     {
         $data = (new DatabaseModel($this->request))->getData();
-        (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
+        (new View($this->request))->install()->data($data)->template('default')->file('database')->render();
     }
 
     public function installation()
@@ -24,14 +24,14 @@ class DatabaseController extends CommonController
         if ($this->request->post()->has('dbcheck')) {
             $model = (new DatabaseModel($this->request, false));
             $data = $model->getFormParams()->getConnectionInfo()->getData();
-            (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
+            (new View($this->request))->install()->data($data)->template('default')->file('database')->render();
         } else {
             $model = (new DatabaseModel($this->request, false));
             $data = $model->getFormParams()->install()->getData();
             if ($data['installation']) {
                 Redirect::redirectTo('index.php?install_page=blog');
             }
-            (new View($this->request))->install()->data($data)->template('installation')->file('database')->render();
+            (new View($this->request))->install()->data($data)->template('default')->file('database')->render();
         }
     }
 }

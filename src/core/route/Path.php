@@ -11,7 +11,7 @@ class Path
     protected $action;
 
     protected $installState = false;
-
+    protected $adminState = false;
 
     /**
      * @param string $controller
@@ -39,6 +39,12 @@ class Path
         return $this;
     }
 
+    public function setAdminState(bool $state): object
+    {
+        $this->adminState = $state;
+        return $this;
+    }
+
     public function getController(): string
     {
         return $this->controller;
@@ -60,6 +66,9 @@ class Path
         $name = 'src\Controller\\' . $this->getControllerName();
         if ($this->installState === true) {
             $name = 'installation\\' . $name;
+        }
+        if ($this->adminState === true) {
+            $name = 'admin\\' . $name;
         }
         return $name;
     }

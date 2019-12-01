@@ -2,6 +2,7 @@
 
 namespace installation\src\model;
 use src\core\db\QueryHelper;
+use src\core\general\Password;
 use src\core\general\Role;
 use src\core\general\Status;
 use src\core\request\Request;
@@ -58,7 +59,7 @@ class BlogModel extends CommonModel
     {
         $uName = $this->validator->filterValue($this->request->post()->get('bUserName'));
         $uEmail = $this->validator->filterValue($this->request->post()->get('bUserEmail'));
-        $uPassword = $this->validator->filterValue($this->request->post()->get('bUserPassword'));
+        $uPassword = Password::hash($this->validator->filterValue($this->request->post()->get('bUserPassword')));
         $data = [
             'nick' => $uName,
             'email' => $uEmail,

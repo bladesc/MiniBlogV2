@@ -11,7 +11,7 @@ class StartController extends CommonController
 {
     public function start()
     {
-        (new View($this->request))->install()->template('installation')->file('start')->render();
+        (new View($this->request))->install()->template('default')->file('start')->render();
     }
 
 }

@@ -14,7 +14,7 @@ class BlogController extends CommonController
 {
     public function blog()
     {
-        (new View($this->request))->install()->data()->template('installation')->file('blog')->render();
+        (new View($this->request))->install()->data()->template('default')->file('blog')->render();
     }
 
     public function addUser()
@@ -23,6 +23,6 @@ class BlogController extends CommonController
         if ($data['userInserted']) {
             Redirect::redirectTo('index.php?install_page=end');
         }
-        (new View($this->request))->install()->data($data)->template('installation')->file('blog')->render();
+        (new View($this->request))->install()->data($data)->template('default')->file('blog')->render();
     }
 }

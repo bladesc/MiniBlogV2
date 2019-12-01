@@ -12,6 +12,6 @@ class EndController extends CommonController
 {
     public function end()
     {
-        (new View($this->request))->install()->data()->template('installation')->file('end')->render();
+        (new View($this->request))->install()->data()->template('default')->file('end')->render();
     }
 }
