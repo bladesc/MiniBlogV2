@@ -12,7 +12,8 @@ class Tables
 
     public const TABLES = [
         'user',
-        'category'
+        'category',
+        'entry'
     ];
 
     public function __construct()
