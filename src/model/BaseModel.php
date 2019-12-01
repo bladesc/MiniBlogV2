@@ -7,6 +7,7 @@ use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\request\Request;
 use src\core\validation\Validator;
+use src\session\Session;
 
 class BaseModel
 {
@@ -17,6 +18,7 @@ class BaseModel
     protected $request;
     protected $configContainer;
     protected $validator;
+    protected $session;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -27,5 +29,7 @@ class BaseModel
         if ($installationStatus) {
             $this->db = new QueryHelper();
         }
+        $this->session = new Session();
+
     }
 }

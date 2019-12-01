@@ -4,8 +4,17 @@ namespace src\session;
 
 class Session
 {
-    public static function add(string $key, string $value): bool
+
+    public function __construct()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    public function add(string $key, string $value): bool
+    {
+
         if (!empty($_SESSION[$key])) {
             $_SESSION[$key] = $value;
             return true;
@@ -13,15 +22,20 @@ class Session
         return false;
     }
 
-    public static function change(string $key, string $value): bool
+    public function change(string $key, string $value): bool
     {
-            $_SESSION[$key] = $value;
-            return true;
+        $_SESSION[$key] = $value;
+        return true;
     }
 
-    public static function remove(string $key)  : bool
+    public function remove(string $key): bool
     {
         unset($_SESSION[$key]);
         return true;
+    }
+
+    public function get(string $key)
+    {
+        return (isset($_SESSION[$key])) ? $_SESSION[$key] : null;
     }
 }

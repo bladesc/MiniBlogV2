@@ -1,9 +1,24 @@
 <?php include 'layout/header.php' ?>
 <?php include 'layout/navigation.php' ?>
+<?php include 'layout/communicate.php' ?>
 
+    <a href="index.php?pageadmin=category&action=prepareCreate">Add new</a>
+    list of cateogiresa
 
-<a href="index.php?pageadmin=category&action=add">Add new</a>
-list of cateogiresa
+<?php foreach ($this->data['categories'] as $category): ?>
+    <div><?= $category['id'] ?></div>
+    <div><?= $category['name'] ?></div>
+    <div>
+        <a href="index.php?pageadmin=category&action=prepareUpdate&id=<?= $category['id'] ?>">Zmien<a/>
+    </div>
+    <div>
+        <a href="index.php?pageadmin=category&action=prepareDelete&id=<?= $category['id'] ?>">Usun<a/>
+    </div>
+<?php endforeach; ?>
+
+<?php
+print_r($this->data);
+?>
 
 <?php include 'layout/sidebar.php' ?>
 <?php include 'layout/footer.php' ?>

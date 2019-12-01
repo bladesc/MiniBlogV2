@@ -1,6 +1,6 @@
 <?php include 'layout/header.php' ?>
 <?php include 'layout/navigation.php' ?>
-
+<?php include 'layout/communicate.php' ?>
     <form action="index.php?pageadmin=category&action=create" method="post">
         <div>
             Wprowadz nazwe kategorii

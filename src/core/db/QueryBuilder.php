@@ -147,7 +147,6 @@ class QueryBuilder extends Query
     public function execute()
     {
         $this->prepareQuery();
-        echo $this->query;
         $this->sth = $this->conn->prepare($this->query);
         return $this->sth->execute();
     }
@@ -197,8 +196,15 @@ class QueryBuilder extends Query
 
     protected function prepareUpdate()
     {
-        $this->query .= "UPDATE " . $this->update[''];
-
+        $this->query .= "UPDATE ";
+        $table = (current($this->update))['table'];
+        $this->query .= $table;
+        $this->query .= " SET ";
+        foreach ($this->update as $update) {
+            $this->query .= $update['field'] . '=' . "'" .  $update['value'] . "', ";
+        }
+        $this->query = substr($this->query, 0, -2);
+        $this->prepareWhere();
     }
 
 
