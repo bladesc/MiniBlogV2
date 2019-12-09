@@ -113,25 +113,25 @@ class QueryBuilder extends Query
         return $this;
     }
 
-
-    public function leftJoin()
+    public function leftJoin(string $tableName, string $fieldName, string $joinTableName, string $joinFieldName)
     {
-
+        $this->leftJoin[] = ['tableName' => $tableName, 'fieldName' => $fieldName, 'joinTableName' => $joinTableName, 'joinFieldName' => $joinFieldName];
+        return $this;
     }
 
     public function rightJoin()
     {
-
+        return $this;
     }
 
     public function innerJoin()
     {
-
+        return $this;
     }
 
     public function groupBy()
     {
-
+        return $this;
     }
 
     public function having()
@@ -231,7 +231,28 @@ class QueryBuilder extends Query
         } else {
             $this->query .= " FROM " . $this->from;
         }
+        $this->prepareLeftJoin();
+        $this->prepareRightJoin();
+        $this->prepareInnerJoin();
         $this->prepareWhere();
+    }
+
+    protected function prepareLeftJoin() {
+        if (!empty($this->leftJoin)) {
+            foreach ($this->leftJoin as $join) {
+                $this->query .= ' LEFT JOIN ' . $join['joinTableName'] . ' ON ' . $join['tableName'] . '.' . $join['fieldName'] . '=' . $join['joinTableName'] . '.' . $join['joinFieldName'];
+            }
+        }
+    }
+
+    protected function prepareRightJoin()
+    {
+
+    }
+
+    protected function prepareInnerJoin()
+    {
+
     }
 
     protected function prepareWhere(): void

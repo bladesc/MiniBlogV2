@@ -21,13 +21,14 @@ class EntryController extends CommonController
 
     public function prepareCreate()
     {
-        (new View($this->request))->admin()->template('default')->file('entriescreate')->render();
+        $data = (new EntryModel($this->request))->getCategories()->getData();
+        (new View($this->request))->admin()->data($data)->template('default')->file('entriescreate')->render();
     }
 
     public function create()
     {
         $model = (new EntryModel($this->request));
-        $data = $model->addEntry()->getData();
+        $data = $model->addEntry()->getCategories()->getData();
         if ($data['entryInserted']) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=entry');
@@ -37,7 +38,7 @@ class EntryController extends CommonController
 
     public function prepareUpdate()
     {
-        $data = (new EntryModel($this->request))->getEntry()->getData(); echo 1;
+        $data = (new EntryModel($this->request))->getCategories()->getEntry()->getData();
         (new View($this->request))->admin()->data($data)->template('default')->file('entriesupdate')->render();
     }
 

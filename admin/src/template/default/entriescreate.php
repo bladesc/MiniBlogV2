@@ -7,6 +7,16 @@
             <input type="text" name="cTitle" value="<?= $this->request->post()->get('cTitle') ?>">
             <input type="text" name="cContent" value="<?= $this->request->post()->get('cContent') ?>">
             <input type="text" name="cAuthor" value="1" hidden required>
+            Wybierz kategorie
+            <select name="cCategory">
+                <?php foreach ($this->data['categories'] as $category): ?>
+                <option value="<?= $category['id'] ?>"
+                <?php if ($this->request->post()->get('cCategory') == $category['id']): ?>
+                selected
+                <?php endif; ?>
+                ><?= $category['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div>
             <input type="submit" name="cSubmin" value="Dodaj">

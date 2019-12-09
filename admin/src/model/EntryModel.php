@@ -16,13 +16,22 @@ class EntryModel extends CommonModel
         $cTitle = $this->request->post()->get('cTitle');
         $cContent = $this->request->post()->get('cContent');
         $cAuthor = $this->request->post()->get('cAuthor');
-        if (!empty($cTitle) && !empty($cContent) && !empty($cAuthor)) {
+        $cCategory =  $this->request->post()->get('cCategory');
+        if (!empty($cTitle) && !empty($cContent) && !empty($cAuthor) && (!empty($cCategory) || $cCategory == 0)) {
             if (!$this->validator->validateText($cTitle, 1, 255)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 255, niedozwolone znaki';
                 return false;
             }
             if (!$this->validator->validateText($cContent, 1, 2000)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 255, niedozwolone znaki';
+                return false;
+            }
+            if(!is_numeric($cAuthor)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
+                return false;
+            }
+            if(!is_numeric($cCategory)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
                 return false;
             }
         } else {
@@ -37,13 +46,22 @@ class EntryModel extends CommonModel
         $cTitle = $this->request->post()->get('cTitle');
         $cContent = $this->request->post()->get('cContent');
         $cAuthor = $this->request->post()->get('cAuthor');
-        if (!empty($cTitle) && !empty($cContent) && !empty($cAuthor)) {
+        $cCategory =  $this->request->post()->get('cCategory');
+        if (!empty($cTitle) && !empty($cContent) && !empty($cAuthor) && (!empty($cCategory) || $cCategory == 0)) {
             if (!$this->validator->validateText($cTitle, 1, 255)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 255, niedozwolone znaki';
                 return false;
             }
             if (!$this->validator->validateText($cContent, 1, 2000)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 255, niedozwolone znaki';
+                return false;
+            }
+            if(!is_numeric($cAuthor)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
+                return false;
+            }
+            if(!is_numeric($cCategory)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
                 return false;
             }
         } else {
@@ -64,9 +82,29 @@ class EntryModel extends CommonModel
         return $this;
     }
 
-    public function getEntries(): object
+    public function getEntries()
     {
-        $this->data['entries'] = $this->db->select('*')->from($this->tables->entry)->getAll();
+        $this->data['entries'] = $this->db->select([
+            $this->tables->entry . '.id',
+            $this->tables->entry . '.created_at',
+            'title',
+            'content',
+            'name',
+            'nick',
+        ])
+            ->from($this->tables->entry)
+            ->leftJoin($this->tables->entry, 'idcategory', $this->tables->category, 'id')
+            ->leftJoin($this->tables->entry, 'iduser', $this->tables->user, 'id')
+            ->getAll();
+        return $this;
+    }
+
+    public function getCategories()
+    {
+       $this->data['categories'] = $this->db->select('*')
+            ->from($this->tables->category)
+            ->where('status', '=',self::STATUS_ACTIVE)
+            ->getAll();
         return $this;
     }
 
@@ -86,10 +124,12 @@ class EntryModel extends CommonModel
         $cTitle = $this->validator->filterValue($this->request->post()->get('cTitle'));
         $cContent = $this->validator->filterValue($this->request->post()->get('cContent'));
         $cAuthor = $this->validator->filterValue($this->request->post()->get('cAuthor'));
+        $cCategory =  $this->validator->filterValue($this->request->post()->get('cCategory'));
         $data = [
             'title' => $cTitle,
             'content' => $cContent,
             'iduser' => $cAuthor,
+            'idcategory' => $cCategory,
             'created_at' => Helper::now(),
             'updated_at' => Helper::now(),
         ];
@@ -99,7 +139,20 @@ class EntryModel extends CommonModel
     public function getEntry(): object
     {
         $id = $this->validator->filterValue($this->request->query()->get('id'));
-        $this->data['entries'] = $this->db->select('*')->from($this->tables->entry)->where('id', '=', $id)->getOne();
+        $this->data['entries'] = $this->db->select([
+                $this->tables->entry . '.id',
+                $this->tables->entry . '.created_at',
+                'title',
+                'content',
+                'name',
+                'nick'
+            ]
+        )
+            ->from($this->tables->entry)
+            ->leftJoin($this->tables->entry, 'idcategory', $this->tables->category, 'id')
+            ->leftJoin($this->tables->entry, 'iduser', $this->tables->user, 'id')
+            ->where($this->tables->entry .'.id', '=', $id)
+            ->getOne();
         return $this;
     }
 
@@ -108,11 +161,13 @@ class EntryModel extends CommonModel
         $cTitle = $this->validator->filterValue($this->request->post()->get('cTitle'));
         $cContent = $this->validator->filterValue($this->request->post()->get('cContent'));
         $cAuthor = $this->validator->filterValue($this->request->post()->get('cAuthor'));
+        $cCategory =  $this->validator->filterValue($this->request->post()->get('cCategory'));
         $id = $this->validator->filterValue($this->request->post()->get('cId'));
         $data = [
             'title' => $cTitle,
             'content' => $cContent,
             'iduser' => $cAuthor,
+            'idcategory' => $cCategory,
             'created_at' => Helper::now(),
             'updated_at' => Helper::now(),
         ];

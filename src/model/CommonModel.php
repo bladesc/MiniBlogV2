@@ -9,6 +9,9 @@ use src\session\Session;
 
 class CommonModel extends BaseModel
 {
+    public const STATUS_ACTIVE = 0;
+    public const STATUS_INACTIVE = 1;
+
     public function getMenuData()
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();

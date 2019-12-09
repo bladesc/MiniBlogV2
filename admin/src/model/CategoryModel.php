@@ -15,9 +15,14 @@ class CategoryModel extends CommonModel
     public function verifyInsertData(): bool
     {
         $cName = $this->request->post()->get('cName');
-        if (!empty($cName)) {
+        $cStatus = $this->request->post()->get('cStatus');
+        if (!empty($cName) && (!empty($cStatus) || $cStatus == 0)) {
             if (!$this->validator->validateText($cName, 4, 12)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 12, niedozwolone znaki';
+                return false;
+            }
+            if(!is_numeric($cStatus)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
                 return false;
             }
         } else {
@@ -30,9 +35,14 @@ class CategoryModel extends CommonModel
     public function verifyUpdateData(): bool
     {
         $cNewName = $this->request->post()->get('cNewName');
-        if (!empty($cNewName)) {
+        $cStatus = $this->request->post()->get('cStatus');
+        if (!empty($cNewName)  && (!empty($cStatus) || $cStatus == 0)) {
             if (!$this->validator->validateText($cNewName, 4, 12)) {
                 $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 12, niedozwolone znaki';
+                return false;
+            }
+            if(!is_numeric($cStatus)) {
+                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
                 return false;
             }
         } else {
@@ -96,9 +106,11 @@ class CategoryModel extends CommonModel
     protected function updateCategoryToDb(): bool
     {
         $cNewName = $this->validator->filterValue($this->request->post()->get('cNewName'));
+        $cStatus = (int) $this->validator->filterValue($this->request->post()->get('cStatus'));
         $id = $this->validator->filterValue($this->request->post()->get('cId'));
         $data = [
             'name' => $cNewName,
+            'status' => $cStatus
         ];
         return $this->db->update($this->tables->category, $data)->where('id', '=', $id)->execute();
     }
@@ -106,8 +118,10 @@ class CategoryModel extends CommonModel
     protected function addCategoryToDb(): bool
     {
         $cName = $this->validator->filterValue($this->request->post()->get('cName'));
+        $cStatus = (int) $this->validator->filterValue($this->request->post()->get('cStatus'));
         $data = [
             'name' => $cName,
+            'status' => $cStatus
         ];
         return $this->db->insert($this->tables->category, $data)->execute();
     }

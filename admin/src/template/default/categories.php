@@ -8,6 +8,7 @@
 <?php foreach ($this->data['categories'] as $category): ?>
     <div><?= $category['id'] ?></div>
     <div><?= $category['name'] ?></div>
+    <div><?= $category['status'] ?></div>
     <div>
         <a href="index.php?pageadmin=category&action=prepareUpdate&id=<?= $category['id'] ?>">Zmien<a/>
     </div>
