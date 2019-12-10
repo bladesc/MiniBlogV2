@@ -6,9 +6,15 @@ namespace src\model;
 
 class IndexModel extends CommonModel
 {
-    public function getData(): array
+    protected $data = [];
+
+    public function logout()
     {
-        $data = $this->getMenuData();
-        return $data;
+        $this->data['userLogout'] = false;
+        if ($this->session->remove(self::USER_LOG_SES_NAME)) {
+            $this->data['userLogout'] = true;
+        }
+        return $this;
+
     }
 }

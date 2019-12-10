@@ -1,3 +1,3 @@
 <?php include 'pageup.php' ?>
-entry
+remind
 <?php include 'pagedown.php' ?>

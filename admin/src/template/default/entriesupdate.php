@@ -1,6 +1,4 @@
-<?php include 'layout/header.php' ?>
-<?php include 'layout/navigation.php' ?>
-<?php include 'layout/communicate.php' ?>
+<?php include 'pageup.php' ?>
 
     <form action="index.php?pageadmin=entry&action=update&id=<?= $this->data['entries']['id'] ?>" method="post">
         <div>
@@ -27,5 +25,4 @@
 
 print_r($this->data);
 ?>
-<?php include 'layout/sidebar.php' ?>
-<?php include 'layout/footer.php' ?>
+<?php include 'pagedown.php' ?>

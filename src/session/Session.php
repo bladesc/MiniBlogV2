@@ -12,9 +12,8 @@ class Session
         }
     }
 
-    public function add(string $key, string $value): bool
+    public function add(string $key, $value): bool
     {
-
         if (!empty($_SESSION[$key])) {
             $_SESSION[$key] = $value;
             return true;
@@ -22,7 +21,7 @@ class Session
         return false;
     }
 
-    public function change(string $key, string $value): bool
+    public function change(string $key, $value): bool
     {
         $_SESSION[$key] = $value;
         return true;

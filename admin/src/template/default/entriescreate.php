@@ -1,6 +1,5 @@
-<?php include 'layout/header.php' ?>
-<?php include 'layout/navigation.php' ?>
-<?php include 'layout/communicate.php' ?>
+<?php include 'pageup.php' ?>
+
     <form action="index.php?pageadmin=entry&action=create" method="post">
         <div>
             Wprowadz nazwe wpisu
@@ -10,11 +9,11 @@
             Wybierz kategorie
             <select name="cCategory">
                 <?php foreach ($this->data['categories'] as $category): ?>
-                <option value="<?= $category['id'] ?>"
-                <?php if ($this->request->post()->get('cCategory') == $category['id']): ?>
-                selected
-                <?php endif; ?>
-                ><?= $category['name'] ?></option>
+                    <option value="<?= $category['id'] ?>"
+                        <?php if ($this->request->post()->get('cCategory') == $category['id']): ?>
+                            selected
+                        <?php endif; ?>
+                    ><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -25,5 +24,4 @@
 <?php
 print_r($this->data);
 ?>
-<?php include 'layout/sidebar.php' ?>
-<?php include 'layout/footer.php' ?>
+<?php include 'pagedown.php' ?>

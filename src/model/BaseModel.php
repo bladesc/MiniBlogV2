@@ -6,6 +6,7 @@ use src\config\Config;
 use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\request\Request;
+use src\core\validation\Validate;
 use src\core\validation\Validator;
 use src\session\Session;
 
@@ -19,6 +20,7 @@ class BaseModel
     protected $configContainer;
     protected $validator;
     protected $session;
+    protected $validate;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -26,6 +28,7 @@ class BaseModel
         $this->configContainer = (new Config())->getConfigContainer();
         $this->tables = (new Tables())->getTables();
         $this->validator = new Validator();
+        $this->validate = new Validate();
         if ($installationStatus) {
             $this->db = new QueryHelper();
         }

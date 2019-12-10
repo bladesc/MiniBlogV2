@@ -1,1 +1,3 @@
-navigation nand searchbar
+<div id="box-navigation">
+navigation
+</div>

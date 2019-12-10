@@ -12,6 +12,8 @@ class CommonModel extends BaseModel
     public const STATUS_ACTIVE = 0;
     public const STATUS_INACTIVE = 1;
 
+    public const USER_LOG_SES_NAME = 'userLoginSes';
+
     public function getMenuData()
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();
@@ -40,5 +42,11 @@ class CommonModel extends BaseModel
     {
         $this->getBaseData();
         return $this->data;
+    }
+
+    protected function checkIfUserExists(): array
+    {
+        $user = $this->db->select('*')->from($this->tables->user)->where('email', '=', $this->email)->getAll();
+        return $user;
     }
 }

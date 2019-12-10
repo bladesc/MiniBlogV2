@@ -8,8 +8,12 @@
         </div>
         <div>
             <select name="cStatus">
-                <option value="0" <?php if( $this->request->post()->get('cStatus') == 0): ?> selected <?php endif; ?>>Aktywny</option>
-                <option value="1" <?php if( $this->request->post()->get('cStatus') == 1): ?> selected <?php endif; ?>>Nieaktywny</option>
+                <option value="0" <?php if ($this->request->post()->get('cStatus') == 0): ?> selected <?php endif; ?>>
+                    Aktywny
+                </option>
+                <option value="1" <?php if ($this->request->post()->get('cStatus') == 1): ?> selected <?php endif; ?>>
+                    Nieaktywny
+                </option>
             </select>
         </div>
         <div>
@@ -19,5 +23,4 @@
 <?php
 print_r($this->data);
 ?>
-<?php include 'layout/sidebar.php' ?>
-<?php include 'layout/footer.php' ?>
+<?php include 'pagedown.php' ?>

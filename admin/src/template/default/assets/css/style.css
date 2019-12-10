@@ -1,0 +1,57 @@
+
+#box-header {
+    width: 100%;
+    background: #8eddff;
+    margin-bottom: 10px;
+}
+
+#box-navigation {
+    width: 100%;
+    background: #8eddff;
+    margin-bottom: 10px;
+}
+
+
+#box-breadcrump {
+    width: 100%;
+    background: #8eddff;
+    margin-bottom: 10px;
+}
+
+#box-comunicate {
+    width: 100%;
+    background: #8eddff;
+    margin-bottom: 10px;
+}
+
+#box-sidebar {
+    float: left;
+    width: 20%;
+    max-width: 300px;
+    background: #8eddff;
+}
+
+#box-footer {
+    width: 100%;
+    background: #8eddff;
+    margin-top: 10px;
+}
+
+#box-body {
+    width: 100%;
+}
+
+#box-content {
+    float: left;
+    padding: 0 30px;
+    box-sizing: border-box;
+    width: 80%;
+}
+
+.box-clear-foot {
+    width: 100%;
+    clear: both;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
