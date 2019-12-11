@@ -5,10 +5,13 @@ namespace src\model;
 use src\config\Config;
 use src\core\db\QueryHelper;
 use src\core\db\Tables;
+use src\core\general\Remind;
 use src\core\request\Request;
 use src\core\validation\Validate;
 use src\core\validation\Validator;
 use src\session\Session;
+use src\core\email\Emailer;
+
 
 class BaseModel
 {
@@ -21,6 +24,7 @@ class BaseModel
     protected $validator;
     protected $session;
     protected $validate;
+    protected $emailer;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -33,6 +37,8 @@ class BaseModel
             $this->db = new QueryHelper();
         }
         $this->session = new Session();
+        $this->emailer = new Emailer();
+        $this->remind = new Remind();
 
     }
 }

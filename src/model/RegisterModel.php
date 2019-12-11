@@ -19,10 +19,28 @@ class RegisterModel extends CommonModel
 
     public function verifyInsertData()
     {
-        $this->nick = $this->validate->set($this->request->post()->get('fNick'), 'Nick')->filterValue()->checkIfEmpty()->validateText(4, 20)->get();
-        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')->filterValue()->checkIfEmpty()->validateText(4, 20)->get();
-        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), 'Password')->checkIfEmpty()->filterValue()->validateText(6, 20)->get();
-        $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'PasswordProve')->filterValue()->checkIfEmpty()->validateText(6, 20)->comparePasswords($this->passwordProve)->get();
+        $this->nick = $this->validate->set($this->request->post()->get('fNick'), 'Nick')
+            ->filterValue()
+            ->checkIfEmpty()
+            ->validateText(4, 20)
+            ->get();
+        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')
+            ->filterValue()
+            ->checkIfEmpty()
+            ->validateText(4, 20)
+            ->validateEmail()
+            ->get();
+        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), 'Password')
+            ->filterValue()
+            ->checkIfEmpty()
+            ->validateText(6, 20)
+            ->get();
+        $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'PasswordProve')
+            ->filterValue()
+            ->checkIfEmpty()
+            ->validateText(6, 20)
+            ->comparePasswords($this->passwordProve)
+            ->get();
         $errors = $this->validate->getErrors();
         if (!empty($errors)) {
             $this->data['errors'] = $errors;

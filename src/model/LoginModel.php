@@ -20,6 +20,7 @@ class LoginModel extends CommonModel
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
+            ->validateEmail()
             ->get();
         $this->userDbData = $this->checkIfUserExists();
         if (empty($this->userDbData)) {

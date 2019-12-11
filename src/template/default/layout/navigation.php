@@ -9,5 +9,8 @@
     <div id="section-logout">
         <a href="index.php?page=index&action=logout">Wyloguj</a>
     </div>
+    <div id="section-change">
+        <a href="index.php?page=change">Zmien haslo</a>
+    </div>
     <?php print_r($_SESSION); ?>
 </div>
