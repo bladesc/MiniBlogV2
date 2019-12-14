@@ -9,10 +9,10 @@
         </div>
         <div>
             <select name="cStatus">
-                <option value="0" <?php if ($this->data['categories']['status'] == 0): ?> selected <?php endif; ?>>
+                <option value="1" <?php if ($this->data['categories']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
-                <option value="1" <?php if ($this->data['categories']['status'] == 1): ?> selected <?php endif; ?>>
+                <option value="2" <?php if ($this->data['categories']['status'] == 2): ?> selected <?php endif; ?>>
                     Nieaktywny
                 </option>
             </select>

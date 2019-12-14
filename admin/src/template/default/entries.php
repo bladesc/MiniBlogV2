@@ -7,6 +7,7 @@
         <div><?= $category['id'] ?></div>
         <div><?= $category['title'] ?></div>
         <div><?= $category['content'] ?></div>
+        <div><?= $category['status'] ?></div>
         <div><?= $category['created_at'] ?></div>
         <div><?= $category['name'] ?></div>
         <div><?= $category['nick'] ?></div>

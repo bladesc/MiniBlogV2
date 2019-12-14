@@ -16,6 +16,15 @@
                     ><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             </select>
+            Status
+            <select name="cStatus">
+                <option value="1" <?php if ($this->request->post()->get('cStatus') == 1): ?> selected <?php endif; ?>>
+                    Aktywny
+                </option>
+                <option value="2" <?php if ($this->request->post()->get('cStatus') == 2): ?> selected <?php endif; ?>>
+                    Nieaktywny
+                </option>
+            </select>
         </div>
         <div>
             <input type="submit" name="cSubmin" value="Dodaj">

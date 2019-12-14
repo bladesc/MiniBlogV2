@@ -12,8 +12,19 @@ class Tables
 
     public const TABLES = [
         'user',
+        'user_details',
+        'user_remind',
         'category',
-        'entry'
+        'entry',
+        'tag',
+        'setting',
+        'role',
+        'privilege',
+        'page',
+        'page_seo',
+        'login',
+        'image',
+        'gallery'
     ];
 
     public function __construct()

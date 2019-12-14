@@ -300,4 +300,24 @@ class QueryBuilder extends Query
             $this->query = " OFFSET " . $this->offset;
         }
     }
+
+    public function beginTransactions()
+    {
+        $this->conn->beginTransaction();
+    }
+
+    public function rollback()
+    {
+        $this->conn->rollBack();
+    }
+
+    public function commit()
+    {
+        $this->conn->commit();
+    }
+
+    public function getLastInsertId()
+    {
+        return $this->conn->lastInsertId();
+    }
 }

@@ -66,15 +66,39 @@ class RegisterModel extends CommonModel
 
     public function addUserToDb()
     {
-        $data = [
-            'nick' => $this->nick,
-            'email' => $this->email,
-            'password' => Password::hash($this->password),
-            'status' => self::STATUS_ACTIVE,
-            'role_id' => Role::ROLE_USER,
-            'created_at' => Helper::now(),
-            'updated_at' => Helper::now(),
-        ];
-        return $this->db->insert($this->tables->user, $data)->execute();
+        try {
+            $this->db->beginTransactions(); echo 1;
+            $data = [
+                'firstname' => '',
+                'surname' => '',
+                'birthday' => '',
+            ];
+            $this->db->insert($this->tables->user_details, $data)->execute();
+            $idDetails = $this->db->getLastInsertId();
+            echo $idDetails;
+            $data = [
+                'remind_string' => ''
+            ];
+            $this->db->insert($this->tables->user_remind, $data)->execute();
+            $idRemind = $this->db->getLastInsertId();
+            echo $idRemind;
+            $data = [
+                'nick' => $this->nick,
+                'email' => $this->email,
+                'password' => Password::hash($this->password),
+                'user_remind_id' => $idRemind,
+                'user_details_id' => $idDetails,
+                'status' => self::STATUS_ACTIVE,
+                'role_id' => Role::ROLE_USER,
+                'created_at' => Helper::now(),
+                'updated_at' => Helper::now(),
+            ];
+            $this->db->insert($this->tables->user, $data)->execute();
+            echo $this->db->commit();
+        } catch (\Exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+        return true;
     }
 }
