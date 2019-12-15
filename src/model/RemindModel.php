@@ -13,10 +13,10 @@ class RemindModel extends CommonModel
 
     public function remindPassword()
     {
-        $this->data['passwordReminded'] = false;
+        $this->data[self::ACTION_REMINDED] = false;
         if ($this->verifyEmailData()) {
             if ($this->processRemindPassword()) {
-                $this->data['passwordReminded'] = true;
+                $this->data[self::ACTION_REMINDED] = true;
             }
         }
         return $this;

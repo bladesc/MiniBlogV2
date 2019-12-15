@@ -7,6 +7,7 @@ namespace src\controller;
 use admin\src\model\EntryModel;
 use src\core\general\Communicate;
 use src\core\redirect\Redirect;
+use src\model\CommonModel;
 use src\model\RegisterModel;
 use src\view\View;
 
@@ -22,7 +23,7 @@ class RegisterController extends CommonController
     {
         $model = (new RegisterModel($this->request));
         $data = $model->addUser()->getData();
-        if ($data['userInserted']) {
+        if ($data[CommonModel::ACTION_INSERTED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?page=register');
         }

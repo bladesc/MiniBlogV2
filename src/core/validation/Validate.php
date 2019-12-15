@@ -45,8 +45,16 @@ class Validate
 
     public function checkIfEmpty()
     {
-        if (!empty($this->value) && $this->value != 0) {
+        if (empty($this->value)) {
             $this->errors[] = $this->description . ' - empty';
+        }
+        return $this;
+    }
+
+    public function checkIfNumeric()
+    {
+        if (!is_numeric(($this->value))) {
+            $this->errors[] = $this->description . ' - not numeric';
         }
         return $this;
     }

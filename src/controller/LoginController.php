@@ -6,6 +6,7 @@ namespace src\controller;
 
 use src\core\general\Communicate;
 use src\core\redirect\Redirect;
+use src\model\CommonModel;
 use src\model\LoginModel;
 use src\view\View;
 
@@ -21,7 +22,7 @@ class LoginController extends CommonController
     {
         $model = (new LoginModel($this->request));
         $data = $model->loginUser()->getData();
-        if ($data['userLogged']) {
+        if ($data[CommonModel::ACTION_LOGGED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Zalogowano pomyslnie');
             Redirect::redirectTo('index.php?page=index');
         }

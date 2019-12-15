@@ -15,6 +15,19 @@ class CommonModel extends BaseModel
 
     public const USER_LOG_SES_NAME = 'userLoginSes';
 
+    public const ACTION_INSERTED = 'inserted';
+    public const ACTION_NOT_INSERTED = 'notinserted';
+    public const ACTION_UPDATED = 'updated';
+    public const ACTION_NOT_UPDATED= 'notupdated';
+    public const ACTION_DELETED = 'deleted';
+    public const ACTION_NOT_DELETED = 'notdeleted';
+    public const ACTION_LOGGED = 'logged';
+    public const ACTION_NOT_LOGGED = 'notlogged';
+    public const ACTION_REMINDED = 'reminded';
+    public const ACTION_NOT_REMINDED = 'notreminded';
+    public const ACTION_LOGOUT = 'logout';
+    public const ACTION_NOT_LOGOUT = 'notlogout';
+
     public function getMenuData()
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();

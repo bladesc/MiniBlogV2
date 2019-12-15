@@ -55,16 +55,16 @@ class RegisterModel extends CommonModel
 
     public function addUser()
     {
-        $this->data['userInserted'] = false;
+        $this->data[self::ACTION_INSERTED] = false;
         if ($this->verifyInsertData()) {
-            if ($this->addUserToDb()) {
-                $this->data['userInserted'] = true;
+            if ($this->insert()) {
+                $this->data[self::ACTION_INSERTED] = true;
             }
         }
         return $this;
     }
 
-    public function addUserToDb()
+    public function insert()
     {
         try {
             $this->db->beginTransactions(); echo 1;

@@ -7,6 +7,7 @@ namespace src\controller;
 use src\core\general\Communicate;
 use src\core\redirect\Redirect;
 use src\model\ChangeModel;
+use src\model\CommonModel;
 use src\model\RemindModel;
 use src\view\View;
 
@@ -22,7 +23,7 @@ class RemindController extends CommonController
     {
         $model = (new RemindModel($this->request));
         $data = $model->remindPassword()->getData();
-        if ($data['passwordReminded']) {
+        if ($data[CommonModel::ACTION_REMINDED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Wyslano link na email');
             Redirect::redirectTo('index.php?page=index');
         }

@@ -10,9 +10,9 @@ class IndexModel extends CommonModel
 
     public function logout()
     {
-        $this->data['userLogout'] = false;
+        $this->data[CommonModel::ACTION_LOGOUT] = false;
         if ($this->session->remove(self::USER_LOG_SES_NAME)) {
-            $this->data['userLogout'] = true;
+            $this->data[CommonModel::ACTION_LOGOUT] = true;
         }
         return $this;
 

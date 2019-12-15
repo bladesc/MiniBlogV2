@@ -46,10 +46,10 @@ class LoginModel extends CommonModel
 
     public function loginUser()
     {
-        $this->data['userLogged'] = false;
+        $this->data[self::ACTION_LOGGED] = false;
         if ($this->verifyLoginData()) {
             if ($this->processLoginUser()) {
-                $this->data['userLogged'] = true;
+                $this->data[self::ACTION_LOGGED] = true;
             }
         }
         return $this;

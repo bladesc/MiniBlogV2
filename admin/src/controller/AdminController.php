@@ -12,7 +12,7 @@ class AdminController extends CommonController
     public function admin()
     {
         $model = (new CommonModel($this->request));
-        $data = $model->addCategory()->getData();
+        $data = $model->getData();
         (new View($this->request))->admin()->template('default')->file('index')->render();
     }
 
