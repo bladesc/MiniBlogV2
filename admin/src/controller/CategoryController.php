@@ -28,8 +28,8 @@ class CategoryController extends CommonController
     public function create()
     {
         $model = (new CategoryModel($this->request));
-        $data = $model->addCategory()->getData();
-        if ($data['catInserted']) {
+        $data = $model->insertItem()->getData();
+        if ($data[CommonModel::ACTION_INSERTED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=category');
         }
@@ -45,8 +45,8 @@ class CategoryController extends CommonController
     public function delete()
     {
         $model = (new CategoryModel($this->request));
-        $data = $model->getCategory()->deleteCategory()->getData();
-        if ($data['catDeleted']) {
+        $data = $model->getCategory()->deleteItem()->getData();
+        if ($data[CommonModel::ACTION_DELETED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=category');
         }
@@ -62,8 +62,8 @@ class CategoryController extends CommonController
     public function update()
     {
         $model = (new CategoryModel($this->request));
-        $data = $model->getCategory()->updateCategory()->getData();
-        if ($data['catUpdated']) {
+        $data = $model->getCategory()->updateItem()->getData();
+        if ($data[CommonModel::ACTION_UPDATED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=category');
         }

@@ -31,7 +31,7 @@ class RemindModel extends CommonModel
             ->validateEmail()
             ->get();
         if (!empty($errors)) {
-            $this->data['errors'] = $errors;
+            $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
         return true;

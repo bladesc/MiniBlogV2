@@ -28,7 +28,7 @@ class PageController extends CommonController
     public function create()
     {
         $model = (new PageModel($this->request));
-        $data = $model->addItem()->getData();
+        $data = $model->insertItem()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=page');

@@ -28,6 +28,8 @@ class CommonModel extends BaseModel
     public const ACTION_LOGOUT = 'logout';
     public const ACTION_NOT_LOGOUT = 'notlogout';
 
+    public const ERROR_LABEL = 'errors';
+
     public function getMenuData()
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();

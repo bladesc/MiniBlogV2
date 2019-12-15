@@ -4,11 +4,11 @@
     <form action="index.php?pageadmin=category&action=update&id=<?= $this->data['categories']['id'] ?>" method="post">
         <div>
             Wprowadz nowa nazwe kategorii
-            <input type="text" name="cNewName" value="<?= $this->data['categories']['name'] ?>">
-            <input type="hidden" name="cId" value="<?= $this->data['categories']['id'] ?>">
+            <input type="text" name="fName" value="<?= $this->data['categories']['name'] ?>">
+            <input type="hidden" name="fId" value="<?= $this->data['categories']['id'] ?>">
         </div>
         <div>
-            <select name="cStatus">
+            <select name="fStatus">
                 <option value="1" <?php if ($this->data['categories']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div>
-            <input type="submit" name="cUpdate" value="Zmien">
+            <input type="submit" name="fUpdate" value="Zmien">
         </div>
     </form>
 <?php

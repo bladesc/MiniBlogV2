@@ -3,20 +3,20 @@
     <form action="index.php?pageadmin=category&action=create" method="post">
         <div>
             Wprowadz nazwe kategorii
-            <input type="text" name="cName" value="<?= $this->request->post()->get('cName') ?>">
+            <input type="text" name="fName" value="<?= $this->request->post()->get('fName') ?>">
         </div>
         <div>
-            <select name="cStatus">
-                <option value="1" <?php if ($this->request->post()->get('cStatus') == 1): ?> selected <?php endif; ?>>
+            <select name="fStatus">
+                <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
-                <option value="2" <?php if ($this->request->post()->get('cStatus') == 2): ?> selected <?php endif; ?>>
+                <option value="2" <?php if ($this->request->post()->get('fStatus') == 2): ?> selected <?php endif; ?>>
                     Nieaktywny
                 </option>
             </select>
         </div>
         <div>
-            <input type="submit" name="cSubmin" value="Dodaj">
+            <input type="submit" name="fSubmit" value="Dodaj">
         </div>
     </form>
 <?php

@@ -24,7 +24,7 @@ class LoginModel extends CommonModel
             ->get();
         $this->userDbData = $this->checkIfUserExists();
         if (empty($this->userDbData)) {
-            $this->data['errors'][] = 'Uzytkownik nie istnieje';
+            $this->data[self::ERROR_LABEL][] = 'Uzytkownik nie istnieje';
             return false;
         }
         $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'Password')
@@ -34,11 +34,11 @@ class LoginModel extends CommonModel
             ->get();
         $errors = $this->validate->getErrors();
         if (!empty($errors)) {
-            $this->data['errors'] = $errors;
+            $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
         if (!Password::verify($this->password, $this->userDbData[0]['password'])) {
-            $this->data['errors'] = 'Haslo lub email jest nieprawidlowy';
+            $this->data[self::ERROR_LABEL] = 'Haslo lub email jest nieprawidlowy';
             return false;
         }
         return true;

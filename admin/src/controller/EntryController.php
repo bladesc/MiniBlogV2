@@ -9,6 +9,7 @@ use admin\src\model\EntryModel;
 use src\controller\CommonController;
 use src\core\general\Communicate;
 use src\core\redirect\Redirect;
+use src\model\CommonModel;
 use src\view\View;
 
 class EntryController extends CommonController
@@ -28,8 +29,8 @@ class EntryController extends CommonController
     public function create()
     {
         $model = (new EntryModel($this->request));
-        $data = $model->addEntry()->getCategories()->getData();
-        if ($data['entryInserted']) {
+        $data = $model->insertItem()->getCategories()->getData();
+        if ($data[CommonModel::ACTION_INSERTED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=entry');
         }
@@ -45,8 +46,8 @@ class EntryController extends CommonController
     public function update()
     {
         $model = (new EntryModel($this->request));
-        $data = $model->getEntry()->updateEntry()->getData();
-        if ($data['entryUpdated']) {
+        $data = $model->getEntry()->updateItem()->getData();
+        if ($data[CommonModel::ACTION_UPDATED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=entry');
         }
@@ -62,8 +63,8 @@ class EntryController extends CommonController
     public function delete()
     {
         $model = (new EntryModel($this->request));
-        $data = $model->getEntry()->deleteEntry()->getData();
-        if ($data['entryDeleted']) {
+        $data = $model->getEntry()->deleteItem()->getData();
+        if ($data[CommonModel::ACTION_DELETED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=entry');
         }

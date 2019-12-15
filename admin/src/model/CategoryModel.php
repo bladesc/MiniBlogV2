@@ -11,42 +11,23 @@ use src\model\CommonModel;
 class CategoryModel extends CommonModel
 {
     protected $data = [];
+    protected $name;
+    protected $status;
 
     public function verifyInsertData(): bool
     {
-        $cName = $this->request->post()->get('cName');
-        $cStatus = $this->request->post()->get('cStatus');
-        if (!empty($cName) && (!empty($cStatus) || $cStatus == 0)) {
-            if (!$this->validator->validateText($cName, 4, 12)) {
-                $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 12, niedozwolone znaki';
-                return false;
-            }
-            if(!is_numeric($cStatus)) {
-                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
-                return false;
-            }
-        } else {
-            $this->data['errors'][] = 'Nie wypelniles wszystkich pol';
-            return false;
-        }
-        return true;
-    }
-
-    public function verifyUpdateData(): bool
-    {
-        $cNewName = $this->request->post()->get('cNewName');
-        $cStatus = $this->request->post()->get('cStatus');
-        if (!empty($cNewName)  && (!empty($cStatus) || $cStatus == 0)) {
-            if (!$this->validator->validateText($cNewName, 4, 12)) {
-                $this->data['errors'][] = 'Zla nazwa, minum 4 znaki, maks 12, niedozwolone znaki';
-                return false;
-            }
-            if(!is_numeric($cStatus)) {
-                $this->data['errors'][] = 'Zla nazwa, wartosc numr';
-                return false;
-            }
-        } else {
-            $this->data['errors'][] = 'Nie wypelniles wszystkich pol';
+        $this->name = $this->validate->set($this->request->post()->get('fName'), 'Name')
+            ->filterValue()
+            ->checkIfEmpty()
+            ->validateText(2, 20)
+            ->get();
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+            ->filterValue()
+            ->checkIfNumeric()
+            ->get();
+        $errors = $this->validate->getErrors();
+        if (!empty($errors)) {
+            $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
         return true;
@@ -54,74 +35,70 @@ class CategoryModel extends CommonModel
 
     public function checkIfNoExist(): bool
     {
-        $cName = $this->validator->filterValue($this->request->post()->get('cName'));
+        $cName = $this->validator->filterValue($this->request->post()->get('fName'));
         $category = $this->db->select("*")->from($this->tables->category)->where('name', '=', $cName)->getAll();
         if (empty($category)) {
             return true;
         }
-        $this->data['errors'][] = 'Kategoria istnieje';
+        $this->data[self::ERROR_LABEL][] = 'Kategoria istnieje';
         return false;
     }
 
-    public function addCategory()
+    public function insertItem()
     {
-        $this->data['catInserted'] = false;
+        $this->data[self::ACTION_INSERTED] = false;
         if ($this->verifyInsertData()) {
             if ($this->checkIfNoExist()) {
-                if ($this->addCategoryToDb()) {
-                    $this->data['catInserted'] = true;
+                if ($this->insert()) {
+                    $this->data[self::ACTION_INSERTED] = true;
                 }
             }
         }
         return $this;
     }
 
-    public function updateCategory()
+    public function updateItem()
     {
-        $this->data['catUpdated'] = false;
-        if ($this->verifyUpdateData()) {
-            if ($this->updateCategoryToDb()) {
-                $this->data['catUpdated'] = true;
+        $this->data[self::ACTION_UPDATED] = false;
+        if ($this->verifyInsertData()) {
+            if ($this->update()) {
+                $this->data[self::ACTION_UPDATED] = true;
             }
         }
         return $this;
     }
 
-    public function deleteCategory()
+    public function deleteItem()
     {
-        $this->data['catDeleted'] = false;
-        if ($this->deleteCategoryToDb()) {
-            $this->data['catDeleted'] = true;
+        $this->data[self::ACTION_DELETED] = false;
+        if ($this->delete()) {
+            $this->data[self::ACTION_DELETED] = true;
         }
         return $this;
     }
 
-    protected function deleteCategoryToDb(): bool
+    protected function delete(): bool
     {
-        $id = $this->validator->filterValue($this->request->post()->get('cId'));
+        $id = $this->validator->filterValue($this->request->post()->get('fId'));
         return $this->db->delete()->from($this->tables->category)->where('id', '=', $id)->execute();
     }
 
 
-    protected function updateCategoryToDb(): bool
+    protected function update(): bool
     {
-        $cNewName = $this->validator->filterValue($this->request->post()->get('cNewName'));
-        $cStatus = (int) $this->validator->filterValue($this->request->post()->get('cStatus'));
-        $id = $this->validator->filterValue($this->request->post()->get('cId'));
+        $id = $this->validator->filterValue($this->request->post()->get('fId'));
         $data = [
-            'name' => $cNewName,
-            'status' => $cStatus
+            'name' => $this->name,
+            'status' => $this->status
         ];
         return $this->db->update($this->tables->category, $data)->where('id', '=', $id)->execute();
     }
 
-    protected function addCategoryToDb(): bool
+    protected function insert(): bool
     {
-        $cName = $this->validator->filterValue($this->request->post()->get('cName'));
-        $cStatus = (int) $this->validator->filterValue($this->request->post()->get('cStatus'));
         $data = [
-            'name' => $cName,
-            'status' => $cStatus
+            'name' => $this->name,
+            'status' => $this->status
         ];
         return $this->db->insert($this->tables->category, $data)->execute();
     }

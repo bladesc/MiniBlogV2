@@ -3,10 +3,10 @@
     <form action="index.php?pageadmin=category&action=delete&id=<?= $this->data['categories']['id'] ?>" method="post">
         <div>
             Czy na pewno chesz usunac kategorie: <?= $this->data['categories']['name'] ?>
-            <input type="hidden" name="cId" value="<?= $this->data['categories']['id'] ?>">
+            <input type="hidden" name="fId" value="<?= $this->data['categories']['id'] ?>">
         </div>
         <div>
-            <input type="submit" name="cDelete" value="Usun">
+            <input type="submit" name="fDelete" value="Usun">
         </div>
     </form>
 <?php

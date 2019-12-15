@@ -43,11 +43,11 @@ class RegisterModel extends CommonModel
             ->get();
         $errors = $this->validate->getErrors();
         if (!empty($errors)) {
-            $this->data['errors'] = $errors;
+            $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
         if (!empty($this->checkIfUserExists())) {
-            $this->data['errors'][] = 'Uzytkownik z taki madresem email juz istnieje';
+            $this->data[self::ERROR_LABEL][] = 'Uzytkownik z taki madresem email juz istnieje';
             return false;
         }
         return true;

@@ -3,31 +3,31 @@
     <form action="index.php?pageadmin=entry&action=update&id=<?= $this->data['entries']['id'] ?>" method="post">
         <div>
             Wprowadz nowa nazwe kategorii
-            <input type="text" name="cTitle" value="<?= $this->data['entries']['title'] ?>">
-            <input type="text" name="cContent" value="<?= $this->data['entries']['content'] ?>">
-            <input type="hidden" name="cId" value="<?= $this->data['entries']['id'] ?>">
-            <input type="text" name="cAuthor" value="1" hidden required>
-            <select name="cCategory">
+            <input type="text" name="fTitle" value="<?= $this->data['entries']['title'] ?>">
+            <input type="text" name="fContent" value="<?= $this->data['entries']['content'] ?>">
+            <input type="hidden" name="fId" value="<?= $this->data['entries']['id'] ?>">
+            <input type="text" name="fAuthor" value="1" hidden required>
+            <select name="fCategory">
                 <?php foreach ($this->data['categories'] as $category): ?>
                     <option value="<?= $category['id'] ?>"
-                        <?php if ($this->request->post()->get('cCategory') == $category['id']): ?>
+                        <?php if ($this->data['entries']['category_id'] == $category['id']): ?>
                             selected
                         <?php endif; ?>
                     ><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             </select>
             Status
-            <select name="cStatus">
-                <option value="1" <?php if ($this->request->post()->get('cStatus') == 1): ?> selected <?php endif; ?>>
+            <select name="fStatus">
+                <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
-                <option value="2" <?php if ($this->request->post()->get('cStatus') == 2): ?> selected <?php endif; ?>>
+                <option value="2" <?php if ($this->request->post()->get('fStatus') == 2): ?> selected <?php endif; ?>>
                     Nieaktywny
                 </option>
             </select>
         </div>
         <div>
-            <input type="submit" name="cUpdate" value="Zmien">
+            <input type="submit" name="fSubmit" value="Zmien">
         </div>
     </form>
 <?php

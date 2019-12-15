@@ -55,13 +55,13 @@ class PageModel extends CommonModel
 
         $errors = $this->validate->getErrors();
         if (!empty($errors)) {
-            $this->data['errors'] = $errors;
+            $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
         return true;
     }
 
-    public function addItem()
+    public function insertItem()
     {
         $this->data[self::ACTION_INSERTED] = false;
         if ($this->verifyAddItemData()) {
