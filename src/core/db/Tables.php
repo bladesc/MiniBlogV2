@@ -22,7 +22,7 @@ class Tables
         'privilege',
         'page',
         'page_seo',
-        'login',
+        'log',
         'image',
         'gallery',
         'comment'

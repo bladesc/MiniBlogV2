@@ -56,7 +56,7 @@ class PageController extends CommonController
     public function prepareDelete()
     {
         $model = (new PageModel($this->request));
-        $data = $model->updateItem()->getPage()->getData();
+        $data = $model->getPage()->getData();
         (new View($this->request))->admin()->data($data)->template('default')->file('pagedelete')->render();
     }
 
