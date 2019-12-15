@@ -24,7 +24,8 @@ class Tables
         'page_seo',
         'login',
         'image',
-        'gallery'
+        'gallery',
+        'comment'
     ];
 
     public function __construct()
