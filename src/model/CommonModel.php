@@ -12,6 +12,7 @@ class CommonModel extends BaseModel
     public const STATUS_ACTIVE = 1;
     public const STATUS_INACTIVE = 2;
     public const TYPE_ENTRY = 1;
+    public const TYPE_GALLERY = 2;
 
     public const USER_LOG_SES_NAME = 'userLoginSes';
 

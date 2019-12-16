@@ -18,10 +18,10 @@
             </select>
             Status
             <select name="fStatus">
-                <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
+                <option value="1" <?php if ($this->data['entries']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
-                <option value="2" <?php if ($this->request->post()->get('fStatus') == 2): ?> selected <?php endif; ?>>
+                <option value="2" <?php if ($this->data['entries']['status'] == 2): ?> selected <?php endif; ?>>
                     Nieaktywny
                 </option>
             </select>

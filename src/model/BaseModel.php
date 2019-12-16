@@ -7,6 +7,7 @@ use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\general\Remind;
 use src\core\request\Request;
+use src\core\validation\FileValidate;
 use src\core\validation\Validate;
 use src\core\validation\Validator;
 use src\session\Session;
@@ -25,6 +26,7 @@ class BaseModel
     protected $session;
     protected $validate;
     protected $emailer;
+    protected $fileValidate;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -33,6 +35,7 @@ class BaseModel
         $this->tables = (new Tables())->getTables();
         $this->validator = new Validator();
         $this->validate = new Validate();
+        $this->fileValidate = new FileValidate($this->validate);
         if ($installationStatus) {
             $this->db = new QueryHelper();
         }

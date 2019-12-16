@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title></title>
-    <link rel="stylesheet" href="/miniblog/admin/src/template/default/assets/css/style.css" />
+    <link rel="stylesheet" href="/admin/src/template/default/assets/css/style.css" />
 </head>
 <body>
 
