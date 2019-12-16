@@ -1,5 +1,7 @@
 <?php include 'pageup.php' ?>
 
+<a href="index.php?pageadmin=account&action=prepareCreate">Add new</a>
+list of accounts
 <?php if (isset($this->data['accounts'])) : ?>
     <?php foreach ($this->data['accounts'] as $account): ?>
         <div><?= $account['nick'] ?></div>h

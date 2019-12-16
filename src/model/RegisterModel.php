@@ -66,35 +66,32 @@ class RegisterModel extends CommonModel
 
     public function insert()
     {
+        $this->db->beginTransactions();
         try {
-            $this->db->beginTransactions(); echo 1;
-            $data = [
-                'firstname' => '',
-                'surname' => '',
-                'birthday' => '',
-            ];
-            $this->db->insert($this->tables->user_details, $data)->execute();
-            $idDetails = $this->db->getLastInsertId();
-            echo $idDetails;
-            $data = [
-                'remind_string' => ''
-            ];
-            $this->db->insert($this->tables->user_remind, $data)->execute();
-            $idRemind = $this->db->getLastInsertId();
-            echo $idRemind;
             $data = [
                 'nick' => $this->nick,
                 'email' => $this->email,
                 'password' => Password::hash($this->password),
-                'user_remind_id' => $idRemind,
-                'user_details_id' => $idDetails,
                 'status' => self::STATUS_ACTIVE,
                 'role_id' => Role::ROLE_USER,
                 'created_at' => Helper::now(),
                 'updated_at' => Helper::now(),
             ];
             $this->db->insert($this->tables->user, $data)->execute();
-            echo $this->db->commit();
+            $userId = $this->db->getLastInsertId();
+            $data = [
+                'firstname' => '',
+                'surname' => '',
+                'birthday' => '',
+                'user_id' => $userId
+            ];
+            $this->db->insert($this->tables->user_details, $data)->execute();
+            $data = [
+                'remind_string' => '',
+                'user_id' => $userId
+            ];
+            $this->db->insert($this->tables->user_remind, $data)->execute();
+            $this->db->commit();
         } catch (\Exception $e) {
             $this->db->rollback();
             return false;
