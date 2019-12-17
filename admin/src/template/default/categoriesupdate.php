@@ -5,7 +5,6 @@
         <div>
             Wprowadz nowa nazwe kategorii
             <input type="text" name="fName" value="<?= $this->data['categories']['name'] ?>">
-            <input type="hidden" name="fId" value="<?= $this->data['categories']['id'] ?>">
         </div>
         <div>
             <select name="fStatus">
@@ -18,6 +17,7 @@
             </select>
         </div>
         <div>
+            <input type="hidden" name="fId" value="<?= $this->data['categories']['id'] ?>">
             <input type="submit" name="fUpdate" value="Zmien">
         </div>
     </form>

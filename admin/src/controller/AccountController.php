@@ -40,7 +40,7 @@ class AccountController extends CommonController
 
     public function prepareDelete()
     {
-        $data = (new AccountModel($this->request))->getCategory()->getData();
+        $data = (new AccountModel($this->request))->getData();
         (new View($this->request))->admin()->data($data)->template('default')->file('accountdelete')->render();
     }
 
@@ -57,14 +57,14 @@ class AccountController extends CommonController
 
     public function prepareUpdate()
     {
-        $data = (new AccountModel($this->request))->getAccount()->getData();
+        $data = (new AccountModel($this->request))->getAccount()->getRoles()->getData();
         (new View($this->request))->admin()->data($data)->template('default')->file('accountupdate')->render();
     }
 
     public function update()
     {
         $model = (new AccountModel($this->request));
-        $data = $model->getCategory()->updateItem()->getData();
+        $data = $model->updateItem()->getAccount()->getRoles()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=account');
