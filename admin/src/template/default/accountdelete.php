@@ -1,9 +1,9 @@
 <?php include 'pageup.php' ?>
 
-    <form action="index.php?pageadmin=account&action=delete&id=<?= $this->data['account']['id'] ?>" method="post">
+    <form action="index.php?pageadmin=account&action=delete&id=<?= $this->data['accounts']['user_id'] ?>" method="post">
         <div>
-            Czy na pewno chesz usunac uzytkownika: <?= $this->data['account']['email'] ?>
-            <input type="hidden" name="fId" value="<?= $this->data['account']['id'] ?>">
+            Czy na pewno chesz usunac uzytkownika: <?= $this->data['accounts']['user_email'] ?>
+            <input type="hidden" name="fId" value="<?= $this->data['accounts']['user_id'] ?>">
         </div>
         <div>
             <input type="submit" name="fDelete" value="Usun">

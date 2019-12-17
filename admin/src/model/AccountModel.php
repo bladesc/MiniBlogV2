@@ -21,6 +21,19 @@ class AccountModel extends CommonModel
     protected $firstName;
     protected $surName;
     protected $birthday;
+    protected $userId;
+    protected $dbEmail = null;
+
+    public const ACTION_TYPE_INSERT = 1;
+    public const ACTION_TYPE_UPDATE = 2;
+
+    protected $actionType = self::ACTION_TYPE_INSERT;
+
+    public function setActionType(int $actionType)
+    {
+        $this->actionType = $actionType;
+        return $this;
+    }
 
     public function getAccounts()
     {
@@ -99,14 +112,24 @@ class AccountModel extends CommonModel
             ->filterValue()
             ->get();
 
+        if ($this->actionType === self::ACTION_TYPE_UPDATE) {
+            $this->userId = $this->validator->filterValue($this->request->post()->get('fId'));
+            $data = $this->db->select(['email'])->from($this->tables->user)->where('id', '=', $this->userId)->getOne();
+            if (isset($data['email'])) {
+                $this->dbEmail = $data['email'];
+            }
+        }
+
         $errors = $this->validate->getErrors();
         if (!empty($errors)) {
             $this->data[self::ERROR_LABEL] = $errors;
             return false;
         }
-        if (!empty($this->checkIfUserExists())) {
-            $this->data[self::ERROR_LABEL][] = 'Uzytkownik z taki madresem email juz istnieje';
-            return false;
+        if ($this->dbEmail !== $this->email) {
+            if (!empty($this->checkIfUserExists())) {
+                $this->data[self::ERROR_LABEL][] = 'Uzytkownik z takim adresem email juz istnieje';
+                return false;
+            }
         }
         return true;
     }
@@ -146,14 +169,12 @@ class AccountModel extends CommonModel
     protected function delete(): bool
     {
         $id = $this->validator->filterValue($this->request->post()->get('fId'));
-
-        return $this->db->delete()->from($this->tables->category)->where('id', '=', $id)->execute();
+        return $this->db->delete()->from($this->tables->user)->where('id', '=', $id)->execute();
     }
 
 
     protected function update(): bool
     {
-        $id = $this->validator->filterValue($this->request->post()->get('fId'));
         $this->db->beginTransactions();
         try {
             $data = [
@@ -164,13 +185,13 @@ class AccountModel extends CommonModel
                 'role_id' => $this->role,
                 'updated_at' => Helper::now(),
             ];
-            $this->db->update($this->tables->user, $data)->where('id', '=', $id)->execute();
+            $this->db->update($this->tables->user, $data)->where('id', '=', $this->userId)->execute();
             $data = [
                 'firstname' => $this->firstName,
                 'surname' => $this->surName,
                 'birthday' => $this->birthday,
             ];
-            $this->db->update($this->tables->user_details, $data)->where('user_id', '=', $id)->execute();
+            $this->db->update($this->tables->user_details, $data)->where('user_id', '=', $this->userId)->execute();
             $this->db->commit();
         } catch (\Exception $e) {
             $this->db->rollback();

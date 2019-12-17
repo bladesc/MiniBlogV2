@@ -40,14 +40,14 @@ class AccountController extends CommonController
 
     public function prepareDelete()
     {
-        $data = (new AccountModel($this->request))->getData();
+        $data = (new AccountModel($this->request))->getAccount()->getData();
         (new View($this->request))->admin()->data($data)->template('default')->file('accountdelete')->render();
     }
 
     public function delete()
     {
         $model = (new AccountModel($this->request));
-        $data = $model->getCategory()->deleteItem()->getData();
+        $data = $model->getAccount()->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=account');
@@ -64,7 +64,7 @@ class AccountController extends CommonController
     public function update()
     {
         $model = (new AccountModel($this->request));
-        $data = $model->updateItem()->getAccount()->getRoles()->getData();
+        $data = $model->setActionType(AccountModel::ACTION_TYPE_UPDATE)->updateItem()->getAccount()->getRoles()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
             Redirect::redirectTo('index.php?pageadmin=account');
