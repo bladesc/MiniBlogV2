@@ -27,7 +27,7 @@ class GalleryModel extends CommonModel
             ->checkIfNumeric()
             ->get();
         $this->files = $this->fileValidate->setFiles($this->request->files()->get('fFiles'))
-            ->setMaxFileSize(9000)
+            ->setMaxFileSize($this->configContainer['file']['maxFileSize'])
             ->setExtensions()
             ->verifyFiles()
             ->get();
@@ -132,7 +132,6 @@ class GalleryModel extends CommonModel
             return true;
         } catch (\Exception $e) {
             $this->db->rollback();
-            echo $e->getMessage(); die;
             return false;
         }
     }

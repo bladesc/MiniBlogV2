@@ -1,6 +1,6 @@
 <?php include 'pageup.php' ?>
 
-    <form action="index.php?pageadmin=entry&action=create" method="post">
+    <form action="index.php?pageadmin=entry&action=create" method="post" enctype="multipart/form-data">
         <div>
             Wprowadz nazwe wpisu
             <input type="text" name="fTitle" value="<?= $this->request->post()->get('fTitle') ?>">
@@ -25,6 +25,8 @@
                     Nieaktywny
                 </option>
             </select>
+            Miniatura:
+            <input type="file" name="fFiles">
         </div>
         <div>
             <input type="submit" name="fSubmit" value="Dodaj">

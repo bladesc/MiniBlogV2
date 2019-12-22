@@ -33,6 +33,14 @@ class FileValidate
         return $this;
     }
 
+    public function setFile($file)
+    {
+        foreach ($file as $key => $value) {
+            $this->files[$key][] = $value;
+        }
+        return $this;
+    }
+
     public function setExtensions(array $extensions = [self::FORMAT_GIF, self::FORMAT_JPEG, self::FORMAT_JPG, self::FORMAT_PNG])
     {
         $this->extensions = $extensions;

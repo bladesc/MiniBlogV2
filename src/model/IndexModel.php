@@ -15,6 +15,19 @@ class IndexModel extends CommonModel
             $this->data[CommonModel::ACTION_LOGOUT] = true;
         }
         return $this;
+    }
 
+    public function getEntries()
+    {
+        $this->data['Entries'] = $this->db->select([]);
+
+    }
+
+    public function getPages()
+    {
+        $this->data['pages'] = $this->db->select(['name', 'url'])
+            ->from($this->tables->page)
+            ->where('status', '=', self::STATUS_ACTIVE)
+            ->getAll();
     }
 }

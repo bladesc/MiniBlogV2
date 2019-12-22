@@ -1,6 +1,6 @@
 <?php include 'pageup.php' ?>
 
-    <form action="index.php?pageadmin=entry&action=update&id=<?= $this->data['entries']['id'] ?>" method="post">
+    <form action="index.php?pageadmin=entry&action=update&id=<?= $this->data['entries']['id'] ?>" method="post" enctype="multipart/form-data">
         <div>
             Wprowadz nowa nazwe kategorii
             <input type="text" name="fTitle" value="<?= $this->data['entries']['title'] ?>">
@@ -25,6 +25,8 @@
                     Nieaktywny
                 </option>
             </select>
+            Miniatura:
+            <input type="file" name="fFiles">
         </div>
         <div>
             <input type="submit" name="fSubmit" value="Zmien">

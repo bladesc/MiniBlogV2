@@ -15,7 +15,9 @@ class EntryModel extends CommonModel
     protected $author;
     protected $category;
     protected $status;
+    protected $files;
     protected $userId;
+    public const ENTRY_GALLERY_NAME = 'Entry';
 
     public function verifyInsertData(): bool
     {
@@ -44,7 +46,12 @@ class EntryModel extends CommonModel
             ->checkIfEmpty()
             ->checkIfNumeric()
             ->get();
-        $errors = $this->validate->getErrors();
+        $this->files = $this->fileValidate->setFile($this->request->files()->get('fFiles'))
+            ->setMaxFileSize($this->configContainer['file']['maxFileSize'])
+            ->setExtensions()
+            ->verifyFiles()
+            ->get();
+        $errors = array_merge($this->validate->getErrors(), $this->fileValidate->getErrors());
         if (!empty($errors)) {
             $this->data[self::ERROR_LABEL] = $errors;
             return false;
@@ -105,9 +112,11 @@ class EntryModel extends CommonModel
 
     protected function insert(): bool
     {
+        $path = '..' . $this->configContainer['blog']['galleryPath'];
         try {
             $this->db->beginTransactions();
             $data = [
+                'name' => self::ENTRY_GALLERY_NAME,
                 'status' => self::STATUS_ACTIVE,
                 'type' => self::TYPE_ENTRY,
                 'created_at' => Helper::now(),
@@ -132,6 +141,24 @@ class EntryModel extends CommonModel
                 'updated_at' => Helper::now(),
             ];
             $this->db->insert($this->tables->entry, $data)->execute();
+            foreach ($this->files as $file) {
+                $data = [
+                    'file_name' => $file['name'],
+                    'file_size' => $file['size'],
+                    'file_type' => $file['fullType'],
+                    'status' => self::STATUS_ACTIVE,
+                    'ext' => $file['ext'],
+                    'gallery_id' => $idGallery,
+                    'created_at' => Helper::now(),
+                    'updated_at' => Helper::now()
+                ];
+                $this->db->insert($this->tables->image, $data)->execute();
+                $imageId = $this->db->getLastInsertId();
+                $destination = $path . $imageId . '.' . $file['ext'];
+                if (!move_uploaded_file($file['tmpName'], $destination)) {
+                    throw new \Exception('Cant move file');
+                };
+            }
             $this->db->commit();
         } catch (\Exception $e) {
             echo $e->getMessage();
@@ -146,15 +173,15 @@ class EntryModel extends CommonModel
     {
         $id = $this->validator->filterValue($this->request->query()->get('id'));
         $this->data['entries'] = $this->db->select([
-                $this->tables->entry . '.id',
-                $this->tables->entry . '.created_at',
-                'title',
-                'content',
-                $this->tables->entry . '.status',
-                'name',
-                'nick',
+            $this->tables->entry . '.id',
+            $this->tables->entry . '.created_at',
+            'title',
+            'content',
+            $this->tables->entry . '.status',
+            'name',
+            'nick',
             $this->tables->entry . '.category_id'
-            ])->from($this->tables->entry)
+        ])->from($this->tables->entry)
             ->leftJoin($this->tables->entry, 'category_id', $this->tables->category, 'id')
             ->leftJoin($this->tables->entry, 'user_id', $this->tables->user, 'id')
             ->where($this->tables->entry . '.id', '=', $id)
@@ -165,15 +192,57 @@ class EntryModel extends CommonModel
     protected function update(): bool
     {
         $id = $this->validator->filterValue($this->request->query()->get('id'));
-        $data = [
-            'title' => $this->title,
-            'content' => $this->content,
-            'status' => $this->status,
-            'category_id' => $this->category,
-            'created_at' => Helper::now(),
-            'updated_at' => Helper::now(),
-        ];
-        return $this->db->update($this->tables->entry, $data)->where('id', '=', $id)->execute();
+        $path = '..' . $this->configContainer['blog']['galleryPath'];
+        $this->db->beginTransactions();
+        try {
+            //update entry data
+            $data = [
+                'title' => $this->title,
+                'content' => $this->content,
+                'status' => $this->status,
+                'category_id' => $this->category,
+                'created_at' => Helper::now(),
+                'updated_at' => Helper::now(),
+            ];
+            $this->db->update($this->tables->entry, $data)->where('id', '=', $id)->execute();
+
+            //delete files
+            $galleryId = ($this->db->select('gallery_id')->from($this->tables->entry)->where('id', '=', $id)->getOne())['gallery_id'];
+            $images = $this->db->select(['id', 'ext'])->from($this->tables->image)->where('gallery_id', '=', $galleryId)->getAll();
+            foreach ($images as $image) {
+                $destination = $path . $image['id'] . '.' . $image['ext'];
+                if (!unlink($destination)) {
+                    throw new \Exception('Cant delete file');
+                }
+            }
+            $this->db->delete()->from($this->tables->image)->where('gallery_id', '=', $id)->execute();
+
+            //upload new file
+            foreach ($this->files as $file) {
+                $data = [
+                    'file_name' => $file['name'],
+                    'file_size' => $file['size'],
+                    'file_type' => $file['fullType'],
+                    'status' => self::STATUS_ACTIVE,
+                    'ext' => $file['ext'],
+                    'gallery_id' => $galleryId,
+                    'created_at' => Helper::now(),
+                    'updated_at' => Helper::now()
+                ];
+                $this->db->insert($this->tables->image, $data)->execute();
+                $imageId = $this->db->getLastInsertId();
+                $destination = $path . $imageId . '.' . $file['ext'];
+                if (!move_uploaded_file($file['tmpName'], $destination)) {
+                    throw new \Exception('Cant move file');
+                };
+            }
+
+            $this->db->commit();
+        } catch (\Exception $e) {
+            $this->db->rollback();
+            return false;
+        }
+        return true;
     }
 
     public function deleteItem()
