@@ -4,8 +4,8 @@ namespace src\core\db;
 
 class QueryBuilder extends Query
 {
-    public const ORDER_ASC = 1;
-    public const ORDER_DESC = 2;
+    public const ORDER_ASC = 'ASC';
+    public const ORDER_DESC = 'DESC';
 
     protected $select = [];
     protected $insert = [];
@@ -20,7 +20,7 @@ class QueryBuilder extends Query
     protected $rightJoin = [];
     protected $innerJoin = [];
     protected $having = [];
-    protected $groupBy = [];
+    protected $groupBy = null;
 
     protected $query = '';
 
@@ -95,7 +95,7 @@ class QueryBuilder extends Query
         return $this;
     }
 
-    public function orderBy(string $field, int $type)
+    public function orderBy(string $field, string $type)
     {
         $this->orderBy[] = ["field" => $field, "type" => $type];
         return $this;
@@ -129,8 +129,9 @@ class QueryBuilder extends Query
         return $this;
     }
 
-    public function groupBy()
+    public function groupBy(string $fieldName)
     {
+        $this->groupBy = $fieldName;
         return $this;
     }
 
@@ -269,6 +270,14 @@ class QueryBuilder extends Query
                 }
             }
         }
+        $this->prepareGroupBy();
+    }
+
+    protected function prepareGroupBy()
+    {
+        if (!empty($this->groupBy)) {
+            $this->query .= " GROUP BY " . $this->groupBy;
+        }
         $this->prepareOrderBy();
     }
 
@@ -289,7 +298,7 @@ class QueryBuilder extends Query
     public function prepareLimit(): void
     {
         if (!empty($this->limit)) {
-            $this->query = " LIMIT " . $this->limit;
+            $this->query .= " LIMIT " . $this->limit;
         }
         $this->prepareOffset();
     }
@@ -297,7 +306,7 @@ class QueryBuilder extends Query
     public function prepareOffset(): void
     {
         if (!empty($this->offset)) {
-            $this->query = " OFFSET " . $this->offset;
+            $this->query .= " OFFSET " . $this->offset;
         }
     }
 

@@ -19,4 +19,9 @@ class Helper
     {
         return date("Y-m-d H:i:s");
     }
+
+    public static function cut(string $text, $charNumber)
+    {
+        return substr($text, 0, $charNumber) . '...';
+    }
 }

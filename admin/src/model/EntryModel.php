@@ -24,12 +24,12 @@ class EntryModel extends CommonModel
         $this->title = $this->validate->set($this->request->post()->get('fTitle'), 'Title')
             ->filterValue()
             ->checkIfEmpty()
-            ->validateText(2, 20)
+            ->validateText(2, 120)
             ->get();
         $this->content = $this->validate->set($this->request->post()->get('fContent'), 'Content')
             ->filterValue()
             ->checkIfEmpty()
-            ->validateText(2, 20)
+            ->validateText(2, 3000)
             ->get();
         $this->category = $this->validate->set($this->request->post()->get('fCategory'), 'Category')
             ->filterValue()

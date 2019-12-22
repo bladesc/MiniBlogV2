@@ -4,7 +4,9 @@
 namespace src\model;
 
 
+use src\core\db\QueryBuilder;
 use src\core\general\Communicate;
+use src\core\request\Request;
 use src\session\Session;
 
 class CommonModel extends BaseModel
@@ -19,7 +21,7 @@ class CommonModel extends BaseModel
     public const ACTION_INSERTED = 'inserted';
     public const ACTION_NOT_INSERTED = 'notinserted';
     public const ACTION_UPDATED = 'updated';
-    public const ACTION_NOT_UPDATED= 'notupdated';
+    public const ACTION_NOT_UPDATED = 'notupdated';
     public const ACTION_DELETED = 'deleted';
     public const ACTION_NOT_DELETED = 'notdeleted';
     public const ACTION_LOGGED = 'logged';
@@ -33,6 +35,32 @@ class CommonModel extends BaseModel
 
     public const DATA_LABEL_ENTRIES = 'entries';
     public const DATA_LABEL_PAGES = 'pages';
+    public const DATA_LABEL_LOGIN = 'login';
+    public const DATA_IMAGES_PATH = 'imagePath';
+    public const DATA_LABEL_LOGGED_IN = 'loggedIn';
+    public const DATA_LABEL_CATEGORIES = 'categories';
+    public const DATA_LABEL_PAGINATOR = 'paginator';
+
+    protected $offset = 0;
+    protected $limit = 0;
+
+    public function __construct(Request $request, bool $installationStatus = true)
+    {
+        parent::__construct($request, $installationStatus);
+        $this->preparePaginatorData();
+    }
+
+    public function preparePaginatorData()
+    {
+        $this->limit = $this->configContainer['entries']['amountPerPage'];
+        if($this->request->query()->has('pid')) {
+            $id = $this->request->query()->get('pid');
+            if (is_numeric($id)) {
+                $this->offset = (int) $this->request->query()->get('pid');
+            }
+            $this->offset = ((int) $this->request->query()->get('pid')) * $this->configContainer['entries']['amountPerPage'];
+        }
+    }
 
     public function getMenuData()
     {
@@ -61,12 +89,49 @@ class CommonModel extends BaseModel
     public function getData(): array
     {
         $this->getBaseData();
+        $this->getLoginData();
+        $this->getPages();
         return $this->data;
+    }
+
+    public function getLoginData()
+    {
+        if (!empty(($this->session->get(CommonModel::USER_LOG_SES_NAME))[0])) {
+            $this->data[self::DATA_LABEL_LOGGED_IN] = true;
+            $this->data[self::DATA_LABEL_LOGIN] = $this->session->get(CommonModel::USER_LOG_SES_NAME);
+        } else {
+            $this->data[self::DATA_LABEL_LOGGED_IN] = false;
+        }
     }
 
     protected function checkIfUserExists(): array
     {
         $user = $this->db->select('*')->from($this->tables->user)->where('email', '=', $this->email)->getAll();
         return $user;
+    }
+
+    public function getPages()
+    {
+        $this->data[self::DATA_LABEL_PAGES] = $this->db->select(['name', 'url'])
+            ->from($this->tables->page)
+            ->where('status', '=', self::STATUS_ACTIVE)
+            ->getAll();
+        return $this;
+    }
+
+    public function getCategories()
+    {
+        $this->data[self::DATA_LABEL_CATEGORIES] = $this->db->select([
+            $this->tables->category . '.id',
+            'name',
+            "COUNT('title') as entry_amount"])
+            ->from($this->tables->category)
+            ->leftJoin($this->tables->category, 'id', $this->tables->entry, 'category_id')
+            ->where($this->tables->category . '.status', '=', self::STATUS_ACTIVE)
+            ->groupBy('name')
+            ->orderBy('name', QueryBuilder::ORDER_ASC)
+            ->getAll();
+
+        return $this;
     }
 }

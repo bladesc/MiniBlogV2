@@ -1,16 +1,18 @@
 <div id="box-navigation">
     <div id="section-menu">
-        menu
+        <ul>
+            <li>
+                <a href="index.php">Strona Głowna</a>
+            </li>
+            <li>
+                <a href="index.php">Kategorie</a>
+            </li>
+
+            <?php foreach ($this->data['pages'] as $page): ?>
+            <li>
+                <a href="<?= $page['url'] ?>"><?= $page['name'] ?></a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
-    <div id="section-login">
-        <a href="index.php?page=login">Zaloguj</a>
-        <a href="index.php?page=register">Zarejestruj</a>
-    </div>
-    <div id="section-logout">
-        <a href="index.php?page=index&action=logout">Wyloguj</a>
-    </div>
-    <div id="section-change">
-        <a href="index.php?page=change">Zmien haslo</a>
-    </div>
-    <?php print_r($_SESSION); ?>
 </div>

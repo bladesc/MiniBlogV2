@@ -5,6 +5,7 @@ namespace src\view;
 use src\language\Ttranslation;
 use src\config\Config;
 use src\core\request\Request;
+use src\session\Session;
 
 class BaseView
 {
@@ -13,6 +14,7 @@ class BaseView
     protected $fileName = 'index';
     protected $request;
     protected $translations;
+    protected $session;
 
     public function __construct(Request $request)
     {
@@ -21,5 +23,6 @@ class BaseView
         $this->translations = (new Ttranslation())->getTranslations();
         $this->templateName = $this->config['template']['defaultTemplate'];
         $this->templateName = $this->config['template']['defaultFile'];
+        $this->session = new Session();
     }
 }

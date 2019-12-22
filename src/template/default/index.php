@@ -1,5 +1,5 @@
 <?php include 'pageup.php' ?>
-index
-<?php print_r($this->data); ?>
+
+<?php include 'layout/entries.php' ?>
 
 <?php include 'pagedown.php' ?>

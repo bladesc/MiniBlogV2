@@ -5,6 +5,7 @@ namespace src\model;
 use src\config\Config;
 use src\core\db\QueryHelper;
 use src\core\db\Tables;
+use src\core\general\Paginator;
 use src\core\general\Remind;
 use src\core\request\Request;
 use src\core\validation\FileValidate;
@@ -27,6 +28,7 @@ class BaseModel
     protected $validate;
     protected $emailer;
     protected $fileValidate;
+    protected $paginator;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -39,6 +41,7 @@ class BaseModel
         if ($installationStatus) {
             $this->db = new QueryHelper();
         }
+        $this->paginator = new Paginator();
         $this->session = new Session();
         $this->emailer = new Emailer();
         $this->remind = new Remind();
