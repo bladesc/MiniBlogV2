@@ -31,6 +31,9 @@ class CommonModel extends BaseModel
 
     public const ERROR_LABEL = 'errors';
 
+    public const DATA_LABEL_ENTRIES = 'entries';
+    public const DATA_LABEL_PAGES = 'pages';
+
     public function getMenuData()
     {
         return $this->db->select("*")->from($this->tables->user)->getAll();

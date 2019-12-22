@@ -194,6 +194,7 @@ class GalleryModel extends CommonModel
             $this->db->commit();
             return true;
         } catch (\Exception $e) {
+            echo $e->getMessage();
             $this->db->rollback();
             return false;
         }

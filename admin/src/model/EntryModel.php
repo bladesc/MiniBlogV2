@@ -205,7 +205,6 @@ class EntryModel extends CommonModel
                 'updated_at' => Helper::now(),
             ];
             $this->db->update($this->tables->entry, $data)->where('id', '=', $id)->execute();
-
             //delete files
             $galleryId = ($this->db->select('gallery_id')->from($this->tables->entry)->where('id', '=', $id)->getOne())['gallery_id'];
             $images = $this->db->select(['id', 'ext'])->from($this->tables->image)->where('gallery_id', '=', $galleryId)->getAll();
@@ -216,7 +215,6 @@ class EntryModel extends CommonModel
                 }
             }
             $this->db->delete()->from($this->tables->image)->where('gallery_id', '=', $id)->execute();
-
             //upload new file
             foreach ($this->files as $file) {
                 $data = [
@@ -236,7 +234,6 @@ class EntryModel extends CommonModel
                     throw new \Exception('Cant move file');
                 };
             }
-
             $this->db->commit();
         } catch (\Exception $e) {
             $this->db->rollback();
@@ -257,6 +254,28 @@ class EntryModel extends CommonModel
     protected function delete(): bool
     {
         $id = $this->validator->filterValue($this->request->post()->get('fId'));
-        return $this->db->delete()->from($this->tables->entry)->where('id', '=', $id)->execute();
+        $path = '..' . $this->configContainer['blog']['galleryPath'];
+        $this->db->beginTransactions();
+        try {
+            $galleryId = ($this->db->select('gallery_id')->from($this->tables->entry)->where('id', '=', $id)->getOne())['gallery_id'];
+            $images = $this->db->select(['id', 'ext'])->from($this->tables->image)->where('gallery_id', '=', $galleryId)->getAll();
+            foreach ($images as $image) {
+                $destination = $path . $image['id'] . '.' . $image['ext'];
+                if (file_exists($destination)) {
+                    if (!unlink($destination)) {
+                        throw new \Exception('Cant delete file');
+                    }
+                }
+            }
+            $id = $this->validator->filterValue($this->request->post()->get('fId'));
+            $this->db->delete()->from($this->tables->gallery)->where('id', '=', $galleryId)->execute();
+            $this->db->delete()->from($this->tables->entry)->where('id', '=', $id)->execute();
+            $this->db->commit();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            $this->db->rollback();
+            return false;
+        }
+        return true;
     }
 }

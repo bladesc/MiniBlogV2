@@ -19,13 +19,13 @@ class IndexModel extends CommonModel
 
     public function getEntries()
     {
-        $this->data['Entries'] = $this->db->select([]);
+        $this->data[self::DATA_LABEL_ENTRIES] = $this->db->select([]);
 
     }
 
     public function getPages()
     {
-        $this->data['pages'] = $this->db->select(['name', 'url'])
+        $this->data[self::DATA_LABEL_PAGES] = $this->db->select(['name', 'url'])
             ->from($this->tables->page)
             ->where('status', '=', self::STATUS_ACTIVE)
             ->getAll();
