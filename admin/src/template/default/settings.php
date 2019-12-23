@@ -1,21 +1,19 @@
 <?php include 'pageup.php' ?>
+<a href="index.php?pageadmin=settings&action=prepareUpdate&id=<?= $this->data['settings'][0]['id'] ?>" class="button lightblue addnew">Edytuj<a/>
+    <h1>Ustawienia</h1>
+    <div id="box-settings">
+        <div>
+            Tytuł:
+            <?= $this->data['settings'][0]['title'] ?>
+        </div>
+        <div>
+            Opis:
+            <?= $this->data['settings'][0]['description'] ?>
+        </div>
+        <div>
+            Meta tagi:
+            <?= $this->data['settings'][0]['meta_tags'] ?>
+        </div>
+    </div>
 
-    <div>
-        Title:
-        <?= $this->data['settings'][0]['title'] ?>
-    </div>
-    <div>
-        Description:
-        <?= $this->data['settings'][0]['description'] ?>
-    </div>
-    <div>
-        Meta tags:
-        <?= $this->data['settings'][0]['meta_tags'] ?>
-    </div>
-    <div>
-        <a href="index.php?pageadmin=settings&action=prepareUpdate&id=<?= $this->data['settings'][0]['id'] ?>">Zmien<a/>
-    </div>
-<?php
-print_r($this->data);
-?>
 <?php include 'pagedown.php' ?>

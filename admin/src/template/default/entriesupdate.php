@@ -1,13 +1,19 @@
 <?php include 'pageup.php' ?>
 
+<h1>Edycja wpisu</h1>
     <form action="index.php?pageadmin=entry&action=update&id=<?= $this->data['entries']['id'] ?>" method="post" enctype="multipart/form-data">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Wprowadz nowa nazwe kategorii
-            <input type="text" name="fTitle" value="<?= $this->data['entries']['title'] ?>">
-            <input type="text" name="fContent" value="<?= $this->data['entries']['content'] ?>">
-            <input type="hidden" name="fId" value="<?= $this->data['entries']['id'] ?>">
-            <input type="text" name="fAuthor" value="1" hidden required>
-            <select name="fCategory">
+            <label for="fTitle">Tytuł</label>
+            <input type="text" name="fTitle" class="medium" id="fTitle" value="<?= $this->data['entries']['title'] ?>">
+        </div>
+        <div>
+            <label for="fContent">Treść</label>
+            <input type="text" name="fContent" class="medium" id="fContent" value="<?= $this->data['entries']['content'] ?>">
+        </div>
+        <div>
+            <label for="fCategory">Kategoria</label>
+            <select name="fCategory" id="fCategory">
                 <?php foreach ($this->data['categories'] as $category): ?>
                     <option value="<?= $category['id'] ?>"
                         <?php if ($this->data['entries']['category_id'] == $category['id']): ?>
@@ -16,8 +22,10 @@
                     ><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             </select>
-            Status
-            <select name="fStatus">
+        </div>
+        <div>
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->data['entries']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -25,15 +33,15 @@
                     Nieaktywny
                 </option>
             </select>
-            Miniatura:
-            <input type="file" name="fFiles">
         </div>
         <div>
-            <input type="submit" name="fSubmit" value="Zmien">
+            <label for="fFiles">Miniatura</label>
+            <input type="file" name="fFiles" id="fFiles">
+        </div>
+        <div>
+            <input type="hidden" name="fId" value="<?= $this->data['entries']['id'] ?>">
+            <input type="text" name="fAuthor" value="1" hidden required>
+            <input type="submit" name="fSubmit" value="Edytuj" class="button lightblue">
         </div>
     </form>
-<?php
-
-print_r($this->data);
-?>
 <?php include 'pagedown.php' ?>
