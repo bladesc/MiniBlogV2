@@ -1,5 +1,5 @@
 <div id="search-bar">
-    <form action="" method="get">
+    <form action="index.php?page=search" method="post">
         <div>
             <input type="text" name="fSearch">
         </div>

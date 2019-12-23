@@ -7,6 +7,9 @@ class QueryBuilder extends Query
     public const ORDER_ASC = 'ASC';
     public const ORDER_DESC = 'DESC';
 
+    public const C_AND = 'AND';
+    public const C_OR = 'OR';
+
     protected $select = [];
     protected $insert = [];
     protected $update = [];
@@ -21,6 +24,8 @@ class QueryBuilder extends Query
     protected $innerJoin = [];
     protected $having = [];
     protected $groupBy = null;
+    protected $like = [];
+    protected $logicConditions = [];
 
     protected $query = '';
 
@@ -43,6 +48,8 @@ class QueryBuilder extends Query
         $this->groupBy = [];
         $this->query = '';
         $this->err = [];
+        $this->like = [];
+        $this->logicConditions = [];
     }
 
     public function select($tableNames)
@@ -140,9 +147,18 @@ class QueryBuilder extends Query
 
     }
 
-    public function like()
+    public function like(string $field, $value)
     {
+        $this->like[] = ['field' => $field, 'value' => $value];
+        return $this;
+    }
 
+    public function conditions(array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            $this->logicConditions[] = $condition;
+        }
+        return $this;
     }
 
     public function execute()
@@ -268,6 +284,30 @@ class QueryBuilder extends Query
                     $this->query .= $condition['field'] . $condition['operator'] . "'" . $condition['value'] . "'";
                     $this->query .= ")";
                 }
+            }
+        }
+        $this->prepareLike();
+    }
+
+    protected function prepareLike(): void
+    {
+        if (!empty($this->like)) {
+            $this->query .= " WHERE ";
+            $i = 0;
+            foreach ($this->like as $condition) {
+                if ($i === 0) {
+                    $this->query .= $condition['field'] . " LIKE '" . $condition['value'] . "'";
+                } else {
+                    if (empty($this->logicConditions)) {
+                        $lCondition = self::C_AND;
+                    } else {
+                        $lCondition = $this->logicConditions[($i-1)];
+                    }
+                    $this->query .= " $lCondition (";
+                    $this->query .= $condition['field'] . " LIKE '" . $condition['value'] . "'";
+                    $this->query .= ")";
+                }
+                $i++;
             }
         }
         $this->prepareGroupBy();
