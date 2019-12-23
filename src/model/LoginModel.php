@@ -38,7 +38,7 @@ class LoginModel extends CommonModel
             return false;
         }
         if (!Password::verify($this->password, $this->userDbData[0]['password'])) {
-            $this->data[self::ERROR_LABEL] = 'Haslo lub email jest nieprawidlowy';
+            $this->data[self::ERROR_LABEL][] = 'Haslo lub email jest nieprawidlowy';
             return false;
         }
         return true;

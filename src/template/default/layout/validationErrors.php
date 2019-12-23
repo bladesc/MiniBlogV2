@@ -1,3 +1,4 @@
+
 <?php if(isset($this->data['errors'])): ?>
     <div class="validation-box-errors">
         <?php foreach ($this->data['errors'] as $error): ?>

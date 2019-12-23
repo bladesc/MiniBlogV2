@@ -6,7 +6,7 @@
             <?php include 'layout/validationErrors.php' ?>
             <div>
                 <label for="fEmail">Adres e-mail:</label>
-                <input type="email" name="fEmail" id="fEmail">
+                <input type="email" name="fEmail" id="fEmail" class="medium">
             </div>
             <div>
                 <input type="submit" name="fRemind" value="Przypomnij" class="button lightgrey">

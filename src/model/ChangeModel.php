@@ -35,7 +35,7 @@ class ChangeModel extends CommonModel
             $this->id = (int)$userSessionData[0];
             $this->email = (string)$userSessionData[1];
         } else {
-            $this->data[self::ERROR_LABEL] = 'User jest niezalogowany';
+            $this->data[self::ERROR_LABEL][] = 'User jest niezalogowany';
             return false;
         }
         $this->oldPassword = $this->validate->set($this->request->post()->get('fOldPassword'), 'Old password')
@@ -45,7 +45,7 @@ class ChangeModel extends CommonModel
             ->get();
         $user = ($this->checkIfUserExists())[0];
         if (!Password::verify($this->oldPassword, $user['password'])) {
-            $this->data[self::ERROR_LABEL] = 'Stare haslo nieprawidlowe';
+            $this->data[self::ERROR_LABEL][] = 'Stare haslo nieprawidlowe';
             return false;
         }
         $this->newPassword = $this->validate->set($this->request->post()->get('fNewPassword'), 'Nowe haslo')

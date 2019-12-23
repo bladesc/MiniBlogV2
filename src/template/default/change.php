@@ -6,15 +6,15 @@
         <?php include 'layout/validationErrors.php' ?>
         <div>
             <label for="fOldPassword">Stare hasło:</label>
-            <input type="password" name="fOldPassword" id="fOldPassword">
+            <input type="password" class="medium" name="fOldPassword" id="fOldPassword">
         </div>
         <div>
             <label for="fNewPassword">Nowe hasło:</label>
-            <input type="password" name="fNewPassword" id="fNewPassword">
+            <input type="password" class="medium" name="fNewPassword" id="fNewPassword">
         </div>
         <div>
             <label for="fNewPasswordProve">Potwierdź nowe hasło:</label>
-            <input type="password" name="fNewPasswordProve" id="fNewPasswordProve">
+            <input type="password" class="medium" name="fNewPasswordProve" id="fNewPasswordProve">
         </div>
         <div>
             <input type="submit" name="fChange" id="fChange" value="Zmień" class="button lightgrey">
