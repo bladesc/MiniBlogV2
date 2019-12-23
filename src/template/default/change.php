@@ -1,26 +1,26 @@
 <?php include 'pageup.php' ?>
 
+<h1>Zmiana hasła</h1>
 <div id="section-login">
     <form method="post" action="index.php?page=change&action=processChange">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Stare haslo:
-            <input type="password" name="fOldPassword">
+            <label for="fOldPassword">Stare hasło:</label>
+            <input type="password" name="fOldPassword" id="fOldPassword">
         </div>
         <div>
-            Nowe haslo:
-            <input type="password" name="fNewPassword">
+            <label for="fNewPassword">Nowe hasło:</label>
+            <input type="password" name="fNewPassword" id="fNewPassword">
         </div>
         <div>
-            Potwierdz nowe haslo
-            <input type="password" name="fNewPasswordProve">
+            <label for="fNewPasswordProve">Potwierdź nowe hasło:</label>
+            <input type="password" name="fNewPasswordProve" id="fNewPasswordProve">
         </div>
         <div>
-            Potwierdz nowe haslo
-            <input type="submit" name="fChange">
+            <input type="submit" name="fChange" id="fChange" value="Zmień" class="button lightgrey">
         </div>
 
     </form>
 </div>
 
-<?php print_r($this->data); ?>
 <?php include 'pagedown.php' ?>

@@ -41,6 +41,7 @@ class CommonModel extends BaseModel
     public const DATA_LABEL_CATEGORIES = 'categories';
     public const DATA_LABEL_PAGINATOR = 'paginator';
     public const DATA_LABEL_COMMENTS = 'comments';
+    public const DATA_LABEL_PAGE = 'page';
 
     protected $offset = 0;
     protected $limit = 0;

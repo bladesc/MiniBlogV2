@@ -28,7 +28,8 @@ class Route
     public const DEFAULT_ACTION_INSTALL = 'Start';
     public const DEFAULT_KEY_INSTALL = 'install_page';
     public const DEFAULT_KEY_ACTION = 'action';
-
+    public const DEFAULT_KEY_CMS_PAGE = 'cmspage';
+    public const CMS_CONTROLLER = 'Cms';
     /**
      * Route constructor.
      * @param Request $request
@@ -61,6 +62,9 @@ class Route
             } else {
                 $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_ACTION));
             }
+        } elseif ($this->request->query()->has(self::DEFAULT_KEY_CMS_PAGE)) {
+            $this->path->setController(self::CMS_CONTROLLER);
+            $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_CMS_PAGE));
         } elseif ($this->request->query()->has(self::DEFAULT_KEY_PAGE_ADMIN)) {
             $this->path->setAdminState(true);
             $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE_ADMIN));
@@ -82,6 +86,9 @@ class Route
      */
     public function validateIfExists(): bool
     {
+        if ($this->controller === 'src\Controller\CmsController') {
+            return true;
+        }
         if (!class_exists($this->controller) || !method_exists($this->controller, $this->action)) {
             $this->path->setInstallState(false);
             $this->path->setController(self::NOT_FOUND_CONTROLLER);
