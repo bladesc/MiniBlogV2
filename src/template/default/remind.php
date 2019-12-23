@@ -1,18 +1,20 @@
 <?php include 'pageup.php' ?>
 
+    <h1>Przypomnij hasło</h1>
     <div id="section-login">
         <form method="post" action="index.php?page=remind&action=processRemind">
+            <?php include 'layout/validationErrors.php' ?>
             <div>
-                Email:
-                <input type="email" name="fEmail">
+                <label for="fEmail">Adres e-mail:</label>
+                <input type="email" name="fEmail" id="fEmail">
             </div>
             <div>
-                <input type="submit" name="fRemind">
+                <input type="submit" name="fRemind" value="Przypomnij" class="button lightgrey">
             </div>
         </form>
+        <a href="index.php?page=login" class="standard">Zaloguj</a>
+        <a href="index.php?page=register" class="standard">Zarejestruj</a>
     </div>
-    <a href="index.php?page=login">Zaloguj</a>
-    <a href="index.php?page=register">Zarejestruj</a>
 
-<?php print_r($this->data); ?>
+
 <?php include 'pagedown.php' ?>

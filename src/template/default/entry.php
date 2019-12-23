@@ -38,31 +38,36 @@
 
 <div id="box-comments">
     <?php foreach ($this->data['comments'] as $comment): ?>
-    <div class="comment-comment">
-        <div class="comment-author">
-            <?= $comment['nick'] ?>
+        <div class="comment-comment">
+            <div class="comment-additional">
+                <div class="comment-author">
+                    <?= $comment['nick'] ?>
+                </div>
+                <div class="comment-data">
+                    <?= $comment['created_at'] ?>
+                </div>
+            </div>
+            <div class="comment-content">
+                <?= $comment['content'] ?>
+            </div>
         </div>
-        <div class="comment-data">
-            <?= $comment['created_at'] ?>
-        </div>
-        <div class="comment-content">
-            <?= $comment['content'] ?>
-        </div>
-    </div>
     <?php endforeach; ?>
 </div>
 
 <?php if ($this->data['loggedIn'] === true): ?>
-<div id="box-add-comment">
-    <form action="<?= $this->request->server()->get('REQUEST_URI') ?>&action=addComment" method="post">
-        Komentarz
-        <textarea name="fComment">
-            Type comment....
-        </textarea>
-        <input type="hidden" required name="fAuthor" value="<?= $this->data['login'][0] ?>">
-        <input type="hidden" required name="fEntryId" value="<?= $this->request->query()->get('id') ?>">
-        <input type="submit" name="fSubmit" value="Dodaj">
-    </form>
-</div>
+    <div id="box-add-comment">
+        <form action="<?= $this->request->server()->get('REQUEST_URI') ?>&action=addComment" method="post">
+            <?php include 'layout/validationErrors.php' ?>
+            <div>
+                <label for="fComment">Komentarz</label>
+                <textarea name="fComment" id="fComment" class="big">Napisz komentarz</textarea>
+            </div>
+            <div>
+                <input type="hidden" required name="fAuthor" value="<?= $this->data['login'][0] ?>">
+                <input type="hidden" required name="fEntryId" value="<?= $this->request->query()->get('id') ?>">
+                <input type="submit" name="fSubmit" value="Dodaj" class="button lightgrey">
+            </div>
+        </form>
+    </div>
 <?php endif; ?>
 <?php include 'pagedown.php' ?>

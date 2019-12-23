@@ -12,10 +12,10 @@
                     <a href="index.php?page=change" class="button small blue">Zmien haslo</a>
                 </div>
             <?php else: ?>
-                <div id="section-login">
+                <div id="section-login-bar">
                     <a href="index.php?page=login" class="button small blue">Zaloguj</a>
                 </div>
-                <div id="section-register">
+                <div id="section-register-bar">
                     <a href="index.php?page=register" class="button small blue">Zarejestruj</a>
                 </div>
 

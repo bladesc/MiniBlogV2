@@ -9,11 +9,3 @@
     <link rel="stylesheet" href="/src/template/default/layout/assets/css/style.css"/>
 </head>
 <body>
-
-<div id="box-header">
-    <div class="box-page-body">
-        <?php include 'logo.php' ?>
-        <?php include 'navigation.php' ?>
-        <div class="box-clear-foot"></div>
-    </div>
-</div>

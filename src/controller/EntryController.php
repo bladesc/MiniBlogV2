@@ -20,7 +20,7 @@ class EntryController extends CommonController
 
     public function addComment()
     {
-        $data = (new EntryModel($this->request))->addComment()->getCategories()->getEntry()->getData();
+        $data = (new EntryModel($this->request))->addComment()->getCategories()->getEntry()->getComments()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
             $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
             Redirect::redirectTo('index.php?page=entry&id=' . $this->request->query()->get('id'));
