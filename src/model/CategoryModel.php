@@ -6,22 +6,14 @@ namespace src\model;
 
 use src\core\db\QueryBuilder;
 
-class IndexModel extends CommonModel
+class CategoryModel extends CommonModel
 {
     protected $data = [];
 
-    public function logout()
-    {
-        $this->data[CommonModel::ACTION_LOGOUT] = false;
-        if ($this->session->remove(self::USER_LOG_SES_NAME)) {
-            $this->data[CommonModel::ACTION_LOGOUT] = true;
-        }
-        return $this;
-    }
-
     public function getEntries()
     {
-        $totalAmount = ($this->db->select(["count('id') as amount"])->from($this->tables->entry)->getOne())['amount'];
+        $cid = $this->request->query()->query()->get('cid');
+        $totalAmount = ($this->db->select(["count('id') as amount"])->from($this->tables->entry)->where($this->tables->entry .'.category_id', '=', $cid)->getOne())['amount'];
         $this->data[self::DATA_LABEL_ENTRIES] = $this->db->select([
             $this->tables->entry . '.id',
             'title',
@@ -37,9 +29,10 @@ class IndexModel extends CommonModel
             ->leftJoin($this->tables->entry, 'user_id', $this->tables->user, 'id')
             ->leftJoin($this->tables->entry, 'category_id', $this->tables->category, 'id')
             ->leftJoin($this->tables->entry, 'gallery_id', $this->tables->image, 'gallery_id')
+            ->where($this->tables->entry .'.category_id', '=', $cid)
             ->limit($this->limit)
             ->offset($this->offset)
-            ->orderBy($this->tables->entry . '.created_at',QueryBuilder::ORDER_DESC)
+            ->orderBy($this->tables->entry . '.created_at', QueryBuilder::ORDER_DESC)
             ->getAll();
         $this->data[self::DATA_IMAGES_PATH] = '..//public_html/upload/gallery/';
         $this->data[self::DATA_LABEL_PAGINATOR] = $this->paginator->setUrl('index.php?')
@@ -50,5 +43,4 @@ class IndexModel extends CommonModel
             ->getHtml();
         return $this;
     }
-
 }

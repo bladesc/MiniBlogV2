@@ -40,9 +40,12 @@ class CommonModel extends BaseModel
     public const DATA_LABEL_LOGGED_IN = 'loggedIn';
     public const DATA_LABEL_CATEGORIES = 'categories';
     public const DATA_LABEL_PAGINATOR = 'paginator';
+    public const DATA_LABEL_COMMENTS = 'comments';
 
     protected $offset = 0;
     protected $limit = 0;
+    protected $activePage = 0;
+    protected $amountPerPage = 0;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -56,7 +59,7 @@ class CommonModel extends BaseModel
         if($this->request->query()->has('pid')) {
             $id = $this->request->query()->get('pid');
             if (is_numeric($id)) {
-                $this->offset = (int) $this->request->query()->get('pid');
+                $this->activePage = (int) $this->request->query()->get('pid');
             }
             $this->offset = ((int) $this->request->query()->get('pid')) * $this->configContainer['entries']['amountPerPage'];
         }

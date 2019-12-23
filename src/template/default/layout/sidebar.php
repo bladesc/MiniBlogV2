@@ -7,7 +7,7 @@
            <ul>
                <?php foreach ($this->data['categories'] as $category): ?>
                <li>
-                   <a href="<?= $category['id'] ?>"><?= $category['name'] ?><span><?= $category['entry_amount'] ?></span></a>
+                   <a href="index.php?page=category&cid=<?= $category['id'] ?>"><?= $category['name'] ?><span><?= $category['entry_amount'] ?></span></a>
 
                </li>
                <?php endforeach; ?>

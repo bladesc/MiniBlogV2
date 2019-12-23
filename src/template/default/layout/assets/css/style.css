@@ -39,11 +39,12 @@ html, body {
 
 #box-footer {
     width: 100%;
+    margin-top: 40px;
     background: #000913;
-    margin-top: 10px;
 }
 
 #box-body {
+    margin-top: 40px;
     width: 100%;
 }
 
@@ -174,9 +175,18 @@ a.logo {
     margin-right: 10px;
 }
 
+.entry-category {
+    float: left;
+    margin-right: 10px;
+}
+
 .entry-title {
     font-size: 32px;
     padding: 10px 0;
+}
+
+.entry-info div span {
+    font-weight: bold;
 }
 
 .entry-image {
@@ -219,7 +229,7 @@ a.logo {
 .sidebar-content ul li a {
     color: #000;
     text-decoration: none;
-    padding: 10px 0;
+    padding: 16px 0;
     border-bottom: 1px solid #eeeeee;
     display: block;
     width:  100%;
@@ -244,4 +254,27 @@ a.logo {
     width: 100%;
     text-align: center;
     color: #ffffff;
+}
+
+
+#box-paginator {
+    width: 100%;
+}
+
+#box-paginator div a {
+    display: inline-block;
+    height: 46px;
+    width: 46px;
+    margin-left: 5px;
+    text-align: center;
+    line-height: 46px;
+    text-decoration: none;
+    color: #4f4f4f;
+    border: 1px solid #c8c8c8;
+}
+
+#box-paginator div a.active {
+    color: #29506a !important;
+    background: #8eddff;
+    border: 1px solid #64bfff;
 }
