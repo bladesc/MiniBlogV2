@@ -1,13 +1,17 @@
 <?php include 'pageup.php' ?>
 
-    Stara nazwa: <?= $this->data['categories']['name'] ?>
+    <h1>Edycja kategorii</h1>
+
+    <h3>Stara nazwa: <?= $this->data['categories']['name'] ?></h3>
     <form action="index.php?pageadmin=category&action=update&id=<?= $this->data['categories']['id'] ?>" method="post">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Wprowadz nowa nazwe kategorii
-            <input type="text" name="fName" value="<?= $this->data['categories']['name'] ?>">
+            <label for="fName">Nowa nazwa</label>
+            <input type="text" name="fName" id="fName" value="<?= $this->data['categories']['name'] ?>">
         </div>
         <div>
-            <select name="fStatus">
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->data['categories']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -18,7 +22,7 @@
         </div>
         <div>
             <input type="hidden" name="fId" value="<?= $this->data['categories']['id'] ?>">
-            <input type="submit" name="fUpdate" value="Zmien">
+            <input type="submit" name="fUpdate" value="Edytuj" class="button lightblue">
         </div>
     </form>
 <?php

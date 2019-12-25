@@ -1,6 +1,7 @@
 <div id="search-bar">
-    <form action="index.php?page=search" method="post">
+    <form action="index.php?page=search" method="get">
         <div>
+            <input type="hidden" required value="search" name="page">
             <input type="text" name="fSearch">
         </div>
         <div>

@@ -1,12 +1,15 @@
 <?php include 'pageup.php' ?>
 
+    <h1>Dodawanie kategorii</h1>
     <form action="index.php?pageadmin=category&action=create" method="post">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Wprowadz nazwe kategorii
-            <input type="text" name="fName" value="<?= $this->request->post()->get('fName') ?>">
+            <label for="fName">Nazwa kategorii</label>
+            <input type="text" name="fName" id="fName" value="<?= $this->request->post()->get('fName') ?>">
         </div>
         <div>
-            <select name="fStatus">
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -16,10 +19,7 @@
             </select>
         </div>
         <div>
-            <input type="submit" name="fSubmit" value="Dodaj">
+            <input type="submit" name="fSubmit" value="Dodaj" class="button lightblue">
         </div>
     </form>
-<?php
-print_r($this->data);
-?>
 <?php include 'pagedown.php' ?>

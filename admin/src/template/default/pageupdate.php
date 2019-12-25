@@ -1,50 +1,50 @@
 <?php include 'pageup.php' ?>
 
-    <form action="index.php?pageadmin=page&action=update&id=<?= $this->data['pages']['id'] ?>" method="post">
-        Podstawowe
+    <h1>Edycja strony</h1>
+    <form action="index.php?pageadmin=page&action=update&id=<?= $this->data['page']['id'] ?>" method="post">
+        <?php include 'layout/validationErrors.php' ?>
+        <h3>Dane podstawowe</h3>
         <div>
-            Nazwa
-            <input type="text" name="fName" value="<?= $this->data['pages']['name'] ?>" required>
+            <label for="fName">Nazwa kategorii</label>
+            <input type="text" name="fName" id="fName" value="<?= $this->data['page']['name'] ?>" required>
         </div>
         <div>
-            Url
-            <input type="text" name="fUrl" value="<?= $this->data['pages']['url'] ?>" required>
+            <label for="fUrl">Adres url strony</label>
+            <input type="text" name="fUrl" id="fUrl" value="<?= $this->data['page']['url'] ?>" required>
         </div>
         <div>
-            Status
-            <select name="fStatus">
-                <option value="1" <?php if ($this->data['pages']['status'] == 1): ?> selected <?php endif; ?>>
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
+                <option value="1" <?php if ($this->data['page']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
-                <option value="2" <?php if ($this->data['pages']['status'] == 2): ?> selected <?php endif; ?>>
+                <option value="2" <?php if ($this->data['page']['status'] == 2): ?> selected <?php endif; ?>>
                     Nieaktywny
                 </option>
             </select>
         </div>
 
         <div>
-            Content
-            <input type="text" name="fContent" value="<?= $this->data['pages']['content'] ?>">
+            <label for="fContent">Treść strony</label>
+            <input type="text" name="fContent" id="fContent" value="<?= $this->data['page']['content'] ?>">
         </div>
-        Seo
+        <h3>Dane seo</h3>
         <div>
-            Tytul:
-            <input type="text" name="fTitle" value="<?= $this->data['pages']['title'] ?>">
-        </div>
-        <div>
-            Opis:
-            <input type="text" name="fDescription" value="<?= $this->data['pages']['description'] ?>">
+            <label for="fTitle">Seo tytuł</label>
+            <input type="text" name="fTitle" id="fTitle" value="<?= $this->data['page']['title'] ?>">
         </div>
         <div>
-            Meta tagi:
-            <input type="text" name="fTags" value="<?= $this->data['pages']['tag'] ?>">
+            <label for="fDescription">Seo opis</label>
+            <input type="text" name="fDescription" id="fDescription" value="<?= $this->data['page']['description'] ?>">
+        </div>
+        <div>
+            <label for="fTags">Seo tagi</label>
+            <input type="text" name="fTags" id="fTags" value="<?= $this->data['page']['tag'] ?>">
         </div>
 
         <div>
-            <input type="submit" name="fSubmit" value="Dodaj">
+            <input type="submit" name="fSubmit" value="Dodaj" class="button lightblue">
         </div>
     </form>
-<?php
-print_r($this->data);
-?>
+
 <?php include 'pagedown.php' ?>

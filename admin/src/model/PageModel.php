@@ -29,7 +29,7 @@ class PageModel extends CommonModel
         $this->url = $this->validate->set($this->request->post()->get('fUrl'), 'Url')
             ->filterValue()
             ->checkIfEmpty()
-            ->validateText(2, 20)
+            ->validateText(2, 100)
             ->get();
         $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
             ->filterValue()
@@ -171,7 +171,7 @@ class PageModel extends CommonModel
     public function getPage()
     {
         $id = $this->validator->filterValue($this->request->query()->get('id'));
-        $this->data['pages'] = $this->db->select([
+        $this->data['page'] = $this->db->select([
             $this->tables->page . '.id',
             'name',
             'url',

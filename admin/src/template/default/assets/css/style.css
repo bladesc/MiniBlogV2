@@ -16,12 +16,22 @@ html, body {
     margin-bottom: 10px;
 }
 
+
 #box-comunicate {
     position: fixed;
     top: 40px;
     right: 40px;
     padding: 10px 20px;
     border-radius: 3px;
+}
+
+input[type=date] {
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+    min-width: 200px;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .communicate {
@@ -310,8 +320,21 @@ textarea {
 .gallery-image {
     width: 9%;
     float: left;
-    margin: 10px 0.5%;
+    margin: 10px 1% 10px 0;
+    height: 180px;
+/ / border: 1 px solid #d2d2d2;
+    box-shadow: 0px 3px 45px 3px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+.gallery-gallery {
+    margin: 20px 0 30px 0;
+    width: 100%;
+}
+
 
 .gallery-image img {
     width: 100%;

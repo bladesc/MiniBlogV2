@@ -1,11 +1,16 @@
 <?php include 'pageup.php' ?>
+
+    <h1>Dodawanie galerii</h1>
     <form action="index.php?pageadmin=gallery&action=create" method="post" enctype="multipart/form-data">
+
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Nazwa:
-            <input type="text" name="fName" required>
+            <label for="fName">Nazwa galerii</label>
+            <input type="text" id="fName" name="fName" required>
         </div>
         <div>
-            <select name="fStatus">
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -15,11 +20,11 @@
             </select>
         </div>
         <div>
-            Wybierz zdjecia:
-            <input type="file" name="fFiles[]" multiple/>
+            <label for="fFiles">Zdjęcia</label>
+            <input type="file" id="fFiles" name="fFiles[]" multiple/>
         </div>
         <div>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Dodaj" class="button lightblue">
         </div>
     </form>
 <?php

@@ -11,6 +11,11 @@
                 <div id="section-change">
                     <a href="index.php?page=change" class="button small blue">Zmien haslo</a>
                 </div>
+            <?php if($this->data['role'] === 1): ?>
+                <div id="section-admin">
+                    <a href="index.php?pageadmin=admin" class="button small lightblue">Panel administratora</a>
+                </div>
+            <?php endif; ?>
             <?php else: ?>
                 <div id="section-login-bar">
                     <a href="index.php?page=login" class="button small blue">Zaloguj</a>

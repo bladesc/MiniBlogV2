@@ -1,13 +1,15 @@
 <?php include 'pageup.php' ?>
 
+    <h1>Edycja galerii</h1>
     <form action="index.php?pageadmin=gallery&action=update&id=<?= $this->data['galleries']['id'] ?>" method="post" enctype="multipart/form-data">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Nazwa:
-            <input type="text" name="fName" value="<?= $this->data['galleries']['name'] ?>" required>
+            <label for="fName">Nazwa galerii</label>
+            <input type="text" name="fName" id="fName" value="<?= $this->data['galleries']['name'] ?>" required>
         </div>
         <div>
-            Status
-            <select name="fStatus">
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->data['galleries']['status'] == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -17,15 +19,13 @@
             </select>
         </div>
         <div>
-            Wybierz zdjecia:
-            <input type="file" name="fFiles[]" multiple/>
+            <label for="fFiles">Zdjęcia</label>
+            <input type="file" name="fFiles[]" id="fFiles" multiple/>
         </div>
         <div>
             <input type="hidden" name="fId" value="<?= $this->data['galleries']['id'] ?>">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Edytuj" class="button lightblue">
         </div>
     </form>
-<?php
-print_r($this->data);
-?>
+
 <?php include 'pagedown.php' ?>

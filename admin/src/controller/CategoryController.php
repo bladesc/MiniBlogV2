@@ -22,7 +22,8 @@ class CategoryController extends CommonController
 
     public function prepareCreate()
     {
-        (new View($this->request))->admin()->template('default')->file('categoriescreate')->render();
+        $data = (new CategoryModel($this->request))->getCategories()->getData();
+        (new View($this->request))->admin()->data($data)->template('default')->file('categoriescreate')->render();
     }
 
     public function create()

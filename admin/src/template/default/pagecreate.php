@@ -1,18 +1,20 @@
 <?php include 'pageup.php' ?>
 
+    <h1>Dodawanie strony</h1>
     <form action="index.php?pageadmin=page&action=create" method="post">
-        Podstawowe
+        <?php include 'layout/validationErrors.php' ?>
+        <h3>Dane podstawowe</h3>
         <div>
-            Nazwa
-            <input type="text" name="fName" value="<?= $this->request->post()->get('fName') ?>" required>
+            <label for="fName">Nazwa kategorii</label>
+            <input type="text" name="fName" id="fName" value="<?= $this->request->post()->get('fName') ?>" required>
         </div>
         <div>
-            Url
-            <input type="text" name="fUrl" value="<?= $this->request->post()->get('fUrl') ?>" required>
+            <label for="fUrl">Adres url strony</label>
+            <input type="text" name="fUrl" id="fUrl" value="<?= $this->request->post()->get('fUrl') ?>" required>
         </div>
         <div>
-            Status
-            <select name="fStatus">
+            <label for="fStatus">Status</label>
+            <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
                     Aktywny
                 </option>
@@ -23,28 +25,26 @@
         </div>
 
         <div>
-            Content
-            <input type="text" name="fContent" value="<?= $this->request->post()->get('fContent') ?>">
+            <label for="fContent">Treść strony</label>
+            <input type="text" name="fContent" id="fContent" value="<?= $this->request->post()->get('fContent') ?>">
         </div>
-        Seo
+        <h3>Dane seo</h3>
         <div>
-            Tytul:
-            <input type="text" name="fTitle" value="<?= $this->request->post()->get('fTitle') ?>">
-        </div>
-        <div>
-            Opis:
-            <input type="text" name="fDescription" value="<?= $this->request->post()->get('fDescription') ?>">
+            <label for="fTitle">Seo tytuł</label>
+            <input type="text" name="fTitle" id="fTitle" value="<?= $this->request->post()->get('fTitle') ?>">
         </div>
         <div>
-            Meta tagi:
-            <input type="text" name="fTags" value="<?= $this->request->post()->get('fTags') ?>">
+            <label for="fDescription">Seo opis</label>
+            <input type="text" name="fDescription" id="fDescription" value="<?= $this->request->post()->get('fDescription') ?>">
+        </div>
+        <div>
+            <label for="fTags">Seo tagi</label>
+            <input type="text" name="fTags" id="fTags" value="<?= $this->request->post()->get('fTags') ?>">
         </div>
 
         <div>
-            <input type="submit" name="fSubmit" value="Dodaj">
+            <input type="submit" name="fSubmit" value="Dodaj" class="button lightblue">
         </div>
     </form>
-<?php
-print_r($this->data);
-?>
+
 <?php include 'pagedown.php' ?>

@@ -42,11 +42,14 @@ class CommonModel extends BaseModel
     public const DATA_LABEL_PAGINATOR = 'paginator';
     public const DATA_LABEL_COMMENTS = 'comments';
     public const DATA_LABEL_PAGE = 'page';
+    public const DATA_LABEL_ROLE = 'role';
 
     protected $offset = 0;
     protected $limit = 0;
     protected $activePage = 0;
     protected $amountPerPage = 0;
+
+    public const GALLERY_PATTERN = '/(<%gallery=)(.+)(%>)/';
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -102,6 +105,11 @@ class CommonModel extends BaseModel
     {
         if (!empty(($this->session->get(CommonModel::USER_LOG_SES_NAME))[0])) {
             $this->data[self::DATA_LABEL_LOGGED_IN] = true;
+            $userRole = $this->db->select(['role_id'])
+                ->from($this->tables->user)
+                ->where('id', '=', ($this->session->get(CommonModel::USER_LOG_SES_NAME))[0])
+                ->getOne();
+            $this->data[self::DATA_LABEL_ROLE] = $userRole['role_id'];
             $this->data[self::DATA_LABEL_LOGIN] = $this->session->get(CommonModel::USER_LOG_SES_NAME);
         } else {
             $this->data[self::DATA_LABEL_LOGGED_IN] = false;

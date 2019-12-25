@@ -1,6 +1,7 @@
 <?php include 'pageup.php' ?>
 <a href="index.php?pageadmin=settings&action=prepareUpdate&id=<?= $this->data['settings'][0]['id'] ?>" class="button lightblue addnew">Edytuj<a/>
     <h1>Ustawienia</h1>
+    <h3>Seo</h3>
     <div id="box-settings">
         <div>
             Tytuł:

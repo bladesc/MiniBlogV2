@@ -145,8 +145,10 @@ class GalleryModel extends CommonModel
             $images = $this->db->select(['id','ext'])->from($this->tables->image)->where('gallery_id', '=', $id)->getAll();
             foreach ($images as $image) {
                 $destination = $path . $image['id'] . '.' . $image['ext'];
-                if(!unlink($destination)) {
-                    throw new \Exception('Cant delete file');
+                if(file_exists($destination)) {
+                    if(!unlink($destination)) {
+                        throw new \Exception('Cant delete file');
+                    }
                 }
             }
             $id = $this->validator->filterValue($this->request->post()->get('fId'));

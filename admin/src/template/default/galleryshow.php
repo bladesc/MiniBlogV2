@@ -1,7 +1,9 @@
 <?php include 'pageup.php' ?>
-    <div id="section-gallery">
-        gallery name : <?= $this->data['galleries']['name'] ?>
-        <div id="gallery-gallery">
+
+    <h1>Podgląd galerii</h1>
+    <div class="section-gallery">
+        Galeria: <b><?= $this->data['galleries']['name'] ?></b>
+        <div class="gallery-gallery">
             <?php if (isset($this->data['images'])) : ?>
                 <?php foreach ($this->data['images'] as $image): ?>
                     <div class="gallery-image">
@@ -11,8 +13,6 @@
             <?php endif ?>
             <div class="box-clear-foot"></div>
         </div>
-        <?php
-        print_r($this->data);
-        ?>
+
     </div>
 <?php include 'pagedown.php' ?>

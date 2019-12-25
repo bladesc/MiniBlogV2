@@ -1,15 +1,15 @@
 <?php include 'pageup.php' ?>
-    <form action="index.php?pageadmin=page&action=delete&id=<?= $this->data['pages']['id'] ?>" method="post">
+
+    <h1>Usuwanie strony</h1>
+    <form action="index.php?pageadmin=page&action=delete&id=<?= $this->data['page']['id'] ?>" method="post">
+        <?php include 'layout/validationErrors.php' ?>
         <div>
-            Czy na pewno chesz usunac stone: <?= $this->data['pages']['name'] ?>
-            <input type="hidden" name="fId" value="<?= $this->data['pages']['id'] ?>">
+            Czy na pewno chesz usunac stone: <b><?= $this->data['page']['name'] ?></b>
         </div>
         <div>
-            <input type="submit" name="fDelete" value="Usun">
+            <input type="hidden" name="fId" value="<?= $this->data['page']['id'] ?>">
+            <input type="submit" name="fDelete" value="Usun" class="button lightblue">
         </div>
     </form>
-<?php
 
-print_r($this->data);
-?>
 <?php include 'pagedown.php' ?>
