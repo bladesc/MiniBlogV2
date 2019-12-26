@@ -5,13 +5,13 @@
         <div class="entry-entry">
             <div class="entry-info">
                 <div class="entry-author">
-                    Autor: <span><?= $entry['nick'] ?></span>
+                    <?= $this->translations->pl['entryAuthor'] ?>: <span><?= $entry['nick'] ?></span>
                 </div>
                 <div class="entry-date">
-                    Date <span><?= $entry['created_at'] ?></span>
+                    <?= $this->translations->pl['entryDate'] ?>: <span><?= $entry['created_at'] ?></span>
                 </div>
                 <div class="entry-category">
-                    Kategoria: <span><?= $entry['name'] ?></span>
+                    <?= $this->translations->pl['entryCategory'] ?>: <span><?= $entry['name'] ?></span>
                 </div>
                 <div class="box-clear-foot"></div>
             </div>
@@ -59,13 +59,13 @@
         <form action="<?= $this->request->server()->get('REQUEST_URI') ?>&action=addComment" method="post">
             <?php include 'layout/validationErrors.php' ?>
             <div>
-                <label for="fComment">Komentarz</label>
-                <textarea name="fComment" id="fComment" class="big">Napisz komentarz</textarea>
+                <label for="fComment"><?= $this->translations->pl['comment'] ?></label>
+                <textarea name="fComment" id="fComment" class="big"><?= $this->translations->pl['commentWrite'] ?></textarea>
             </div>
             <div>
                 <input type="hidden" required name="fAuthor" value="<?= $this->data['login'][0] ?>">
                 <input type="hidden" required name="fEntryId" value="<?= $this->request->query()->get('id') ?>">
-                <input type="submit" name="fSubmit" value="Dodaj" class="button lightgrey">
+                <input type="submit" name="fSubmit" value="<?= $this->translations->pl['buttonAdd'] ?>" class="button lightgrey">
             </div>
         </form>
     </div>

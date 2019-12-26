@@ -24,7 +24,7 @@ class RegisterController extends CommonController
         $model = (new RegisterModel($this->request));
         $data = $model->addUser()->getCategories()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?page=login');
         }
         (new View($this->request))->data($data)->template('default')->file('register')->render();

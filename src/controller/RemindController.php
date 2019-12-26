@@ -24,7 +24,7 @@ class RemindController extends CommonController
         $model = (new RemindModel($this->request));
         $data = $model->remindPassword()->getCategories()->getData();
         if ($data[CommonModel::ACTION_REMINDED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Wyslano link na email');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['emailSendedSuc']);
             Redirect::redirectTo('index.php?page=index');
         }
         (new View($this->request))->data($data)->template('default')->file('remind')->render();

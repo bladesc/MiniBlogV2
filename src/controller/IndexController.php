@@ -20,7 +20,7 @@ class IndexController extends CommonController
     {
         $data = (new IndexModel($this->request))->logout()->getData();
         if ($data[CommonModel::ACTION_LOGOUT]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Wylogowano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['logoutSuc']);
             Redirect::redirectTo('index.php?page=index');
         }
         (new View($this->request))->data($data)->template('default')->file('index')->render();

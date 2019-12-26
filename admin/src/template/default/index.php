@@ -1,4 +1,3 @@
 <?php include 'pageup.php' ?>
-    index
-<?php print_r($this->data); ?>
+    Home
 <?php include 'pagedown.php' ?>

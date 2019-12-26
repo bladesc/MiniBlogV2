@@ -16,7 +16,7 @@ class LoginModel extends CommonModel
 
     public function verifyLoginData()
     {
-        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')
+        $this->email = $this->validate->set($this->request->post()->get('fEmail'), $this->translations->pl['loginEmail'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
@@ -24,10 +24,10 @@ class LoginModel extends CommonModel
             ->get();
         $this->userDbData = $this->checkIfUserExists();
         if (empty($this->userDbData)) {
-            $this->data[self::ERROR_LABEL][] = 'Uzytkownik nie istnieje';
+            $this->data[self::ERROR_LABEL][] = $this->translations->pl['userNotExist'];
             return false;
         }
-        $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'Password')
+        $this->password = $this->validate->set($this->request->post()->get('fPassword'), $this->translations->pl['registerPassword'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
@@ -38,7 +38,7 @@ class LoginModel extends CommonModel
             return false;
         }
         if (!Password::verify($this->password, $this->userDbData[0]['password'])) {
-            $this->data[self::ERROR_LABEL][] = 'Haslo lub email jest nieprawidlowy';
+            $this->data[self::ERROR_LABEL][] = $this->translations->pl['badPassOrEmail'];
             return false;
         }
         return true;

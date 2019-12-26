@@ -1,19 +1,19 @@
 <?php include 'pageup.php' ?>
 
-    <a href="index.php?pageadmin=gallery&action=prepareCreate" class="button lightblue addnew">Dodaj nowy</a>
-    <h1>Lista galerii</h1>
+    <a href="index.php?pageadmin=gallery&action=prepareCreate" class="button lightblue addnew"><?= $this->translations->pl['buttonAddNew'] ?></a>
+    <h1><?= $this->translations->pl['h1GalleryList'] ?></h1>
     <table class="big">
         <thead>
         <tr>
-            <td>Id</td>
-            <td>Tytuł</td>
-            <td>Treść</td>
-            <td>Status</td>
-            <td>Data utworzenia</td>
-            <td>Kod html</td>
-            <td>Użytkownik</td>
-            <td>Edytuj</td>
-            <td>Usuń</td>
+            <td><?= $this->translations->pl['tableId'] ?></td>
+            <td><?= $this->translations->pl['tableTitle'] ?></td>
+            <td><?= $this->translations->pl['tableContent'] ?></td>
+            <td><?= $this->translations->pl['tableStatus'] ?></td>
+            <td><?= $this->translations->pl['tableDateC'] ?></td>
+            <td><?= $this->translations->pl['tableCode'] ?></td>
+            <td><?= $this->translations->pl['tableNick'] ?></td>
+            <td><?= $this->translations->pl['tableEdit'] ?></td>
+            <td><?= $this->translations->pl['tableDelete'] ?></td>
         </tr>
         </thead>
         <?php if (isset($this->data['galleries'])) : ?>
@@ -30,15 +30,15 @@
                     </td>
                     <td>
                         <a href="index.php?pageadmin=gallery&action=show&id=<?= $gallery['id'] ?>"
-                           class="button lightgrey">Pokaz<a/>
+                           class="button lightgrey"><?= $this->translations->pl['buttonShow'] ?><a/>
                     </td>
                     <td>
                         <a href="index.php?pageadmin=gallery&action=prepareUpdate&id=<?= $gallery['id'] ?>"
-                           class="button lightgrey">Edytuj<a/>
+                           class="button lightgrey"><?= $this->translations->pl['buttonChange'] ?><a/>
                     </td>
                     <td>
                         <a href="index.php?pageadmin=gallery&action=prepareDelete&id=<?= $gallery['id'] ?>"
-                           class="button lightgrey">Usun<a/>
+                           class="button lightgrey"><?= $this->translations->pl['buttonDelete'] ?><a/>
                     </td>
                 </tr>
                 </tbody>

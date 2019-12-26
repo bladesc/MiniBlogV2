@@ -23,7 +23,7 @@ class LoginController extends CommonController
         $model = (new LoginModel($this->request));
         $data = $model->loginUser()->getCategories()->getData();
         if ($data[CommonModel::ACTION_LOGGED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zalogowano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['loginSuc']);
             Redirect::redirectTo('index.php?page=index');
         }
         (new View($this->request))->data($data)->template('default')->file('login')->render();

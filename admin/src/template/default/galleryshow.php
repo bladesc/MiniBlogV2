@@ -1,8 +1,8 @@
 <?php include 'pageup.php' ?>
 
-    <h1>Podgląd galerii</h1>
+    <h1><?= $this->translations->pl['h1GalleryShow'] ?></h1>
     <div class="section-gallery">
-        Galeria: <b><?= $this->data['galleries']['name'] ?></b>
+        <?= $this->translations->pl['tableName'] ?>: <b><?= $this->data['galleries']['name'] ?></b>
         <div class="gallery-gallery">
             <?php if (isset($this->data['images'])) : ?>
                 <?php foreach ($this->data['images'] as $image): ?>

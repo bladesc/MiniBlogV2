@@ -1,14 +1,14 @@
 <?php include 'pageup.php' ?>
-    <h1>Lista komentarzy</h1>
+    <h1><?= $this->translations->pl['h1CommentsList'] ?></h1>
     <table class="big">
         <thead>
         <tr>
-            <td>Id</td>
-            <td>Użytkownik</td>
-            <td>Treść</td>
-            <td>Id wpisu</td>
-            <td>Edytuj</td>
-            <td>Usuń</td>
+            <td><?= $this->translations->pl['tableId'] ?></td>
+            <td><?= $this->translations->pl['tableName'] ?></td>
+            <td><?= $this->translations->pl['tableContent'] ?></td>
+            <td><?= $this->translations->pl['tableIdEntry'] ?></td>
+            <td><?= $this->translations->pl['tableEdit'] ?></td>
+            <td><?= $this->translations->pl['tableDelete'] ?></td>
         </tr>
         </thead>
 
@@ -22,11 +22,11 @@
                     <td><?= $comment['entry_id'] ?></td>
                     <td>
                         <a href="index.php?pageadmin=comment&action=prepareUpdate&id=<?= $comment['id'] ?>"
-                           class="button lightgrey">Zmien<a/>
+                           class="button lightgrey"><?= $this->translations->pl['buttonChange'] ?><a/>
                     </td>
                     <td>
                         <a href="index.php?pageadmin=comment&action=prepareDelete&id=<?= $comment['id'] ?>"
-                           class="button lightgrey">Usun<a/>
+                           class="button lightgrey"><?= $this->translations->pl['buttonDelete'] ?><a/>
                     </td>
                 </tr>
                 </tbody>

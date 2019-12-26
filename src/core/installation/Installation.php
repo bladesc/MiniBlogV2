@@ -27,21 +27,27 @@ class Installation
         $this->request = $request;
     }
 
-    public function checkIfInstalled(): void
+    public function checkIfInstalled(): bool
     {
         if (!$this->install->checkIfInstalled()) {
             if (!$this->request->query()->has(Route::DEFAULT_KEY_INSTALL)) {
                 header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_START)}");
+                die;
             }
         } elseif ($this->install->getCheckInstallDir()) {
             if ($this->request->query()->has(Route::DEFAULT_KEY_INSTALL)) {
                 if ($this->request->query()->get(Route::DEFAULT_KEY_INSTALL) !== self::PAGE_REMOVE) {
                     header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_REMOVE)}");
+                    die;
                 }
             } else {
                 header("location: {$this->getUrl(Route::DEFAULT_KEY_INSTALL, self::PAGE_REMOVE)}");
+                die;
             }
+        } else {
+            return true;
         }
+        return false;
     }
 
     public function getUrl(string $pageKay, string $pageValue): string

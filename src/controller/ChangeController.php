@@ -22,7 +22,7 @@ class ChangeController extends CommonController
         $model = (new ChangeModel($this->request));
         $data = $model->changePassword()->getCategories()->getData();
         if ($data['passwordChanged']) {
-            $this->session->change(Communicate::C_POSITIVE, 'Haslo zmienione pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['passChangedSuc']);
             Redirect::redirectTo('index.php?page=index');
         }
         (new View($this->request))->data($data)->template('default')->file('change')->render();

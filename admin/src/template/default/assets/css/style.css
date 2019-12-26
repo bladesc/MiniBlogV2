@@ -53,9 +53,34 @@ input[type=date] {
 }
 
 #box-breadcrump {
-    display: none;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
+
+#box-breadcrump ul {
+    list-style-type: none;
+    margin: 30px 0;
+    padding: 0;
+}
+
+#box-breadcrump li {
+    display: block;
+    box-shadow: 0px 3px 45px 0px rgba(0, 0, 0, 0.15);
+    padding: 5px 10px;
+    float: left;
+    margin-right: 2px;
+    font-size: 14px;
+}
+
+#box-breadcrump li a {
+    text-decoration: none;
+    color: #4f4f4f;
+}
+
+#box-breadcrump li span {
+    color: #7a7a7a;
+}
 #box-sidebar {
     float: left;
     width: 20%;

@@ -35,25 +35,25 @@ class ChangeModel extends CommonModel
             $this->id = (int)$userSessionData[0];
             $this->email = (string)$userSessionData[1];
         } else {
-            $this->data[self::ERROR_LABEL][] = 'User jest niezalogowany';
+            $this->data[self::ERROR_LABEL][] = $this->translations->pl['userNotLogged'];
             return false;
         }
-        $this->oldPassword = $this->validate->set($this->request->post()->get('fOldPassword'), 'Old password')
+        $this->oldPassword = $this->validate->set($this->request->post()->get('fOldPassword'), $this->translations->pl['oldPassword'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
             ->get();
         $user = ($this->checkIfUserExists())[0];
         if (!Password::verify($this->oldPassword, $user['password'])) {
-            $this->data[self::ERROR_LABEL][] = 'Stare haslo nieprawidlowe';
+            $this->data[self::ERROR_LABEL][] = $this->translations->pl['oldPasswordNotCorrect'];
             return false;
         }
-        $this->newPassword = $this->validate->set($this->request->post()->get('fNewPassword'), 'Nowe haslo')
+        $this->newPassword = $this->validate->set($this->request->post()->get('fNewPassword'), $this->translations->pl['newPassword'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
             ->get();
-        $this->newPasswordProve = $this->validate->set($this->request->post()->get('fNewPasswordProve'), 'Nowe haslo')
+        $this->newPasswordProve = $this->validate->set($this->request->post()->get('fNewPasswordProve'), $this->translations->pl['newPasswordProve'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)

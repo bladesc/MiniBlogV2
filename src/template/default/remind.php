@@ -1,6 +1,6 @@
 <?php include 'pageup.php' ?>
 
-    <h1>Przypomnij hasło</h1>
+    <h1><?= $this->translations->pl['remindCommunicate'] ?></h1>
     <div id="section-login">
         <form method="post" action="index.php?page=remind&action=processRemind">
             <?php include 'layout/validationErrors.php' ?>
@@ -9,11 +9,11 @@
                 <input type="email" name="fEmail" id="fEmail" class="medium">
             </div>
             <div>
-                <input type="submit" name="fRemind" value="Przypomnij" class="button lightgrey">
+                <input type="submit" name="fRemind" value="<?= $this->translations->pl['buttonRemind'] ?>" class="button lightgrey">
             </div>
         </form>
-        <a href="index.php?page=login" class="standard">Zaloguj</a>
-        <a href="index.php?page=register" class="standard">Zarejestruj</a>
+        <a href="index.php?page=login" class="standard"><?= $this->translations->pl['buttonLogin'] ?></a>
+        <a href="index.php?page=register" class="standard"><?= $this->translations->pl['buttonRegister'] ?></a>
     </div>
 
 

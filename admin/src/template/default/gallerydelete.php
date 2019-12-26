@@ -1,15 +1,15 @@
 <?php include 'pageup.php' ?>
 
-    <h1>Usuwanie galerii</h1>
+    <h1><?= $this->translations->pl['h1GalleryDeleting'] ?></h1>
     <form action="index.php?pageadmin=gallery&action=delete&id=<?= $this->data['galleries']['id'] ?>" method="post">
         <?php include 'layout/validationErrors.php' ?>
         <div>
-            Czy na pewno chesz usunac kategorie: <b><?= $this->data['galleries']['id'] ?></b>
+            <?= $this->translations->pl['deleteGallery'] ?>: <b><?= $this->data['galleries']['id'] ?></b>
 
         </div>
         <div>
             <input type="hidden" name="fId" value="<?= $this->data['galleries']['id'] ?>">
-            <input type="submit" name="fDelete" value="Usun" class="button lightblue">
+            <input type="submit" name="fDelete" value="<?= $this->translations->pl['buttonDelete'] ?>" class="button lightblue">
         </div>
     </form>
 

@@ -5,7 +5,7 @@
             <input type="text" name="fSearch">
         </div>
         <div>
-            <input type="submit" name="fSubmit" value="Search" class="button small lightblue">
+            <input type="submit" name="fSubmit" value="<?= $this->translations->pl['searchCom'] ?>" class="button small lightblue">
         </div>
     </form>
 </div>

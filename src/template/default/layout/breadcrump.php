@@ -11,7 +11,7 @@
 
     <div>
         <ul>
-            <li><a  href="index.php">Home</a></li>
+            <li><a  href="index.php"><?= $this->translations->pl['breadHomePage'] ?></a></li>
             <?php if(!empty($page)): ?>
                 <li><span><?= $page ?></span></li>
             <?php endif; ?>

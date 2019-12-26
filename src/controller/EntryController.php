@@ -22,7 +22,7 @@ class EntryController extends CommonController
     {
         $data = (new EntryModel($this->request))->addComment()->getCategories()->getEntry()->getComments()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?page=entry&id=' . $this->request->query()->get('id'));
         }
         (new View($this->request))->data($data)->template('default')->file('entry')->render();

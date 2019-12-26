@@ -1,17 +1,17 @@
 <?php include 'pageup.php' ?>
-    <h1>Dodawanie wpisu</h1>
+    <h1><?= $this->translations->pl['h1EntriesAdding'] ?></h1>
     <form action="index.php?pageadmin=entry&action=create" method="post" enctype="multipart/form-data">
         <?php include 'layout/validationErrors.php' ?>
         <div>
-            <label for="fTitle">Tytuł</label>
+            <label for="fTitle"><?= $this->translations->pl['tableTitle'] ?></label>
             <input type="text" name="fTitle" class="medium" id="fTitle" value="<?= $this->request->post()->get('fTitle') ?>">
         </div>
         <div>
-            <label for="fContent">Treść</label>
+            <label for="fContent"><?= $this->translations->pl['tableContent'] ?></label>
             <input type="text" name="fContent" class="medium" id="fContent" value="<?= $this->request->post()->get('fContent') ?>">
         </div>
         <div>
-            <label for="fCategory">Kategoria</label>
+            <label for="fCategory"><?= $this->translations->pl['tableCategory'] ?></label>
             <select name="fCategory" id="fCategory">
                 <?php foreach ($this->data['categories'] as $category): ?>
                     <option value="<?= $category['id'] ?>"
@@ -23,23 +23,23 @@
             </select>
         </div>
         <div>
-            <label for="fStatus">Status</label>
+            <label for="fStatus"><?= $this->translations->pl['tableStatus'] ?></label>
             <select name="fStatus" id="fStatus">
                 <option value="1" <?php if ($this->request->post()->get('fStatus') == 1): ?> selected <?php endif; ?>>
-                    Aktywny
+                    <?= $this->translations->pl['blogStatusActive'] ?>
                 </option>
                 <option value="2" <?php if ($this->request->post()->get('fStatus') == 2): ?> selected <?php endif; ?>>
-                    Nieaktywny
+                    <?= $this->translations->pl['blogStatusInactive'] ?>
                 </option>
             </select>
         </div>
         <div>
-            <label for="fFiles">Miniatura</label>
+            <label for="fFiles"><?= $this->translations->pl['tableMiniature'] ?></label>
             <input type="file" name="fFiles" id="fFiles">
         </div>
         <div>
             <input type="text" name="fAuthor" value="1" hidden required>
-            <input type="submit" name="fSubmit" value="Dodaj" class="button lightblue">
+            <input type="submit" name="fSubmit" value="<?= $this->translations->pl['buttonAdd'] ?>" class="button lightblue">
         </div>
     </form>
 <?php include 'pagedown.php' ?>

@@ -24,7 +24,7 @@ class RemindModel extends CommonModel
 
     public function verifyEmailData(): bool
     {
-        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')
+        $this->email = $this->validate->set($this->request->post()->get('fEmail'), $this->translations->pl['registerEmail'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
@@ -43,7 +43,7 @@ class RemindModel extends CommonModel
         $this->remindLink = $remindData['link'];
         $this->remindId = $remindData['id'];
         $this->insertRemindId();
-        return ($this->emailer->setTitle('Remind password')
+        return ($this->emailer->setTitle($this->translations->pl['titleRemindPassword'])
             ->setRecipients($this->email)
             ->setMessage($this->remindLink)
             ->setSender()

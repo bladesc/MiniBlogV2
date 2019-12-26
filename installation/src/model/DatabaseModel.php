@@ -65,16 +65,21 @@ class DatabaseModel extends CommonModel
             $config[\'db\'][\'prefix\'] = \'mb_\';
             $config[\'db\'][\'charset\'] = \'utf8mb4\';';
 
-            $file = '../src/config/Database.php';
-            if (file_exists($file)) {
-                try {
-                    file_put_contents($file, $configString);
-                    return true;
-                } catch (\Exception $e) {
-                }
+        $file = '../src/config/Database.php';
+        if (file_exists($file)) {
+            try {
+                file_put_contents($file, $configString);
+                return true;
+            } catch (\Exception $e) {
             }
-            $this->data['installation'] = false;
-            return false;
+        }
+        $this->data['installation'] = false;
+        return false;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
     }
 
 }

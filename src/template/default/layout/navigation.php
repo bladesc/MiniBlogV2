@@ -2,10 +2,7 @@
     <div id="section-menu">
         <ul>
             <li>
-                <a href="index.php">Strona Głowna</a>
-            </li>
-            <li>
-                <a href="index.php">Kategorie</a>
+                <a href="index.php"><?= $this->translations->pl['menuHomePage'] ?></a>
             </li>
 
             <?php foreach ($this->data['pages'] as $page): ?>

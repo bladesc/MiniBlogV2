@@ -1,7 +1,7 @@
 <div id="box-sidebar">
    <div class="sidebar category">
        <div class="sidebar-header">
-           Kategorie
+           <?= $this->translations->pl['categoriesCom'] ?>
        </div>
        <div class="sidebar-content">
            <ul>

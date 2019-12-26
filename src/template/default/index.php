@@ -5,13 +5,13 @@
             <div class="entry-entry">
                 <div class="entry-info">
                     <div class="entry-author">
-                        Autor: <span><?= $entry['nick'] ?></span>
+                        <?= $this->translations->pl['entryAuthor'] ?>: <span><?= $entry['nick'] ?></span>
                     </div>
                     <div class="entry-date">
-                        Date <span><?= $entry['created_at'] ?></span>
+                        <?= $this->translations->pl['entryDate'] ?>: <span><?= $entry['created_at'] ?></span>
                     </div>
                     <div class="entry-category">
-                        Kategoria: <span><?= $entry['name'] ?></span>
+                        <?= $this->translations->pl['entryCategory'] ?>: <span><?= $entry['name'] ?></span>
                     </div>
                     <div class="box-clear-foot"></div>
                 </div>
@@ -29,7 +29,7 @@
                     <?php endif; ?>
                     <div class="entry-content">
                         <?= \src\core\helper\Helper::cut($entry['content'], 700) ?>
-                        <a class="button-text" href="index.php?page=entry&id=<?= $entry['id'] ?>">Czytaj więcej</a>
+                        <a class="button-text" href="index.php?page=entry&id=<?= $entry['id'] ?>"><?= $this->translations->pl['entryReadMore'] ?></a>
                     </div>
                     <div class="box-clear-foot"></div>
                 </div>

@@ -19,23 +19,23 @@ class RegisterModel extends CommonModel
 
     public function verifyInsertData()
     {
-        $this->nick = $this->validate->set($this->request->post()->get('fNick'), 'Nick')
+        $this->nick = $this->validate->set($this->request->post()->get('fNick'), $this->translations->pl['registerNick'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
             ->get();
-        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')
+        $this->email = $this->validate->set($this->request->post()->get('fEmail'), $this->translations->pl['registerEmail'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
             ->validateEmail()
             ->get();
-        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), 'Password')
+        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), $this->translations->pl['registerPasswordCom'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
             ->get();
-        $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'PasswordProve')
+        $this->password = $this->validate->set($this->request->post()->get('fPassword'), $this->translations->pl['registerPassword'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
@@ -47,7 +47,7 @@ class RegisterModel extends CommonModel
             return false;
         }
         if (!empty($this->checkIfUserExists())) {
-            $this->data[self::ERROR_LABEL][] = 'Uzytkownik z taki madresem email juz istnieje';
+            $this->data[self::ERROR_LABEL][] = $this->translations->pl['userNotExist'];
             return false;
         }
         return true;

@@ -1,21 +1,21 @@
 <?php include 'pageup.php' ?>
-    <a href="index.php?pageadmin=page&action=prepareCreate" class="button lightblue addnew">Dodaj nowy</a>
-    <h1>Lista stron</h1>
+    <a href="index.php?pageadmin=page&action=prepareCreate" class="button lightblue addnew"><?= $this->translations->pl['buttonAddNew'] ?></a>
+    <h1><?= $this->translations->pl['h1PagesEditing'] ?></h1>
     <table class="big">
         <thead>
         <tr>
-            <td>Id</td>
-            <td>Nazwa</td>
-            <td>Url</td>
-            <td>Treść</td>
-            <td>Status</td>
-            <td>Data stworzenia</td>
-            <td>Data modyfikacji</td>
-            <td>Seo tytuł</td>
-            <td>Seo tagi</td>
-            <td>Seo opis</td>
-            <td>Edytuj</td>
-            <td>Usuń</td>
+            <td><?= $this->translations->pl['tableId'] ?></td>
+            <td><?= $this->translations->pl['tableName'] ?></td>
+            <td><?= $this->translations->pl['tableAddressUrl'] ?></td>
+            <td><?= $this->translations->pl['tableContent'] ?></td>
+            <td><?= $this->translations->pl['tableStatus'] ?></td>
+            <td><?= $this->translations->pl['tableDateAt'] ?></td>
+            <td><?= $this->translations->pl['tableDateAp'] ?></td>
+            <td><?= $this->translations->pl['tableSeoTitle'] ?></td>
+            <td><?= $this->translations->pl['tableSeoTags'] ?></td>
+            <td><?= $this->translations->pl['tableSeoDescription'] ?></td>
+            <td><?= $this->translations->pl['tableEdit'] ?></td>
+            <td><?= $this->translations->pl['tableDelete'] ?></td>
         </tr>
         </thead>
 
@@ -34,11 +34,11 @@
                 <td><?= $page['tag'] ?></td>
                 <td>
                     <a href="index.php?pageadmin=page&action=prepareUpdate&id=<?= $page['id'] ?>"
-                       class="button lightgrey">Edytuj<a/>
+                       class="button lightgrey"><?= $this->translations->pl['buttonChange'] ?><a/>
                 </td>
                 <td>
                     <a href="index.php?pageadmin=page&action=prepareDelete&id=<?= $page['id'] ?>"
-                       class="button lightgrey">Usuń<a/>
+                       class="button lightgrey"><?= $this->translations->pl['buttonDelete'] ?><a/>
                 </td>
             </tr>
             </tbody>

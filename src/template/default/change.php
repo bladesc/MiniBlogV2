@@ -1,23 +1,23 @@
 <?php include 'pageup.php' ?>
 
-<h1>Zmiana hasła</h1>
+<h1><?= $this->translations->pl['passChange'] ?></h1>
 <div id="section-login">
     <form method="post" action="index.php?page=change&action=processChange">
         <?php include 'layout/validationErrors.php' ?>
         <div>
-            <label for="fOldPassword">Stare hasło:</label>
+            <label for="fOldPassword"><?= $this->translations->pl['passPasswordOld'] ?>:</label>
             <input type="password" class="medium" name="fOldPassword" id="fOldPassword">
         </div>
         <div>
-            <label for="fNewPassword">Nowe hasło:</label>
+            <label for="fNewPassword"><?= $this->translations->pl['passPasswordNew'] ?>:</label>
             <input type="password" class="medium" name="fNewPassword" id="fNewPassword">
         </div>
         <div>
-            <label for="fNewPasswordProve">Potwierdź nowe hasło:</label>
+            <label for="fNewPasswordProve"><?= $this->translations->pl['passPasswordNewProve'] ?>:</label>
             <input type="password" class="medium" name="fNewPasswordProve" id="fNewPasswordProve">
         </div>
         <div>
-            <input type="submit" name="fChange" id="fChange" value="Zmień" class="button lightgrey">
+            <input type="submit" name="fChange" id="fChange" value="<?= $this->translations->pl['buttonChange'] ?>" class="button lightgrey">
         </div>
 
     </form>

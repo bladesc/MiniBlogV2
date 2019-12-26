@@ -1,22 +1,22 @@
 <?php include 'pageup.php' ?>
 
-<a href="index.php?pageadmin=account&action=prepareCreate" class="button lightblue addnew">Dodaj nowy</a>
-<h1>Lista Użytkowników</h1>
+<a href="index.php?pageadmin=account&action=prepareCreate" class="button lightblue addnew"><?= $this->translations->pl['buttonAddNew'] ?></a>
+<h1><?= $this->translations->pl['userList'] ?></h1>
 <table class="big">
     <thead>
     <tr>
-        <td>Id</td>
-        <td>Nick</td>
-        <td>Email</td>
-        <td>Status</td>
-        <td>Data utworzenia</td>
-        <td>Data utworzenia</td>
-        <td>Imię</td>
-        <td>Nazwisko</td>
-        <td>Data urodzin</td>
-        <td>Rola</td>
-        <td>Edytuj</td>
-        <td>Usuń</td>
+        <td><?= $this->translations->pl['tableId'] ?></td>
+        <td><?= $this->translations->pl['tableNick'] ?></td>
+        <td><?= $this->translations->pl['tableEmail'] ?></td>
+        <td><?= $this->translations->pl['tableStatus'] ?></td>
+        <td><?= $this->translations->pl['tableDateC'] ?></td>
+        <td><?= $this->translations->pl['tableDateM'] ?></td>
+        <td><?= $this->translations->pl['tableFirstName'] ?></td>
+        <td><?= $this->translations->pl['tableSurName'] ?></td>
+        <td><?= $this->translations->pl['tableBirthDay'] ?></td>
+        <td><?= $this->translations->pl['tableRole'] ?></td>
+        <td><?= $this->translations->pl['tableEdit'] ?></td>
+        <td><?= $this->translations->pl['tableDelete'] ?></td>
     </tr>
     </thead>
     <?php if (isset($this->data['accounts'])) : ?>
@@ -35,11 +35,11 @@
                 <td><?= $account['user_role_name'] ?></td>
                 <td>
                     <a href="index.php?pageadmin=account&action=prepareUpdate&id=<?= $account['user_id'] ?>"
-                       class="button lightgrey">Zmien<a/>
+                       class="button lightgrey"><?= $this->translations->pl['buttonChange'] ?><a/>
                 </td>
                 <td>
                     <a href="index.php?pageadmin=account&action=prepareDelete&id=<?= $account['user_id'] ?>"
-                       class="button lightgrey">Usun<a/>
+                       class="button lightgrey"><?= $this->translations->pl['buttonDelete'] ?><a/>
                 </td>
             </tr>
             </tbody>

@@ -8,6 +8,8 @@ use src\core\installation\Installation;
 use src\core\log\Log;
 
 $request = new Request();
-(new Installation($request))->checkIfInstalled();
-(new Log($request))->addLog();
+if((new Installation($request))->checkIfInstalled()) {
+    //(new Log($request))->addLog();
+}
+
 (new Route($request))->run();

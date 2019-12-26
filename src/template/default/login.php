@@ -1,23 +1,23 @@
 <?php include 'pageup.php' ?>
 
-<h1>Logowanie</h1>
+<h1><?= $this->translations->pl['loginCommunicate'] ?></h1>
 <div id="section-login">
     <form method="post" action="index.php?page=login&action=processLogin">
         <?php include 'layout/validationErrors.php' ?>
         <div>
-            <label for="fEmail">Adres e-mail:</label>
+            <label for="fEmail"><?= $this->translations->pl['loginEmail'] ?>:</label>
             <input type="email" name="fEmail" id="fEmail" class="medium">
         </div>
         <div>
-            <label for="fPassword">Hasło:</label>
+            <label for="fPassword"><?= $this->translations->pl['loginPassword'] ?>:</label>
             <input type="password" name="fPassword" id="fPassword" class="medium">
         </div>
         <div>
-            <input type="submit" name="fLogin" class="button lightgrey" value="Zaloguj">
+            <input type="submit" name="fLogin" class="button lightgrey" value="<?= $this->translations->pl['buttonLogin'] ?>">
         </div>
     </form>
-    <a href="index.php?page=register" class="standard">Zarejestruj</a>
-    <a href="index.php?page=remind" class="standard">Przypomnij haslo</a>
+    <a href="index.php?page=register" class="standard"><?= $this->translations->pl['buttonRegister'] ?></a>
+    <a href="index.php?page=remind" class="standard"><?= $this->translations->pl['buttonRemind'] ?></a>
 </div>
 
 <?php include 'pagedown.php' ?>

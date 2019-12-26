@@ -3,8 +3,8 @@
 <div id="box-notfound">
     <div id="com-404">
         <div id="com-com">
-            Strony nie znaleziono <br>
-            <a href="index.php" class="standard">Strona główna</a>
+            <?= $this->translations->pl['pageNotFound'] ?><br>
+            <a href="index.php" class="standard"><?= $this->translations->pl['buttonHomePage'] ?></a>
         </div>
         <span>404</span>
     </div>

@@ -16,16 +16,16 @@ class EntryModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->comContent = $this->validate->set($this->request->post()->get('fComment'), 'Comment')
+        $this->comContent = $this->validate->set($this->request->post()->get('fComment'), $this->translations->pl['entryContent'])
             ->filterValue()
             ->checkIfEmpty()
-            ->validateText(2, 100)
+            ->validateText(2, 10000)
             ->get();
-        $this->comAuthor = $this->validate->set($this->request->post()->get('fAuthor'), 'Author')
+        $this->comAuthor = $this->validate->set($this->request->post()->get('fAuthor'), $this->translations->pl['entryAuthor'])
             ->filterValue()
             ->checkIfNumeric()
             ->get();
-        $this->comEntryId = $this->validate->set($this->request->post()->get('fEntryId'), 'Entry')
+        $this->comEntryId = $this->validate->set($this->request->post()->get('fEntryId'), $this->translations->pl['entryId'])
             ->filterValue()
             ->checkIfNumeric()
             ->get();

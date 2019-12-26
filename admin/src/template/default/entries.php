@@ -1,18 +1,18 @@
 <?php include 'pageup.php' ?>
-    <a href="index.php?pageadmin=entry&action=prepareCreate" class="button lightblue addnew">Dodaj nowy</a>
-    <h1>Lista wpisów</h1>
+    <a href="index.php?pageadmin=entry&action=prepareCreate" class="button lightblue addnew"><?= $this->translations->pl['buttonAddNew'] ?></a>
+    <h1><?= $this->translations->pl['h1EntriesEditing'] ?></h1>
     <table class="big">
         <thead>
             <tr>
-                <td>Id</td>
-                <td>Tytuł</td>
-                <td>Treść</td>
-                <td>Status</td>
-                <td>Data utworzenia</td>
-                <td>Kategoria</td>
-                <td>Użytkownik</td>
-                <td>Edytuj</td>
-                <td>Usuń</td>
+                <td><?= $this->translations->pl['tableId'] ?></td>
+                <td><?= $this->translations->pl['tableTitle'] ?></td>
+                <td><?= $this->translations->pl['tableContent'] ?></td>
+                <td><?= $this->translations->pl['tableStatus'] ?></td>
+                <td><?= $this->translations->pl['tableDateAt'] ?></td>
+                <td><?= $this->translations->pl['tableCategory'] ?></td>
+                <td><?= $this->translations->pl['tableNick'] ?></td>
+                <td><?= $this->translations->pl['tableEdit'] ?></td>
+                <td><?= $this->translations->pl['tableDelete'] ?></td>
             </tr>
         </thead>
         <?php if (isset($this->data['entries'])) : ?>

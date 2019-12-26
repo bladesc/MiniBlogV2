@@ -15,8 +15,7 @@ class DatabaseController extends CommonController
 {
     public function database()
     {
-        $data = (new DatabaseModel($this->request))->getData();
-        (new View($this->request))->install()->data($data)->template('default')->file('database')->render();
+        (new View($this->request))->install()->template('default')->file('database')->render();
     }
 
     public function installation()

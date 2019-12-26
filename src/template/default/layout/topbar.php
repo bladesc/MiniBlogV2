@@ -3,25 +3,25 @@
         <div class="align-right">
             <?php if ($this->data['loggedIn'] === true): ?>
                 <div id="section-login-info">
-                    Jesteś zalogowany: <span><?= $this->data['login'][1] ?></span>
+                    <?= $this->translations->pl['topLogged'] ?>: <span><?= $this->data['login'][1] ?></span>
                 </div>
                 <div id="section-logout">
-                    <a href="index.php?page=index&action=logout" class="button small blue">Wyloguj</a>
+                    <a href="index.php?page=index&action=logout" class="button small blue"><?= $this->translations->pl['buttonLogout'] ?></a>
                 </div>
                 <div id="section-change">
-                    <a href="index.php?page=change" class="button small blue">Zmien haslo</a>
+                    <a href="index.php?page=change" class="button small blue"><?= $this->translations->pl['buttonChangePass'] ?></a>
                 </div>
             <?php if($this->data['role'] === 1): ?>
                 <div id="section-admin">
-                    <a href="index.php?pageadmin=admin" class="button small lightblue">Panel administratora</a>
+                    <a href="index.php?pageadmin=entry" class="button small lightblue"><?= $this->translations->pl['adminPage'] ?></a>
                 </div>
             <?php endif; ?>
             <?php else: ?>
                 <div id="section-login-bar">
-                    <a href="index.php?page=login" class="button small blue">Zaloguj</a>
+                    <a href="index.php?page=login" class="button small blue"><?= $this->translations->pl['buttonLogin'] ?></a>
                 </div>
                 <div id="section-register-bar">
-                    <a href="index.php?page=register" class="button small blue">Zarejestruj</a>
+                    <a href="index.php?page=register" class="button small blue"><?= $this->translations->pl['buttonRegister'] ?></a>
                 </div>
 
             <?php endif; ?>

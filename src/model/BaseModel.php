@@ -11,6 +11,7 @@ use src\core\request\Request;
 use src\core\validation\FileValidate;
 use src\core\validation\Validate;
 use src\core\validation\Validator;
+use src\language\Ttranslation;
 use src\session\Session;
 use src\core\email\Emailer;
 
@@ -29,6 +30,7 @@ class BaseModel
     protected $emailer;
     protected $fileValidate;
     protected $paginator;
+    protected $translations;
 
     public function __construct(Request $request, bool $installationStatus = true)
     {
@@ -45,6 +47,7 @@ class BaseModel
         $this->session = new Session();
         $this->emailer = new Emailer();
         $this->remind = new Remind();
+        $this->translations = (new Ttranslation())->getTranslations();
 
     }
 }
