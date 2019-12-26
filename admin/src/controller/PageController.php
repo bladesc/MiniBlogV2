@@ -30,7 +30,7 @@ class PageController extends CommonController
         $model = (new PageModel($this->request));
         $data = $model->insertItem()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?pageadmin=page');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('pagecreate')->render();
@@ -47,7 +47,7 @@ class PageController extends CommonController
         $model = (new PageModel($this->request));
         $data = $model->updateItem()->getPage()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmieniono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['changedSuc']);
             Redirect::redirectTo('index.php?pageadmin=page');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('pageupdate')->render();
@@ -65,7 +65,7 @@ class PageController extends CommonController
         $model = (new PageModel($this->request));
         $data = $model->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=page');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('pagedelete')->render();

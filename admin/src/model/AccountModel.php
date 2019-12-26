@@ -69,46 +69,46 @@ class AccountModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->nick = $this->validate->set($this->request->post()->get('fNick'), 'Nick')
+        $this->nick = $this->validate->set($this->request->post()->get('fNick'), $this->translations->pl['tableNick'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 20)
             ->get();
-        $this->email = $this->validate->set($this->request->post()->get('fEmail'), 'Email')
+        $this->email = $this->validate->set($this->request->post()->get('fEmail'), $this->translations->pl['tableEmail'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(4, 50)
             ->validateEmail()
             ->get();
-        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), 'Password')
+        $this->passwordProve = $this->validate->set($this->request->post()->get('fPasswordProve'), $this->translations->pl['registerPasswordCom'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
             ->get();
-        $this->password = $this->validate->set($this->request->post()->get('fPassword'), 'PasswordProve')
+        $this->password = $this->validate->set($this->request->post()->get('fPassword'), $this->translations->pl['registerPassword'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(6, 20)
             ->comparePasswords($this->passwordProve)
             ->get();
-        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), $this->translations->pl['tableStatus'])
             ->filterValue()
             ->checkIfNumeric()
             ->get();
 
-        $this->role = $this->validate->set((int)$this->request->post()->get('fRole'), 'Role')
+        $this->role = $this->validate->set((int)$this->request->post()->get('fRole'), $this->translations->pl['tableRole'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()
             ->get();
 
-        $this->firstName = $this->validate->set($this->request->post()->get('fFirstName'), 'fFirstName')
+        $this->firstName = $this->validate->set($this->request->post()->get('fFirstName'), $this->translations->pl['blogFirstName'])
             ->filterValue()
             ->get();
-        $this->surName = $this->validate->set($this->request->post()->get('fSurName'), 'fSurName')
+        $this->surName = $this->validate->set($this->request->post()->get('fSurName'), $this->translations->pl['blogSurName'])
             ->filterValue()
             ->get();
-        $this->birthday = $this->validate->set($this->request->post()->get('fBirthDay'), 'fBirthDay')
+        $this->birthday = $this->validate->set($this->request->post()->get('fBirthDay'), $this->translations->pl['blogBirthDay'])
             ->filterValue()
             ->get();
 
@@ -127,7 +127,7 @@ class AccountModel extends CommonModel
         }
         if ($this->dbEmail !== $this->email) {
             if (!empty($this->checkIfUserExists())) {
-                $this->data[self::ERROR_LABEL][] = 'Uzytkownik z takim adresem email juz istnieje';
+                $this->data[self::ERROR_LABEL][] = $this->translations->pl['userExists'];
                 return false;
             }
         }

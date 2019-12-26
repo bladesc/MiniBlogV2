@@ -18,7 +18,7 @@ class CommentModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->content = $this->validate->set($this->request->post()->get('fContent'), 'Content')
+        $this->content = $this->validate->set($this->request->post()->get('fContent'), $this->translations->pl['tableContent'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 20)

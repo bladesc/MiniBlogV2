@@ -21,27 +21,27 @@ class EntryModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->title = $this->validate->set($this->request->post()->get('fTitle'), 'Title')
+        $this->title = $this->validate->set($this->request->post()->get('fTitle'), $this->translations->pl['tableTitle'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 120)
             ->get();
-        $this->content = $this->validate->set($this->request->post()->get('fContent'), 'Content')
+        $this->content = $this->validate->set($this->request->post()->get('fContent'), $this->translations->pl['tableContent'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 3000)
             ->get();
-        $this->category = $this->validate->set($this->request->post()->get('fCategory'), 'Category')
+        $this->category = $this->validate->set($this->request->post()->get('fCategory'), $this->translations->pl['tableCategory'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()
             ->get();
-        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), $this->translations->pl['tableStatus'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()
             ->get();
-        $this->userId = $this->validate->set(($this->session->get(self::USER_LOG_SES_NAME))[0], 'User ID')
+        $this->userId = $this->validate->set(($this->session->get(self::USER_LOG_SES_NAME))[0], $this->translations->pl['tableIdUser'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()

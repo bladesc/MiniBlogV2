@@ -31,7 +31,7 @@ class EntryController extends CommonController
         $model = (new EntryModel($this->request));
         $data = $model->insertItem()->getCategories()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?pageadmin=entry');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('entriescreate')->render();
@@ -48,7 +48,7 @@ class EntryController extends CommonController
         $model = (new EntryModel($this->request));
         $data = $model->getEntry()->updateItem()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['changedSuc']);
             Redirect::redirectTo('index.php?pageadmin=entry');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('entriesupdate')->render();
@@ -65,7 +65,7 @@ class EntryController extends CommonController
         $model = (new EntryModel($this->request));
         $data = $model->getEntry()->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=entry');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('entriesdelete')->render();

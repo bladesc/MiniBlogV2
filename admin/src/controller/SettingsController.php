@@ -31,7 +31,7 @@ class SettingsController extends CommonController
         $model = (new SettingsModel($this->request));
         $data = $model->updateItem()->getSettings()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmieniono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?pageadmin=settings');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('settingsupdate')->render();

@@ -162,3 +162,8 @@ $pl['h3BasicData'] = 'Dane podstawowe';
 $pl['h3AdditionalData'] = 'Dane dodatkowe';
 $pl['h3SeoData'] = 'Dane SEO';
 $pl['h3credentials'] = 'Uprawnienia';
+
+$pl['userExists'] = 'Użytkownik z podanym adresem e-mail już istnieje';
+$pl['categoryExists'] = 'Taka kategoria już istnieje';
+$pl['deletedSuc'] = 'Usunięto pomyślnie';
+$pl['changedSuc'] = 'Zmieniono pomyślnie';

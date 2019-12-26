@@ -31,7 +31,7 @@ class GalleryController extends CommonController
         $model = (new GalleryModel($this->request));
         $data = $model->insertItem()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?pageadmin=gallery');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('gallerycreate')->render();
@@ -48,7 +48,7 @@ class GalleryController extends CommonController
         $model = (new GalleryModel($this->request));
         $data = $model->getGallery()->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=gallery');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('gallerydelete')->render();
@@ -65,7 +65,7 @@ class GalleryController extends CommonController
         $model = (new GalleryModel($this->request));
         $data = $model->getGallery()->updateItem()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['changedSuc']);
             Redirect::redirectTo('index.php?pageadmin=gallery');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('galleryupdate')->render();

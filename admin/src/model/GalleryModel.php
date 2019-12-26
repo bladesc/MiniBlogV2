@@ -16,12 +16,12 @@ class GalleryModel extends CommonModel
 
     public function verifyInsertData()
     {
-        $this->name = $this->validate->set($this->request->post()->get('fName'), 'Name')
+        $this->name = $this->validate->set($this->request->post()->get('fName'), $this->translations->pl['tableName'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 20)
             ->get();
-        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), $this->translations->pl['tableStatus'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()

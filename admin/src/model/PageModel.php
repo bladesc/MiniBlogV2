@@ -21,34 +21,34 @@ class PageModel extends CommonModel
 
     public function verifyAddItemData(): bool
     {
-        $this->name = $this->validate->set($this->request->post()->get('fName'), 'Name')
+        $this->name = $this->validate->set($this->request->post()->get('fName'), $this->translations->pl['tableName'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 20)
             ->get();
-        $this->url = $this->validate->set($this->request->post()->get('fUrl'), 'Url')
+        $this->url = $this->validate->set($this->request->post()->get('fUrl'), $this->translations->pl['tableAddressUrl'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 100)
             ->get();
-        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), $this->translations->pl['tableStatus'])
             ->filterValue()
             ->checkIfEmpty()
             ->checkIfNumeric()
             ->get();
-        $this->content = $this->validate->set($this->request->post()->get('fContent'), 'Content')
+        $this->content = $this->validate->set($this->request->post()->get('fContent'), $this->translations->pl['tableContent'])
             ->checkIfEmpty()
             ->validateText(4, 2000)
             ->get();
-        $this->seoTitle = $this->validate->set($this->request->post()->get('fTitle'), 'Content')
+        $this->seoTitle = $this->validate->set($this->request->post()->get('fTitle'), $this->translations->pl['tableSeoTitle'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();
-        $this->seoDescription = $this->validate->set($this->request->post()->get('fDescription'), 'Content')
+        $this->seoDescription = $this->validate->set($this->request->post()->get('fDescription'), $this->translations->pl['tableSeoDescription'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();
-        $this->seoTags = $this->validate->set($this->request->post()->get('fTags'), 'Tag')
+        $this->seoTags = $this->validate->set($this->request->post()->get('fTags'), $this->translations->pl['tableSeoTags'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();

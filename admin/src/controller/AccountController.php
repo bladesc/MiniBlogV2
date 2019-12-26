@@ -32,7 +32,7 @@ class AccountController extends CommonController
         $model = (new AccountModel($this->request));
         $data = $model->insertItem()->getRoles()->getData();
         if ($data[CommonModel::ACTION_INSERTED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Dodano pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['addedSuc']);
             Redirect::redirectTo('index.php?pageadmin=account');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('accountcreate')->render();
@@ -49,7 +49,7 @@ class AccountController extends CommonController
         $model = (new AccountModel($this->request));
         $data = $model->getAccount()->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=account');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('accountdelete')->render();
@@ -66,7 +66,7 @@ class AccountController extends CommonController
         $model = (new AccountModel($this->request));
         $data = $model->setActionType(AccountModel::ACTION_TYPE_UPDATE)->updateItem()->getAccount()->getRoles()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['changedSuc']);
             Redirect::redirectTo('index.php?pageadmin=account');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('accountupdate')->render();

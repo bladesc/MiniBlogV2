@@ -16,12 +16,12 @@ class CategoryModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->name = $this->validate->set($this->request->post()->get('fName'), 'Name')
+        $this->name = $this->validate->set($this->request->post()->get('fName'), $this->translations->pl['tableName'])
             ->filterValue()
             ->checkIfEmpty()
             ->validateText(2, 20)
             ->get();
-        $this->status = $this->validate->set($this->request->post()->get('fStatus'), 'Status')
+        $this->status = $this->validate->set($this->request->post()->get('fStatus'), $this->translations->pl['tableStatus'])
             ->filterValue()
             ->checkIfNumeric()
             ->get();
@@ -40,7 +40,7 @@ class CategoryModel extends CommonModel
         if (empty($category)) {
             return true;
         }
-        $this->data[self::ERROR_LABEL][] = 'Kategoria istnieje';
+        $this->data[self::ERROR_LABEL][] = $this->translations->pl['categoryExists'];
         return false;
     }
 

@@ -31,7 +31,7 @@ class LogController extends CommonController
         $model = (new LogModel($this->request));
         $data = $model->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=log');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('logdelete')->render();

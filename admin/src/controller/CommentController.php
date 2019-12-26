@@ -31,7 +31,7 @@ class CommentController extends CommonController
         $model = (new CommentModel($this->request));
         $data = $model->getComment()->deleteItem()->getData();
         if ($data[CommonModel::ACTION_DELETED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Usunieto pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['deletedSuc']);
             Redirect::redirectTo('index.php?pageadmin=comment');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('commentsdelete')->render();
@@ -48,7 +48,7 @@ class CommentController extends CommonController
         $model = (new CommentModel($this->request));
         $data = $model->getComment()->updateItem()->getData();
         if ($data[CommonModel::ACTION_UPDATED]) {
-            $this->session->change(Communicate::C_POSITIVE, 'Zmienono pomyslnie');
+            $this->session->change(Communicate::C_POSITIVE, $this->translations->pl['changedSuc']);
             Redirect::redirectTo('index.php?pageadmin=comment');
         }
         (new View($this->request))->admin()->data($data)->template('default')->file('commentsupdate')->render();

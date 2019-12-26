@@ -16,15 +16,15 @@ class SettingsModel extends CommonModel
 
     public function verifyInsertData(): bool
     {
-        $this->title = $this->validate->set($this->request->post()->get('fTitle'), 'Tytul')
+        $this->title = $this->validate->set($this->request->post()->get('fTitle'), $this->translations->pl['tableSeoTitle'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();
-        $this->description = $this->validate->set($this->request->post()->get('fDescription'), 'Description')
+        $this->description = $this->validate->set($this->request->post()->get('fDescription'), $this->translations->pl['tableSeoDescription'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();
-        $this->description = $this->validate->set($this->request->post()->get('fMetaTags'), 'Meta tagi')
+        $this->description = $this->validate->set($this->request->post()->get('fMetaTags'), $this->translations->pl['tableSeoTags'])
             ->filterValue()
             ->validateText(0, 255)
             ->get();
