@@ -25,4 +25,10 @@ class IndexController extends CommonController
         }
         (new View($this->request))->data($data)->template('default')->file('index')->render();
     }
+
+    public function language()
+    {
+        (new IndexModel($this->request))->setLanguage();
+        Redirect::redirectTo('index.php?page=index');
+    }
 }

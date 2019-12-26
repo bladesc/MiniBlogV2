@@ -26,6 +26,27 @@ html, body {
     width: 100%;
     margin-bottom: 10px;
 }
+#section-language {
+    float: left;
+    margin-right: 50px;
+}
+
+#section-language a {
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 26px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    //background: #8eddff;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+}
 
 #box-comunicate {
     position: fixed;

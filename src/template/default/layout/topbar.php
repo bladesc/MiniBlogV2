@@ -1,6 +1,12 @@
 <div id="box-top-bar">
     <div class="box-page-body">
         <div class="align-right">
+            <div id="section-language">
+                <div>
+                    <a href="index.php?page=index&action=language&lang=pl">PL</a>
+                    <a href="index.php?page=index&action=language&lang=en">EN</a>
+                </div>
+            </div>
             <?php if ($this->data['loggedIn'] === true): ?>
                 <div id="section-login-info">
                     <?= $this->translations->pl['topLogged'] ?>: <span><?= $this->data['login'][1] ?></span>

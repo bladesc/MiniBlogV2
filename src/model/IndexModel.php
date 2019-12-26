@@ -19,6 +19,15 @@ class IndexModel extends CommonModel
         return $this;
     }
 
+    public function setLanguage()
+    {
+        $lang = strtolower($this->validate->set($this->request->query()->get('lang'))
+            ->filterValue()
+            ->get());
+        $this->session->change(self::LANG, $lang);
+        return $this;
+    }
+
     public function getEntries()
     {
         $totalAmount = ($this->db->select(["count('id') as amount"])->from($this->tables->entry)->getOne())['amount'];

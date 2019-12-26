@@ -44,6 +44,8 @@ class CommonModel extends BaseModel
     public const DATA_LABEL_PAGE = 'page';
     public const DATA_LABEL_ROLE = 'role';
 
+    public const LANG = 'lang';
+
     protected $offset = 0;
     protected $limit = 0;
     protected $activePage = 0;
