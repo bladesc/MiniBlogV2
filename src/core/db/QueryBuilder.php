@@ -25,6 +25,7 @@ class QueryBuilder extends Query
     protected $having = [];
     protected $groupBy = null;
     protected $like = [];
+    protected $raw = '';
     protected $logicConditions = [];
 
     protected $query = '';
@@ -47,9 +48,16 @@ class QueryBuilder extends Query
         $this->having = [];
         $this->groupBy = [];
         $this->query = '';
+        $this->raw = '';
         $this->err = [];
         $this->like = [];
         $this->logicConditions = [];
+    }
+
+    public function rawSql($statemet)
+    {
+        $this->raw = $statemet;
+        return $this;
     }
 
     public function select($tableNames)
@@ -190,7 +198,14 @@ class QueryBuilder extends Query
             $this->prepareUpdate();
         } elseif ($this->delete) {
             $this->prepareDelete();
+        } elseif ($this->raw) {
+            $this->prepareRaw();
         }
+    }
+
+    protected function prepareRaw()
+    {
+        $this->query = $this->raw;
     }
 
     protected function prepareSelect(): void

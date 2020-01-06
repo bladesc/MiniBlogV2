@@ -135,7 +135,7 @@ class CommonModel extends BaseModel
 
     public function getCategories()
     {
-        $this->data[self::DATA_LABEL_CATEGORIES] = $this->db->select([
+        /*$this->data[self::DATA_LABEL_CATEGORIES] = $this->db->select([
             $this->tables->category . '.id',
             'name',
             "COUNT('title') as entry_amount"])
@@ -144,8 +144,14 @@ class CommonModel extends BaseModel
             ->where($this->tables->category . '.status', '=', self::STATUS_ACTIVE)
             ->groupBy('name')
             ->orderBy('name', QueryBuilder::ORDER_ASC)
-            ->getAll();
+            ->getAll();*/
 
+        $this->data[self::DATA_LABEL_CATEGORIES] = $this->db->rawSql("SELECT mb_category.id, name, COUNT(title) as entry_amount 
+                FROM mb_category 
+                LEFT JOIN mb_entry ON mb_category.id=mb_entry.category_id 
+                WHERE mb_category.status=1 
+                GROUP BY name ORDER BY name ASC")
+            ->getAll();
         return $this;
     }
 }
