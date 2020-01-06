@@ -27,9 +27,10 @@ class Path
      * @param string $action
      * @return Path
      */
-    public function setAction(string $action): Path
+    public function setAction(string $action, bool $toLower = true): Path
     {
-        $this->action = strtolower(strip_tags(trim($action)));
+        $action = strip_tags(trim($action));
+        $this->action =  ($toLower) ? $action : strtolower($action);
         return $this;
     }
 

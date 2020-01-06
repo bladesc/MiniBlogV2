@@ -56,6 +56,7 @@ class QueryBuilder extends Query
 
     public function rawSql($statemet)
     {
+        $this->resetCondition();
         $this->raw = $statemet;
         return $this;
     }

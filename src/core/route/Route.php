@@ -64,7 +64,7 @@ class Route
             }
         } elseif ($this->request->query()->has(self::DEFAULT_KEY_CMS_PAGE)) {
             $this->path->setController(self::CMS_CONTROLLER);
-            $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_CMS_PAGE));
+            $this->path->setAction($this->request->query()->get(self::DEFAULT_KEY_CMS_PAGE, false));
         } elseif ($this->request->query()->has(self::DEFAULT_KEY_PAGE_ADMIN)) {
             $this->path->setAdminState(true);
             $this->path->setController($this->request->query()->get(self::DEFAULT_KEY_PAGE_ADMIN));
