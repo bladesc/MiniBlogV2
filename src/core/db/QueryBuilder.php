@@ -183,7 +183,7 @@ class QueryBuilder extends Query
         return $this->sth->fetchAll();
     }
 
-    public function getOne(): array
+    public function getOne()
     {
         $this->execute();
         return $this->sth->fetch();

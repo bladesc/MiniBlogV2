@@ -4,4 +4,4 @@ $config['template']['defaultFile'] = 'index';
 $config['blog']['minPasswordLength'] = 6;
 $config['blog']['galleryPath'] = '/public_html/upload/gallery/';
 $config['file']['maxFileSize'] = 8000;
-$config['entries']['amountPerPage'] = 4;
+$config['entries']['amountPerPage'] = 2;
