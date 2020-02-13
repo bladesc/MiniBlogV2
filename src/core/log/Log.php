@@ -6,7 +6,7 @@ use src\config\Config;
 use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\helper\Helper;
-use src\core\request\Request;
+use src\core\request\request;
 use src\model\CommonModel;
 use src\session\Session;
 
@@ -21,7 +21,7 @@ class Log
     protected $userIp;
     protected $loggedUserId;
 
-    public function __construct(Request $request, bool $installationStatus = true)
+    public function __construct(request $request, bool $installationStatus = true)
     {
         $this->request = $request;
         $this->server = ($this->request->all())['server'];

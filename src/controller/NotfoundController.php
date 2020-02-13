@@ -7,7 +7,7 @@ namespace src\controller;
 use src\model\NotfoundModel;
 use src\view\View;
 
-class NotFoundController extends CommonController
+class NotfoundController extends CommonController
 {
     public function notFound()
     {

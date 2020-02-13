@@ -2,9 +2,9 @@
 
 namespace src\core\installation;
 
-use src\config\config;
-use src\core\db\tables;
-use src\core\db\queryHelper;
+use src\config\Config;
+use src\core\db\Tables;
+use src\core\db\QueryHelper;
 
 class Install
 {

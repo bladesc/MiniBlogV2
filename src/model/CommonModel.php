@@ -6,7 +6,7 @@ namespace src\model;
 
 use src\core\db\QueryBuilder;
 use src\core\general\Communicate;
-use src\core\request\Request;
+use src\core\request\request;
 use src\session\Session;
 
 class CommonModel extends BaseModel
@@ -53,7 +53,7 @@ class CommonModel extends BaseModel
 
     public const GALLERY_PATTERN = '/(<%gallery=)(.+)(%>)/';
 
-    public function __construct(Request $request, bool $installationStatus = true)
+    public function __construct(request $request, bool $installationStatus = true)
     {
         parent::__construct($request, $installationStatus);
         $this->preparePaginatorData();

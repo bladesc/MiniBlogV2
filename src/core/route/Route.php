@@ -32,9 +32,9 @@ class Route
     public const CMS_CONTROLLER = 'Cms';
     /**
      * Route constructor.
-     * @param Request $request
+     * @param request $request
      */
-    public function __construct(Request $request)
+    public function __construct(request $request)
     {
         $this->request = $request;
         $this->path = new Path();

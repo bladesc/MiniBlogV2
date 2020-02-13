@@ -4,7 +4,7 @@ namespace src\view;
 
 use src\language\Ttranslation;
 use src\config\Config;
-use src\core\request\Request;
+use src\core\request\request;
 use src\session\Session;
 
 class BaseView
@@ -16,7 +16,7 @@ class BaseView
     protected $translations;
     protected $session;
 
-    public function __construct(Request $request)
+    public function __construct(request $request)
     {
         $this->request = $request;
         $this->config = (new Config())->getConfigContainer();

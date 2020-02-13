@@ -7,7 +7,7 @@ use src\core\general\Password;
 use src\core\general\Role;
 use src\core\general\Status;
 use src\core\helper\Helper;
-use src\core\request\Request;
+use src\core\request\request;
 use src\model\CommonModel;
 
 class BlogModel extends CommonModel

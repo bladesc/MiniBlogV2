@@ -64,7 +64,7 @@ class Path
      */
     public function getControllerFullName(): string
     {
-        $name = 'src\Controller\\' . $this->getControllerName();
+        $name = 'src\controller\\' . $this->getControllerName();
         if ($this->installState === true) {
             $name = 'installation\\' . $name;
         }

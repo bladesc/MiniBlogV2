@@ -7,7 +7,7 @@ use src\core\db\QueryHelper;
 use src\core\db\Tables;
 use src\core\general\Paginator;
 use src\core\general\Remind;
-use src\core\request\Request;
+use src\core\request\request;
 use src\core\validation\FileValidate;
 use src\core\validation\Validate;
 use src\core\validation\Validator;
@@ -32,7 +32,7 @@ class BaseModel
     protected $paginator;
     protected $translations;
 
-    public function __construct(Request $request, bool $installationStatus = true)
+    public function __construct(request $request, bool $installationStatus = true)
     {
         $this->request = $request;
         $this->configContainer = (new Config())->getConfigContainer();
